@@ -21,3 +21,6 @@ format:
     theme: cosmo
     toc: true
     css: styles.css
+    
+# This enables post support
+metadata-files: [posts/_metadata.yml]
