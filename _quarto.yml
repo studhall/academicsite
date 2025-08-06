@@ -3,13 +3,21 @@ project:
 
 website:
   title: "David Hall"
+  site-url: "https://studhall.github.io/academicsite"
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
-      - posts.qmd
+      - href: about.qmd
+        text: About
+      - href: posts.qmd
+        text: Blog
+  page-footer:
+    left: "© 2025 David Hall"
+    right: "Built with [Quarto](https://quarto.org)"
 
-# Enable publishing to GitHub Pages
-publish:
-  provider: gh-pages
+format:
+  html:
+    theme: cosmo
+    toc: true
+    css: styles.css

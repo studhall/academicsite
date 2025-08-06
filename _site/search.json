@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "academicsite",
+    "title": "David Hall",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "I’m a PhD Candidate in Economics at the University of Oregon, with a research focus on substance use disorder (SUD) treatment, health policy, and applied econometrics.\nThis site serves as a hub for my research, blog posts, data visualizations, and teaching materials.\n\n\n\n\nHealth Economics\nSubstance Use Disorder Treatment Policy\nEconometrics\nPublic Economics & Medicaid\n\n\n\n\n\nCheck out the Blog for recent analyses, visualizations, and project updates.\n\n\n\n\n\nEmail: dhall7@uoregon.edu\nGitHub: @studhall\nX/Twitter: @studhall"
   },
   {
     "objectID": "about.html",
@@ -12,5 +12,54 @@
     "title": "About",
     "section": "",
     "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html#research-focus",
+    "href": "index.html#research-focus",
+    "title": "David Hall",
+    "section": "",
+    "text": "Health Economics\nSubstance Use Disorder Treatment Policy\nEconometrics\nPublic Economics & Medicaid"
+  },
+  {
+    "objectID": "index.html#latest-posts",
+    "href": "index.html#latest-posts",
+    "title": "David Hall",
+    "section": "",
+    "text": "Check out the Blog for recent analyses, visualizations, and project updates."
+  },
+  {
+    "objectID": "index.html#contact",
+    "href": "index.html#contact",
+    "title": "David Hall",
+    "section": "",
+    "text": "Email: dhall7@uoregon.edu\nGitHub: @studhall\nX/Twitter: @studhall"
+  },
+  {
+    "objectID": "about.html#research-interests",
+    "href": "about.html#research-interests",
+    "title": "About",
+    "section": "",
+    "text": "Health economics and addiction policy\nMedicaid, insurance coverage, and low-barrier treatment\nDifference-in-differences and rational addiction models"
+  },
+  {
+    "objectID": "about.html#curriculum-vitae",
+    "href": "about.html#curriculum-vitae",
+    "title": "About",
+    "section": "",
+    "text": "View my CV (PDF)"
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About",
+    "section": "",
+    "text": "PhD in Economics, University of Oregon (expected 2027)\nM.S. Quantitative Economics, California Lutheran University 2022\n\nBachelor’s in Economics and Mathematics, California Lutheran University, 2021"
+  },
+  {
+    "objectID": "about.html#contact",
+    "href": "about.html#contact",
+    "title": "About",
+    "section": "",
+    "text": "Email: dhall7@uoregon.edu\n\nGitHub: @studhall"
   }
 ]

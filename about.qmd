@@ -1,9 +1,41 @@
 ---
 title: "About"
+format:
+  html:
+    toc: true
 ---
 
-About this site
+# About Me
 
-```{r}
-1 + 1
-```
+I’m a PhD Candidate in Economics at the University of Oregon. My research focuses on substance use disorder treatment, health policy, and applied econometrics. I use quasi-experimental and structural methods to study how access to care affects overdose risk, treatment utilization, and health equity.
+
+------------------------------------------------------------------------
+
+## Research Interests
+
+-   Health economics and addiction policy
+-   Medicaid, insurance coverage, and low-barrier treatment
+-   Difference-in-differences and rational addiction models
+
+------------------------------------------------------------------------
+
+## Curriculum Vitae
+
+[View my CV (PDF)](cv/Hall_CV_Current.pdf)
+
+------------------------------------------------------------------------
+
+## Education
+
+-   PhD in Economics, University of Oregon (expected 2027)
+
+-   M.S. Quantitative Economics, California Lutheran University 2022\
+
+-   Bachelor's in Economics and Mathematics, California Lutheran University, 2021
+
+------------------------------------------------------------------------
+
+## Contact
+
+-   Email: dhall7\@uoregon.edu\
+-   GitHub: [\@studhall](https://github.com/studhall)\

@@ -1,11 +1,35 @@
 ---
-title: "academicsite"
+title: "David Hall"
+format:
+  html:
+    toc: false
 ---
 
-This is a Quarto website.
+# 👋 Welcome
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+I'm a PhD Candidate in Economics at the University of Oregon, with a research focus on substance use disorder (SUD) treatment, health policy, and applied econometrics.
 
-```{r}
-1 + 1
-```
+This site serves as a hub for my research, blog posts, data visualizations, and teaching materials.
+
+------------------------------------------------------------------------
+
+## 🔍 Research Focus
+
+-   Health Economics
+-   Substance Use Disorder Treatment Policy
+-   Econometrics
+-   Public Economics & Medicaid
+
+------------------------------------------------------------------------
+
+## 📄 Latest Posts
+
+Check out the [Blog](posts.qmd) for recent analyses, visualizations, and project updates.
+
+------------------------------------------------------------------------
+
+## 📬 Contact
+
+-   Email: `dhall7@uoregon.edu`
+-   GitHub: [\@studhall](https://github.com/studhall)
+-   X/Twitter: [\@studhall](https://x.com/studhall)
