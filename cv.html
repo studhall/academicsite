@@ -8,7 +8,7 @@
 
 <meta name="author" content="David Hall">
 
-<title>Blog – David Hall</title>
+<title>Curriculum Vitae – David Hall</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,8 +31,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -70,65 +68,7 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-date','listing-author','listing-categories','listing-summary',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -159,7 +99,7 @@ window.Quarto = {
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./posts.html" aria-current="page"> 
+    <a class="nav-link" href="./posts.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
@@ -171,7 +111,7 @@ window.Quarto = {
 <span class="menu-text">Data</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./cv.html"> 
+    <a class="nav-link active" href="./cv.html" aria-current="page"> 
 <span class="menu-text">CV</span></a>
   </li>  
 </ul>
@@ -190,19 +130,28 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#blog" id="toc-blog" class="nav-link active" data-scroll-target="#blog">Blog</a>
+  <li><a href="#curriculum-vitae" id="toc-curriculum-vitae" class="nav-link active" data-scroll-target="#curriculum-vitae">Curriculum Vitae</a>
   <ul class="collapse">
-  <li><a href="#latest-posts" id="toc-latest-posts" class="nav-link" data-scroll-target="#latest-posts">🔥 Latest Posts</a></li>
+  <li><a href="#education" id="toc-education" class="nav-link" data-scroll-target="#education">Education</a></li>
+  <li><a href="#research-interests" id="toc-research-interests" class="nav-link" data-scroll-target="#research-interests">Research Interests</a></li>
+  <li><a href="#working-papers" id="toc-working-papers" class="nav-link" data-scroll-target="#working-papers">Working Papers</a></li>
+  <li><a href="#presentations" id="toc-presentations" class="nav-link" data-scroll-target="#presentations">Presentations</a></li>
+  <li><a href="#teaching-experience" id="toc-teaching-experience" class="nav-link" data-scroll-target="#teaching-experience">Teaching Experience</a></li>
+  <li><a href="#professional-experience" id="toc-professional-experience" class="nav-link" data-scroll-target="#professional-experience">Professional Experience</a></li>
+  <li><a href="#awards-fellowships" id="toc-awards-fellowships" class="nav-link" data-scroll-target="#awards-fellowships">Awards &amp; Fellowships</a></li>
+  <li><a href="#service-leadership" id="toc-service-leadership" class="nav-link" data-scroll-target="#service-leadership">Service &amp; Leadership</a></li>
+  <li><a href="#skills" id="toc-skills" class="nav-link" data-scroll-target="#skills">Skills</a></li>
+  <li><a href="#contact" id="toc-contact" class="nav-link" data-scroll-target="#contact">Contact</a></li>
   </ul></li>
   </ul>
 </nav>
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div></div></div>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Blog</h1>
+<h1 class="title">Curriculum Vitae</h1>
 </div>
 
 
@@ -225,38 +174,115 @@ window.Quarto = {
 </header>
 
 
-<section id="blog" class="level1">
-<h1>Blog</h1>
-<p>Welcome! Here you’ll find a mix of one-off posts and ongoing series.</p>
+<section id="curriculum-vitae" class="level1">
+<h1>Curriculum Vitae</h1>
+<p><a href="cv/Hall_CV_Current.pdf">📄 Download PDF Version</a></p>
 <hr>
-<section id="latest-posts" class="level2">
-<h2 class="anchored" data-anchor-id="latest-posts">🔥 Latest Posts</h2>
-<p>contents: posts type: default sort: “date desc” filter: categories: [Standalone] fields: [title, date, categories, summary]</p>
-
+<section id="education" class="level2">
+<h2 class="anchored" data-anchor-id="education">Education</h2>
+<ul>
+<li><p><strong>Ph.D.&nbsp;in Economics</strong>, University of Oregon (expected 2026)<br>
+Dissertation: <em>[Your Working Title]</em><br>
+Advisors: Benjamin Hansen, [Other Faculty]</p></li>
+<li><p><strong>B.A. in Economics</strong>, [Your Undergrad Institution], [Year]<br>
+Minor: [Optional]</p></li>
+</ul>
+<hr>
+</section>
+<section id="research-interests" class="level2">
+<h2 class="anchored" data-anchor-id="research-interests">Research Interests</h2>
+<ul>
+<li>Health economics</li>
+<li>Substance use disorder treatment policy</li>
+<li>Medicaid, insurance access, and equity</li>
+<li>Applied econometrics (DiD, structural models)</li>
+</ul>
+<hr>
+</section>
+<section id="working-papers" class="level2">
+<h2 class="anchored" data-anchor-id="working-papers">Working Papers</h2>
+<ul>
+<li><p><strong>Title of Job Market Paper</strong><br>
+In progress.<br>
+Description or abstract sentence.<br>
+<a href="#">PDF</a> | <a href="#">Slides</a> | <a href="#">Code</a></p></li>
+<li><p><strong>Other Paper Title</strong><br>
+Description sentence.<br>
+<a href="#">PDF</a></p></li>
+</ul>
+<hr>
+</section>
+<section id="presentations" class="level2">
+<h2 class="anchored" data-anchor-id="presentations">Presentations</h2>
+<ul>
+<li>“Paper Title” – APPAM 2025<br>
+</li>
+<li>“Another Project” – Western Economics Association 2024</li>
+</ul>
+<hr>
+</section>
+<section id="teaching-experience" class="level2">
+<h2 class="anchored" data-anchor-id="teaching-experience">Teaching Experience</h2>
+<ul>
+<li><strong>Instructor</strong> – EC 320: Introduction to Econometrics (University of Oregon, Fall 2025)<br>
+</li>
+<li><strong>GTA</strong> – EC 450: Public Economics (Spring 2024)<br>
+</li>
+<li><strong>GTA</strong> – EC 101: Intro Microeconomics (2023–2024)</li>
+</ul>
+<hr>
+</section>
+<section id="professional-experience" class="level2">
+<h2 class="anchored" data-anchor-id="professional-experience">Professional Experience</h2>
+<ul>
+<li>Research Assistant – Dr.&nbsp;Benjamin Hansen, University of Oregon (2022–2023)<br>
+</li>
+<li>Research Intern – [Institute/Agency], [Year]</li>
+</ul>
+<hr>
+</section>
+<section id="awards-fellowships" class="level2">
+<h2 class="anchored" data-anchor-id="awards-fellowships">Awards &amp; Fellowships</h2>
+<ul>
+<li>Best Paper Award – UO Econ Graduate Conference (2024)<br>
+</li>
+<li>Doctoral Fellowship – [Funder], [Year–Year]</li>
+</ul>
+<hr>
+</section>
+<section id="service-leadership" class="level2">
+<h2 class="anchored" data-anchor-id="service-leadership">Service &amp; Leadership</h2>
+<ul>
+<li>Graduate Student Representative, Department of Economics (2023–2024)<br>
+</li>
+<li>Reviewer – Journal of Substance Abuse Treatment (ad hoc)</li>
+</ul>
+<hr>
+</section>
+<section id="skills" class="level2">
+<h2 class="anchored" data-anchor-id="skills">Skills</h2>
+<ul>
+<li>R, Stata, Python (pandas, geopandas), Quarto, LaTeX<br>
+</li>
+<li>Git, GitHub, data scraping, geospatial analysis</li>
+</ul>
+<hr>
+</section>
+<section id="contact" class="level2">
+<h2 class="anchored" data-anchor-id="contact">Contact</h2>
+<ul>
+<li>Email: dhall@uoregon.edu<br>
+</li>
+<li>GitHub: <a href="https://github.com/studhall"><span class="citation" data-cites="studhall">@studhall</span></a><br>
+</li>
+<li><a href="#">Google Scholar</a></li>
+</ul>
 
 
 </section>
 </section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1754521570017" data-listing-reading-time-sort="1" data-listing-word-count-sort="24">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/TC_Ownership/index.html" class="no-external">TC Ownership Series</a>
-</h3>
-</div>
-<div class="metadata">
-<a href="./posts/TC_Ownership/index.html" class="no-external">
-<div class="listing-author">
-David Hall
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
