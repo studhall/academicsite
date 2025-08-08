@@ -2,30 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://studhall.github.io/academicsite/teaching.html</loc>
-    <lastmod>2025-08-06T23:11:35.507Z</lastmod>
+    <lastmod>2025-08-08T20:08:14.462Z</lastmod>
   </url>
   <url>
-    <loc>https://studhall.github.io/academicsite/posts/TC_Ownership/index.html</loc>
-    <lastmod>2025-08-06T23:06:10.017Z</lastmod>
+    <loc>https://studhall.github.io/academicsite/series/TC_Ownership/index.html</loc>
+    <lastmod>2025-08-08T20:49:52.029Z</lastmod>
   </url>
   <url>
-    <loc>https://studhall.github.io/academicsite/data.html</loc>
-    <lastmod>2025-08-06T23:11:34.606Z</lastmod>
+    <loc>https://studhall.github.io/academicsite/index.html</loc>
+    <lastmod>2025-08-06T23:54:55.166Z</lastmod>
+  </url>
+  <url>
+    <loc>https://studhall.github.io/academicsite/cv.html</loc>
+    <lastmod>2025-08-08T20:07:38.039Z</lastmod>
   </url>
   <url>
     <loc>https://studhall.github.io/academicsite/about.html</loc>
     <lastmod>2025-08-06T22:35:23.407Z</lastmod>
   </url>
   <url>
-    <loc>https://studhall.github.io/academicsite/cv.html</loc>
-    <lastmod>2025-08-06T23:08:19.652Z</lastmod>
-  </url>
-  <url>
-    <loc>https://studhall.github.io/academicsite/index.html</loc>
-    <lastmod>2025-08-06T22:36:09.559Z</lastmod>
+    <loc>https://studhall.github.io/academicsite/data.html</loc>
+    <lastmod>2025-08-06T23:11:34.606Z</lastmod>
   </url>
   <url>
     <loc>https://studhall.github.io/academicsite/posts.html</loc>
-    <lastmod>2025-08-06T23:04:41.369Z</lastmod>
+    <lastmod>2025-08-08T20:44:31.619Z</lastmod>
+  </url>
+  <url>
+    <loc>https://studhall.github.io/academicsite/series/TC_Ownership/post1_trackingTCownership/index.html</loc>
+    <lastmod>2025-08-08T20:38:18.952Z</lastmod>
   </url>
 </urlset>

@@ -4,42 +4,42 @@
     "href": "teaching.html",
     "title": "Teaching",
     "section": "",
-    "text": "I’ve taught and supported several undergraduate economics courses at the University of Oregon, with a focus on econometrics, public economics, and microeconomic theory.\n\n\n\n\n\nInstructor, Fall 2025\nAn introduction to econometric methods, causal inference, and statistical programming using R.\n- Syllabus (PDF) ← (optional if available)\n- Course Materials ← (add link when ready)\n\n\n\n\n\n\nEC 450 – Public Economics (Spring 2024)\n\nEC 201 – Introduction to Microeconomics (2023–2024)\n\nEC 202 – Introduction to Macroeconomics (2022)\n\n\n\n\n\n\nEconometrics and Causal Inference\n\nHealth Economics\n\nPublic Finance\n\nData Visualization and R Programming"
+    "text": "Teaching EC320 in Fall, updates to this page will be made soon."
   },
   {
-    "objectID": "teaching.html#courses-taught",
-    "href": "teaching.html#courses-taught",
-    "title": "Teaching",
-    "section": "",
-    "text": "Instructor, Fall 2025\nAn introduction to econometric methods, causal inference, and statistical programming using R.\n- Syllabus (PDF) ← (optional if available)\n- Course Materials ← (add link when ready)"
-  },
-  {
-    "objectID": "teaching.html#courses-supported-gta",
-    "href": "teaching.html#courses-supported-gta",
-    "title": "Teaching",
-    "section": "",
-    "text": "EC 450 – Public Economics (Spring 2024)\n\nEC 201 – Introduction to Microeconomics (2023–2024)\n\nEC 202 – Introduction to Macroeconomics (2022)"
-  },
-  {
-    "objectID": "teaching.html#teaching-interests",
-    "href": "teaching.html#teaching-interests",
-    "title": "Teaching",
-    "section": "",
-    "text": "Econometrics and Causal Inference\n\nHealth Economics\n\nPublic Finance\n\nData Visualization and R Programming"
-  },
-  {
-    "objectID": "posts/TC_Ownership/index.html",
-    "href": "posts/TC_Ownership/index.html",
+    "objectID": "series/TC_Ownership/index.html",
+    "href": "series/TC_Ownership/index.html",
     "title": "TC Ownership Series",
     "section": "",
     "text": "TC Ownership Series\nThis series explores the ownership structure of substance use disorder treatment centers across the United States, from 2021–2023.\nPick a post below to dive in:\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "data.html",
-    "href": "data.html",
-    "title": "Data",
+    "objectID": "index.html#research-focus",
+    "href": "index.html#research-focus",
+    "title": "👋 Welcome",
+    "section": "🔍 Research Focus",
+    "text": "🔍 Research Focus\n\nHealth Economics\nSubstance Use Disorder Treatment Policy\nEconometrics\nPublic Economics & Medicaid"
+  },
+  {
+    "objectID": "index.html#latest-posts",
+    "href": "index.html#latest-posts",
+    "title": "👋 Welcome",
+    "section": "📄 Latest Posts",
+    "text": "📄 Latest Posts\nCheck out the Blog for recent analyses, visualizations, and project updates."
+  },
+  {
+    "objectID": "index.html#contact",
+    "href": "index.html#contact",
+    "title": "👋 Welcome",
+    "section": "📬 Contact",
+    "text": "📬 Contact\n\nEmail: dhall7@uoregon.edu\nGitHub: @studhall\nX/Twitter: @studhall"
+  },
+  {
+    "objectID": "cv.html",
+    "href": "cv.html",
+    "title": "Curriculum Vitae",
     "section": "",
-    "text": "Data & Visualizations\nThis page is currently under construction. In the near future, I’ll be sharing:\n\nCleaned datasets for replication\nInteractive data visualizations\nMaps and graphs used in blog posts\nLinks to external public health data sources\n\nStay tuned!"
+    "text": "📄 Download PDF Version"
   },
   {
     "objectID": "about.html",
@@ -77,122 +77,66 @@
     "text": "Email: dhall7@uoregon.edu\n\nGitHub: @studhall"
   },
   {
-    "objectID": "cv.html",
-    "href": "cv.html",
-    "title": "Curriculum Vitae",
+    "objectID": "data.html",
+    "href": "data.html",
+    "title": "Data",
     "section": "",
-    "text": "📄 Download PDF Version\n\n\n\n\nPh.D. in Economics, University of Oregon (expected 2026)\nDissertation: [Your Working Title]\nAdvisors: Benjamin Hansen, [Other Faculty]\nB.A. in Economics, [Your Undergrad Institution], [Year]\nMinor: [Optional]\n\n\n\n\n\n\nHealth economics\nSubstance use disorder treatment policy\nMedicaid, insurance access, and equity\nApplied econometrics (DiD, structural models)\n\n\n\n\n\n\nTitle of Job Market Paper\nIn progress.\nDescription or abstract sentence.\nPDF | Slides | Code\nOther Paper Title\nDescription sentence.\nPDF\n\n\n\n\n\n\n“Paper Title” – APPAM 2025\n\n“Another Project” – Western Economics Association 2024\n\n\n\n\n\n\nInstructor – EC 320: Introduction to Econometrics (University of Oregon, Fall 2025)\n\nGTA – EC 450: Public Economics (Spring 2024)\n\nGTA – EC 101: Intro Microeconomics (2023–2024)\n\n\n\n\n\n\nResearch Assistant – Dr. Benjamin Hansen, University of Oregon (2022–2023)\n\nResearch Intern – [Institute/Agency], [Year]\n\n\n\n\n\n\nBest Paper Award – UO Econ Graduate Conference (2024)\n\nDoctoral Fellowship – [Funder], [Year–Year]\n\n\n\n\n\n\nGraduate Student Representative, Department of Economics (2023–2024)\n\nReviewer – Journal of Substance Abuse Treatment (ad hoc)\n\n\n\n\n\n\nR, Stata, Python (pandas, geopandas), Quarto, LaTeX\n\nGit, GitHub, data scraping, geospatial analysis\n\n\n\n\n\n\nEmail: dhall@uoregon.edu\n\nGitHub: @studhall\n\nGoogle Scholar"
-  },
-  {
-    "objectID": "cv.html#education",
-    "href": "cv.html#education",
-    "title": "Curriculum Vitae",
-    "section": "",
-    "text": "Ph.D. in Economics, University of Oregon (expected 2026)\nDissertation: [Your Working Title]\nAdvisors: Benjamin Hansen, [Other Faculty]\nB.A. in Economics, [Your Undergrad Institution], [Year]\nMinor: [Optional]"
-  },
-  {
-    "objectID": "cv.html#research-interests",
-    "href": "cv.html#research-interests",
-    "title": "Curriculum Vitae",
-    "section": "",
-    "text": "Health economics\nSubstance use disorder treatment policy\nMedicaid, insurance access, and equity\nApplied econometrics (DiD, structural models)"
-  },
-  {
-    "objectID": "cv.html#working-papers",
-    "href": "cv.html#working-papers",
-    "title": "Curriculum Vitae",
-    "section": "",
-    "text": "Title of Job Market Paper\nIn progress.\nDescription or abstract sentence.\nPDF | Slides | Code\nOther Paper Title\nDescription sentence.\nPDF"
-  },
-  {
-    "objectID": "cv.html#presentations",
-    "href": "cv.html#presentations",
-    "title": "Curriculum Vitae",
-    "section": "",
-    "text": "“Paper Title” – APPAM 2025\n\n“Another Project” – Western Economics Association 2024"
-  },
-  {
-    "objectID": "cv.html#teaching-experience",
-    "href": "cv.html#teaching-experience",
-    "title": "Curriculum Vitae",
-    "section": "",
-    "text": "Instructor – EC 320: Introduction to Econometrics (University of Oregon, Fall 2025)\n\nGTA – EC 450: Public Economics (Spring 2024)\n\nGTA – EC 101: Intro Microeconomics (2023–2024)"
-  },
-  {
-    "objectID": "cv.html#professional-experience",
-    "href": "cv.html#professional-experience",
-    "title": "Curriculum Vitae",
-    "section": "",
-    "text": "Research Assistant – Dr. Benjamin Hansen, University of Oregon (2022–2023)\n\nResearch Intern – [Institute/Agency], [Year]"
-  },
-  {
-    "objectID": "cv.html#awards-fellowships",
-    "href": "cv.html#awards-fellowships",
-    "title": "Curriculum Vitae",
-    "section": "",
-    "text": "Best Paper Award – UO Econ Graduate Conference (2024)\n\nDoctoral Fellowship – [Funder], [Year–Year]"
-  },
-  {
-    "objectID": "cv.html#service-leadership",
-    "href": "cv.html#service-leadership",
-    "title": "Curriculum Vitae",
-    "section": "",
-    "text": "Graduate Student Representative, Department of Economics (2023–2024)\n\nReviewer – Journal of Substance Abuse Treatment (ad hoc)"
-  },
-  {
-    "objectID": "cv.html#skills",
-    "href": "cv.html#skills",
-    "title": "Curriculum Vitae",
-    "section": "",
-    "text": "R, Stata, Python (pandas, geopandas), Quarto, LaTeX\n\nGit, GitHub, data scraping, geospatial analysis"
-  },
-  {
-    "objectID": "cv.html#contact",
-    "href": "cv.html#contact",
-    "title": "Curriculum Vitae",
-    "section": "",
-    "text": "Email: dhall@uoregon.edu\n\nGitHub: @studhall\n\nGoogle Scholar"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "David Hall",
-    "section": "",
-    "text": "I’m a PhD Candidate in Economics at the University of Oregon, with a research focus on substance use disorder (SUD) treatment, health policy, and applied econometrics.\nThis site serves as a hub for my research, blog posts, data visualizations, and teaching materials.\n\n\n\n\nHealth Economics\nSubstance Use Disorder Treatment Policy\nEconometrics\nPublic Economics & Medicaid\n\n\n\n\n\nCheck out the Blog for recent analyses, visualizations, and project updates.\n\n\n\n\n\nEmail: dhall7@uoregon.edu\nGitHub: @studhall\nX/Twitter: @studhall"
-  },
-  {
-    "objectID": "index.html#research-focus",
-    "href": "index.html#research-focus",
-    "title": "David Hall",
-    "section": "",
-    "text": "Health Economics\nSubstance Use Disorder Treatment Policy\nEconometrics\nPublic Economics & Medicaid"
-  },
-  {
-    "objectID": "index.html#latest-posts",
-    "href": "index.html#latest-posts",
-    "title": "David Hall",
-    "section": "",
-    "text": "Check out the Blog for recent analyses, visualizations, and project updates."
-  },
-  {
-    "objectID": "index.html#contact",
-    "href": "index.html#contact",
-    "title": "David Hall",
-    "section": "",
-    "text": "Email: dhall7@uoregon.edu\nGitHub: @studhall\nX/Twitter: @studhall"
+    "text": "Data & Visualizations\nThis page is currently under construction. In the near future, I’ll be sharing:\n\nCleaned datasets for replication\nInteractive data visualizations\nMaps and graphs used in blog posts\nLinks to external public health data sources\n\nStay tuned!"
   },
   {
     "objectID": "posts.html",
     "href": "posts.html",
     "title": "Blog",
     "section": "",
-    "text": "Welcome! Here you’ll find a mix of one-off posts and ongoing series.\n\n\n\ncontents: posts type: default sort: “date desc” filter: categories: [Standalone] fields: [title, date, categories, summary]"
+    "text": "Welcome! Here you’ll find a mix of one-off posts and ongoing series."
   },
   {
-    "objectID": "posts.html#latest-posts",
-    "href": "posts.html#latest-posts",
-    "title": "Blog",
+    "objectID": "series/TC_Ownership/post1_trackingTCownership/index.html",
+    "href": "series/TC_Ownership/post1_trackingTCownership/index.html",
+    "title": "Tracking TC Ownership: Descriptive Stats",
     "section": "",
-    "text": "contents: posts type: default sort: “date desc” filter: categories: [Standalone] fields: [title, date, categories, summary]"
+    "text": "This is the first blog post in a series specifically geared toward exploring the ownership of substance use disorder treatment centers (TCs). I was motivated to start this series when reading Sloan’s chapter (21) in the Handbook of Health Economics which can be found here. I have been reading specifically that chapter of the handbook as I finish some work on a project assessing the impact of a supply shock to the treatment system here in Oregon. At first, I viewed this paper as mostly a straight forward supply shock that would result in a change in admissions to treatment, but as I explored the incentives of the TCs a bit more I believe the question not to be as straight forward. While I was viewing TCs through a more altruistic view — that is, assuming funding TCs would lead to increased admissions in particular for those most at risk — I had not yet looked into how the market structure for health care does not necessarily predict the same thing.\nThe purpose of today’s post is simply to walk through the motivation for exploring the ownership decision of healthcare firms, and particularly hospitals. I then compare some descriptive statistics for the U.S. and at the state-level of the ownership breakdown of TCs. The eventual idea is to understand if the same problems facing hospitals due to ownership allocation can be applied to TCs.\nWhat do I even mean by the ownership decision? That is the decision for a hospital to be private non-profit, private for-profit or publicly owned.\nSloan explains the motivation for exploring ownership in the context of healthcare as follows:\n\nUnder the view of a firm as a nexus of contracts, the ownership decision is a cost minimizing problem — particularly with respect to transaction costs.\nHealth care is no exception, except, the contracts are a bit more complex than the typical firm.\n\nThe product purchaser, i.e. the health services consumer (the patient), is often not the full payor (their marginal cost is lower than the true marginal cost).\nThe product purchaser has less information about the products than the suppliers.\nSince the consumer is not the payor, equilibrium determinations are made by comparing the willingness to pay (WTP) of the true payor and the producer, but the payor (e.g. insurance companies) do not reveal their WTP so easily.\n\nDue to the asymmetric information, hospitals will only provide socially optimal care to the extent they receive direct payment.\n\nThis means that patients with a lower reimbursement rate or high transaction cost could receive less care than those with higher reimbursement rates.\nIn other words, the marginal revenue framework of hospitals tells us they are incentivized to treat insured patients.\n\n\nSocial planners know the incentives of hospitals (somewhat) and have created incentives to ensure hospitals provide treatment even to those with low reimbursement rates. One of the most salient examples of this is the provision of charity care by hospitals. Hospitals receive tax breaks for a certain level of charity care provided; property tax at the state level and income tax at the federal level are typical. Note that this doesn’t just apply to hospitals for the most part and extends to any non-profit. For-profit hospitals cannot receive this tax break — a clear example of the sort of ownership-as-a-cost-minimization I was discussing at the beginning.\nIf you are interested in more of this work, here are three papers I had been reading. I highly recommend reading the one by Chen (2016) for background: * Hospital Competition and Charity Care, Garmon (2006) here * THE PROVISION OF CHARITY CARE BY NONPROFIT HOSPITALS, Chen here - Just a note, this is actually a thesis but I found the background particularly insightful."
+  },
+  {
+    "objectID": "series/TC_Ownership/post1_trackingTCownership/index.html#introduction",
+    "href": "series/TC_Ownership/post1_trackingTCownership/index.html#introduction",
+    "title": "Tracking TC Ownership: Descriptive Stats",
+    "section": "",
+    "text": "This is the first blog post in a series specifically geared toward exploring the ownership of substance use disorder treatment centers (TCs). I was motivated to start this series when reading Sloan’s chapter (21) in the Handbook of Health Economics which can be found here. I have been reading specifically that chapter of the handbook as I finish some work on a project assessing the impact of a supply shock to the treatment system here in Oregon. At first, I viewed this paper as mostly a straight forward supply shock that would result in a change in admissions to treatment, but as I explored the incentives of the TCs a bit more I believe the question not to be as straight forward. While I was viewing TCs through a more altruistic view — that is, assuming funding TCs would lead to increased admissions in particular for those most at risk — I had not yet looked into how the market structure for health care does not necessarily predict the same thing.\nThe purpose of today’s post is simply to walk through the motivation for exploring the ownership decision of healthcare firms, and particularly hospitals. I then compare some descriptive statistics for the U.S. and at the state-level of the ownership breakdown of TCs. The eventual idea is to understand if the same problems facing hospitals due to ownership allocation can be applied to TCs.\nWhat do I even mean by the ownership decision? That is the decision for a hospital to be private non-profit, private for-profit or publicly owned.\nSloan explains the motivation for exploring ownership in the context of healthcare as follows:\n\nUnder the view of a firm as a nexus of contracts, the ownership decision is a cost minimizing problem — particularly with respect to transaction costs.\nHealth care is no exception, except, the contracts are a bit more complex than the typical firm.\n\nThe product purchaser, i.e. the health services consumer (the patient), is often not the full payor (their marginal cost is lower than the true marginal cost).\nThe product purchaser has less information about the products than the suppliers.\nSince the consumer is not the payor, equilibrium determinations are made by comparing the willingness to pay (WTP) of the true payor and the producer, but the payor (e.g. insurance companies) do not reveal their WTP so easily.\n\nDue to the asymmetric information, hospitals will only provide socially optimal care to the extent they receive direct payment.\n\nThis means that patients with a lower reimbursement rate or high transaction cost could receive less care than those with higher reimbursement rates.\nIn other words, the marginal revenue framework of hospitals tells us they are incentivized to treat insured patients.\n\n\nSocial planners know the incentives of hospitals (somewhat) and have created incentives to ensure hospitals provide treatment even to those with low reimbursement rates. One of the most salient examples of this is the provision of charity care by hospitals. Hospitals receive tax breaks for a certain level of charity care provided; property tax at the state level and income tax at the federal level are typical. Note that this doesn’t just apply to hospitals for the most part and extends to any non-profit. For-profit hospitals cannot receive this tax break — a clear example of the sort of ownership-as-a-cost-minimization I was discussing at the beginning.\nIf you are interested in more of this work, here are three papers I had been reading. I highly recommend reading the one by Chen (2016) for background: * Hospital Competition and Charity Care, Garmon (2006) here * THE PROVISION OF CHARITY CARE BY NONPROFIT HOSPITALS, Chen here - Just a note, this is actually a thesis but I found the background particularly insightful."
+  },
+  {
+    "objectID": "series/TC_Ownership/post1_trackingTCownership/index.html#comparing-the-ownership-of-hospitals-and-tcs-nationally",
+    "href": "series/TC_Ownership/post1_trackingTCownership/index.html#comparing-the-ownership-of-hospitals-and-tcs-nationally",
+    "title": "Tracking TC Ownership: Descriptive Stats",
+    "section": "Comparing the Ownership of Hospitals and TCs Nationally",
+    "text": "Comparing the Ownership of Hospitals and TCs Nationally\nI use data from the AHA Annual Survey from 1999-2023, obtained from KFF to create the following charts and .gifs.\nThe following is a chart made directly from KFF data on ownership of hospitals:\n\nWe can then compare to TC ownership using data from the N-SSATS and N-SUMHSS.1\n\nWe can note that the non-profit model has been much consistently dominant for hospitals maintaining the majority of the share of hospital ownership from 1999-2023. In contrast, non-profit ownership — while still dominant — has seen a steady decrease annually with for-profit firms starting to take over that share."
+  },
+  {
+    "objectID": "series/TC_Ownership/post1_trackingTCownership/index.html#heterogeneity-by-state",
+    "href": "series/TC_Ownership/post1_trackingTCownership/index.html#heterogeneity-by-state",
+    "title": "Tracking TC Ownership: Descriptive Stats",
+    "section": "Heterogeneity by State",
+    "text": "Heterogeneity by State\nThe following maps the by-state heterogeneity across my sample period for TCs on the left and hospitals on the right.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure. Ownership shares over time by state (left: Treatment Centers, right: Hospitals).\nOne thing I notice is some regional heterogeneity; specifically in areas of the South. It might be interesting to explore why that is.\nAlso, as for some states, they may have very many public hospitals comparatively (e.g. Idaho) but most of their TCs are for-profit."
+  },
+  {
+    "objectID": "series/TC_Ownership/post1_trackingTCownership/index.html#going-forward",
+    "href": "series/TC_Ownership/post1_trackingTCownership/index.html#going-forward",
+    "title": "Tracking TC Ownership: Descriptive Stats",
+    "section": "Going Forward",
+    "text": "Going Forward\nMuch of the empirical literature on hospitals explains why the non-profit form is so dominant, but I can’t quite say that the non-profit form is so dominant among ownership for TCs. For-profit centers are increasing, therefore future posts will consider the profit incentives of a for-profit firm, where they receive most of their funding and what the source of payment (or what they accept) is for the for-profit firm.\nIn particular, some questions I’ll be answering:\n\nWhat is the breakdown of services offered across ownership?\n\nDo for-profit TCs offer more revenue-generating services? What are those services?\n\nOutpatient/residential?\n\n\nDo for-profits have more decision power in who they admit?\nWhat sort of funding do they receive via revenue (REVCHK in NSSATS/NSUMHSS data) and externally?\n\nChecking for possible grants, etc.\n\n\nI’m not going to take these figures as absolute fact. There are many reasons a center has to submit data to SAMHSA for the survey, particularly if they receive state/federal funding of any kind. It may be that for-profits have always been fairly present but were not marked in the data across time. If that is the case, I can discuss ways we might think about instrumenting for the true count of for-profit TCs and discerning whether there is a true rise or not.\nPlease feel free to DM/email me for comments or questions. The code for this project is available on my Github."
+  },
+  {
+    "objectID": "series/TC_Ownership/post1_trackingTCownership/index.html#contact",
+    "href": "series/TC_Ownership/post1_trackingTCownership/index.html#contact",
+    "title": "Tracking TC Ownership: Descriptive Stats",
+    "section": "📬 Contact",
+    "text": "📬 Contact\n\nEmail: dhall7@uoregon.edu\nGitHub: @studhall\nX/Twitter: @studhall"
+  },
+  {
+    "objectID": "series/TC_Ownership/post1_trackingTCownership/index.html#footnotes",
+    "href": "series/TC_Ownership/post1_trackingTCownership/index.html#footnotes",
+    "title": "Tracking TC Ownership: Descriptive Stats",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nNote that typically one should not try to compare across N-SSATS and N-SUMHSS as the N-SUMHSS was developed to combine the N-SATSS and N-MHSS and so is not comparable in many ways. In this case, I did restrict the 2021-2023 N-SUMHSS to only TCs, and ownership is a common variable across all years.↩︎"
   }
 ]

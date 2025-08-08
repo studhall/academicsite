@@ -1,12 +1,12 @@
 [
   {
-    "listing": "/posts/TC_Ownership/index.html",
+    "listing": "/series/TC_Ownership/index.html",
     "items": []
   },
   {
     "listing": "/posts.html",
     "items": [
-      "/posts/TC_Ownership/index.html"
+      "/series/TC_Ownership/post1_trackingTCownership/index.html"
     ]
   }
 ]
