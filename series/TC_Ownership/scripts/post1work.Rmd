@@ -1,0 +1,175 @@
+---
+title: "post1work"
+output: html_document
+---
+
+The following document will assist me in cleaning and making visualizations for the TC ownership blog posts.
+
+The purpose of this document specifically is to clean the data so that I can get an idea of the rate of TC ownership over time and distinguish any specific heterogeneity trends. This is motivated by Chapter 21 in the Handbook of Health Economics by Sloan who discusses issues related to ownership in hospitals.
+
+```{r setup, echo=FALSE}
+library(pacman)
+p_load(
+  tidyverse,
+  dplyr,
+  here,
+  stringr,
+  tibble,
+  tidyr
+)
+```
+
+## Loading in Data
+
+```{r load data}
+data_folder <- here("series", "TC_Ownership", "data", "raw")
+
+variables <- c(
+  "YEAR",
+  "STFIPS",
+  "LOCATIONSTATE",
+  "FOCUS",
+  "STATE",
+  "OWNERSHP",
+  "EARMARK"
+)
+
+# Load built-in state name/abbreviation crosswalk
+state_lookup <- tibble::tibble(
+  state_name = toupper(state.name),
+  state_abbr = state.abb
+)
+
+# Load and clean 1997–2011
+load(file.path(data_folder, "nssats_1997_2011.rda"))
+nssats_1997_2011 <- da28544.0001
+rm(da28544.0001)
+
+nssats_1997_2011 <- nssats_1997_2011 %>%
+  select(any_of(variables), starts_with("REVCHK")) %>%
+  filter(!FOCUS %in% c(
+    "(2) Mental health services",
+    "(4) General health care",
+    "(5) Other"
+  )) %>%
+    mutate(
+    state_name = str_trim(str_remove(STFIPS, "^\\(\\d+\\)\\s*")),
+    state = state_lookup$state_abbr[match(state_name, state_lookup$state_name)]
+  ) %>%
+  select(-STFIPS, -state_name)
+
+# Function to load, clean, and assign
+load_and_assign_by_filename <- function(file_path, variables, env = .GlobalEnv) {
+  base_name <- tools::file_path_sans_ext(basename(file_path))
+  temp_env <- new.env()
+  load(file_path, envir = temp_env)
+  loaded_obj <- temp_env[[ls(temp_env)[1]]]
+  year <- as.numeric(stringr::str_extract(base_name, "\\d{4}"))
+
+  cleaned_obj <- loaded_obj %>%
+    select(any_of(variables), starts_with("REVCHK")) %>%
+    mutate(YEAR = year)
+  
+   # Standardize state variable
+  if ("STFIPS" %in% names(cleaned_obj)) {
+    cleaned_obj <- cleaned_obj %>%
+      mutate(
+        state_name = str_trim(str_remove(STFIPS, "^\\(\\d+\\)\\s*")),
+        state = state_lookup$state_abbr[match(state_name, state_lookup$state_name)]
+      ) %>%
+      select(-STFIPS, -state_name)
+  } else if ("STATE" %in% names(cleaned_obj)) {
+    cleaned_obj <- cleaned_obj %>%
+      rename(state = STATE)
+  } else if ("LOCATIONSTATE" %in% names(cleaned_obj)) {
+    cleaned_obj <- cleaned_obj %>%
+      rename(state = LOCATIONSTATE)
+  }
+  
+  # remove MH for 2021-2023
+  if ("FOCUS" %in% names(cleaned_obj)) {
+    cleaned_obj <- cleaned_obj %>% filter(as.numeric(unclass(FOCUS)) != 2)
+  }
+  
+  if (startsWith(base_name, "nsumhss_")) {
+    # Remove *_MH variables
+    mh_vars <- grep("_MH$", names(cleaned_obj), value = TRUE)
+    cleaned_obj <- cleaned_obj %>% select(-all_of(mh_vars))
+
+    # Rename *_SU to remove _SU
+    su_vars <- grep("_SU$", names(cleaned_obj), value = TRUE)
+    new_names <- gsub("_SU$", "", su_vars)
+    names(cleaned_obj)[match(su_vars, names(cleaned_obj))] <- new_names
+  }
+
+  assign(base_name, cleaned_obj, envir = env)
+}
+
+# List and process all relevant files (skip 1997–2011)
+files <- list.files(data_folder, pattern = "^(nssats|nsumhss)_20.*\\.(rda|RData|rdata)$", full.names = TRUE)
+
+# Apply
+for (file in files) {
+  load_and_assign_by_filename(file, variables)
+}
+```
+
+I'll note here that I'm aware the NSUMHSS is not meant to compare to prior years NSSATS. That being said, I think the methodology is such that, once I filtered for only centers offering some form of substance treatment, I should be able to at least make some comparisons for ownership.
+
+Checking common names:
+
+```{r common names}
+# Get all loaded NSSATS/NSUMHSS data frames
+nssats_list <- mget(c("nssats_1997_2011",ls(pattern = "^(nssats|nsumhss)_\\d{4}$")))
+
+all_vars <- unique(unlist(lapply(nssats_list, names)))
+
+presence_matrix <- lapply(nssats_list, function(df) {
+  setNames(as.integer(all_vars %in% names(df)), all_vars)
+}) %>%
+  do.call(rbind, .) %>%
+  as.data.frame()
+
+# Add row names (data frame names)
+rownames(presence_matrix) <- names(nssats_list)
+
+presence_matrix <- presence_matrix %>%
+  rownames_to_column(var = "dataset")
+```
+
+We can sort of combine them then:
+
+```{r}
+shared_vars <- presence_matrix %>%
+  summarise(across(-dataset, ~ mean(.x))) %>%
+  pivot_longer(everything(), names_to = "var", values_to = "share_present") %>%
+  filter(share_present >= 0.9) %>%
+  pull(var)
+
+## I can't fully extract since 1997-2011 has words and won't coerce to numeric, trying to change factor to numeric then
+clean_factors_and_labels <- function(df) {
+  df %>%
+    haven::zap_labels() %>%  # strips haven labels from all columns
+    mutate(across(
+      .cols = -c(YEAR, state),
+      .fns = ~ if (is.factor(.x)) as.numeric(.x) else .x
+    ))
+}
+
+nssats_list <- lapply(nssats_list, clean_factors_and_labels)
+
+
+
+# Stack using only mostly shared vars
+stacked_df <- purrr::map_dfr(
+  nssats_list,
+  ~ .x %>% select(any_of(shared_vars)),
+  .id = "source"
+)
+```
+
+Saving this
+
+```{r}
+saveRDS(stacked_df, file = here("series", "TC_Ownership", "data", "clean", "concatenated_tc_1.rds"))
+```

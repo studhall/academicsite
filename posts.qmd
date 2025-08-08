@@ -1,14 +1,19 @@
 ---
-title: "Blog"
+title-block: false
 listing:
-  contents: posts
-  type: default
+  contents:
+    - "posts/*/index.qmd"          # regular blog post bundles
+    - "series/*/*/index.qmd"       # series entries (e.g., series/TC_Ownership/post1/index.qmd)
   sort: "date desc"
   categories: true
-  fields: [title, date, author, categories, summary]
+  fields: [title, date, categories, summary]
   max-items: 10
 ---
 
 # Blog
 
-Here you'll find recent posts on my research, data analysis, and academic workflow.
+Welcome! Here you’ll find a mix of one-off posts and ongoing series.
+
+------------------------------------------------------------------------
+
+## 🔥 Latest Posts

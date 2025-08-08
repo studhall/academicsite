@@ -1,8 +1,13 @@
+::: home-banner
+:::
+
 ---
-title: "David Hall"
 format:
   html:
     toc: false
+    title-block: false
+    title-block-banner: false
+    author: false
 ---
 
 # 👋 Welcome

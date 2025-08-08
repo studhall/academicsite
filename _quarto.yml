@@ -1,5 +1,12 @@
 project:
   type: website
+  render:
+    - "*.qmd"                 # top-level pages
+    - "posts/*/index.qmd"     # blog bundles (if you add any)
+    - "series/**/*.qmd"       # series pages (all bundles)
+    - "!**/scripts/**"        # exclude any scripts folders
+    - "!**/*.Rmd"             # exclude ALL Rmd files
+    - "!**/*.Rmarkdown"       # (belt-and-suspenders)
 
 website:
   title: "David Hall"
@@ -12,15 +19,28 @@ website:
         text: About
       - href: posts.qmd
         text: Blog
+      - href: teaching.qmd
+        text: Teaching
+      - href: data.qmd
+        text: Data
+      - href: cv.qmd
+        text: CV
   page-footer:
     left: "© 2025 David Hall"
     right: "Built with [Quarto](https://quarto.org)"
 
 format:
   html:
-    theme: cosmo
+    theme: pulse
     toc: true
     css: styles.css
-    
-# This enables post support
-metadata-files: [posts/_metadata.yml]
+
+# Apply default post metadata (ok to keep even if posts/ is empty now)
+metadata-files:
+  - posts/_metadata.yml
+
+# Optional: also stop copying these into _site (separate from rendering)
+exclude:
+  - "**/*.Rmd"
+  - "scripts/**"
+  - "analysis/**"

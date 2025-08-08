@@ -1,0 +1,15 @@
+---
+title: "TC Ownership Series"
+listing:
+  contents:
+    - "series/TC_Ownership/*/index.qmd"
+    - "series/TC_Ownership/**/index.qmd"
+  sort: "date asc"
+  fields: [title, description]
+---
+
+# TC Ownership Series
+
+This series explores the ownership structure of substance use disorder treatment centers across the United States, from 2021–2023.
+
+Pick a post below to dive in:

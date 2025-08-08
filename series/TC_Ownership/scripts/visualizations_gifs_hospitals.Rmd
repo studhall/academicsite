@@ -1,0 +1,389 @@
+---
+title: "visualizations_gifs_hospitals"
+output: html_document
+---
+
+The data I'm working with is the cleaned data from post1work.Rmd and the data from KFF on hospital ownership by state.
+
+Inputting the data here with libraries.
+
+```{r echo = F}
+# libraries
+library(pacman)
+p_load(
+  tidyverse,
+  dplyr,
+  stringr,
+  here,
+  gganimate,
+  gifski,
+  sf,
+  maps,
+  viridis,
+  tibble,
+  tidyr
+)
+
+hospitals_by_state <- read_csv(here("series", "TC_Ownership", "data", "raw", "hospitals_by_state.csv"),
+                               skip = 2)
+full_TCs <- readRDS(here("series", "TC_Ownership", "data", "clean", "concatenated_tc_1.rds"))
+```
+First comparison: ownership across the US from 1999-2023 in oen line chart.
+
+```{r ownership breakdown}
+ownership_df <- full_TCs %>%
+  subset(YEAR > 1998) %>%
+  mutate(
+    ownership_type = case_when(
+      OWNERSHP == 1 ~ "For-profit",
+      OWNERSHP == 2 ~ "Non-profit",
+      OWNERSHP %in% c(3, 4, 5, 6) ~ "Public",
+      TRUE ~ NA_character_
+    )
+  ) %>%
+  filter(!is.na(ownership_type)) %>%
+  group_by(YEAR, ownership_type) %>%
+  summarise(facility_count = n(), .groups = "drop") %>%
+  group_by(YEAR) %>%
+  mutate(percent = 100 * facility_count / sum(facility_count))
+
+ggplot(ownership_df, aes(x = YEAR, y = percent, color = ownership_type)) +
+  geom_line(size = 1.1) +
+  geom_point(size = 2) +
+  scale_color_manual(values = c("For-profit" = "#D55E00",
+                                "Non-profit" = "#009E73",
+                                "Public" = "#0072B2")) +
+  labs(
+    title = "Ownership of U.S. Treatment Centers Over Time",
+    x = "Year",
+    y = "Percent of Facilities",
+    color = "Ownership Type"
+  ) +
+  theme_minimal(base_size = 14)
+
+ggsave(here("series", "TC_Ownership", "output", "TCs_across_time.png"))
+```
+
+We can use a .gif to understand the change in ownership across time by state as well and see if there are any interesting patterns.
+
+
+```{r}
+library(dplyr)
+library(stringr)
+library(haven)
+library(sf)
+library(maps)
+library(ggplot2)
+library(gganimate)
+library(gifski)
+library(tidyr)
+library(tibble)
+library(viridis)
+library(here)
+
+# --- 1) Clean TCs ownership + state codes ---
+full_TCs_clean <- full_TCs %>%
+  mutate(
+    # Remove haven labels if present
+    OWNERSHP = if (inherits(OWNERSHP, "haven_labelled")) zap_labels(OWNERSHP) else OWNERSHP,
+    OWNERSHP_code = case_when(
+      is.numeric(OWNERSHP)    ~ as.numeric(OWNERSHP),
+      is.factor(OWNERSHP)     ~ as.numeric(OWNERSHP),
+      is.character(OWNERSHP)  ~ as.numeric(str_extract(OWNERSHP, "\\d+")),
+      TRUE ~ NA_real_
+    ),
+    state = str_trim(state),
+    state = str_to_upper(state)
+  )
+
+# Keep only the 50 states
+states50 <- state.abb
+full_TCs_clean <- full_TCs_clean %>%
+  filter(state %in% states50)
+
+# --- 2) Aggregate to non-profit share by state-year ---
+ownership_grouped <- full_TCs_clean %>%
+  filter(YEAR >= 1999, !is.na(state)) %>%
+  filter(OWNERSHP_code %in% 1:6) %>%
+  mutate(ownership_type = case_when(
+    OWNERSHP_code == 1 ~ "For-profit",
+    OWNERSHP_code == 2 ~ "Non-profit",
+    OWNERSHP_code %in% c(3,4,5,6) ~ "Public",
+    TRUE ~ NA_character_
+  )) %>%
+  filter(!is.na(ownership_type)) %>%
+  count(YEAR, state, ownership_type, name = "n") %>%
+  group_by(YEAR, state) %>%
+  mutate(pct = 100 * n / sum(n)) %>%
+  ungroup() %>%
+  filter(ownership_type == "Non-profit")
+
+# --- 3) Get US state polygons ---
+us_states <- st_as_sf(map("state", plot = FALSE, fill = TRUE)) %>%
+  rename(state_name = ID) %>%
+  mutate(state_name = tolower(state_name))
+
+# Crosswalk full names -> abbreviations
+state_xwalk <- tibble(
+  state_name = tolower(state.name),
+  state_abbr = state.abb
+)
+
+us_states <- us_states %>%
+  left_join(state_xwalk, by = "state_name")
+
+# --- 4) Expand to state-year panel (preserve geometry) ---
+years <- sort(unique(ownership_grouped$YEAR))
+
+years_df  <- tibble(YEAR = years, key = 1L)
+states_df <- us_states %>% mutate(key = 1L)
+
+anim_df <- states_df %>%
+  left_join(years_df, by = "key") %>%
+  select(-key) %>%
+  left_join(ownership_grouped, by = c("YEAR", "state_abbr" = "state"))
+
+# --- 5) Plot & animate ---
+p <- ggplot(anim_df) +
+  geom_sf(aes(geometry = geom, fill = pct), linewidth = 0.1, color = "white") +
+  scale_fill_viridis(name = "% Non-profit", option = "C", limits = c(0, 100), na.value = "grey90") +
+  labs(
+    title = "Share of Non-profit Treatment Centers by State: {round(frame_time)}",
+    subtitle = "N-SSATS (1999–2020) and NSUMHSS (2021–2023)",
+    caption = "Only the 50 states shown. Public = state/local/tribal/federal. Share computed within state-year.",
+    x = NULL, y = NULL
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    panel.grid = element_blank(),
+    plot.title = element_text(face = "bold")
+  ) +
+  transition_time(YEAR) +
+  ease_aes("linear")
+
+gif_path <- here::here("series", "TC_Ownership", "output", "np_share_by_state.gif")
+anim <- animate(p, renderer = gifski_renderer(), fps = 6, width = 980, height = 600)
+anim_save(gif_path, animation = anim)
+
+gif_path
+
+```
+
+all three types
+
+```{r all three .gifs}
+library(dplyr)
+library(stringr)
+library(haven)
+library(sf)
+library(maps)
+library(ggplot2)
+library(gganimate)
+library(gifski)
+library(tidyr)
+library(tibble)
+library(viridis)
+library(here)
+
+# --- 1) Clean ownership + states ---
+full_TCs_clean <- full_TCs %>%
+  mutate(
+    OWNERSHP = if (inherits(OWNERSHP, "haven_labelled")) zap_labels(OWNERSHP) else OWNERSHP,
+    OWNERSHP_code = case_when(
+      is.numeric(OWNERSHP)    ~ as.numeric(OWNERSHP),
+      is.factor(OWNERSHP)     ~ as.numeric(OWNERSHP),
+      is.character(OWNERSHP)  ~ as.numeric(stringr::str_extract(OWNERSHP, "\\d+")),
+      TRUE ~ NA_real_
+    ),
+    state = stringr::str_to_upper(stringr::str_trim(state))
+  ) %>%
+  filter(state %in% state.abb)
+
+# --- 2) Shares by ownership type (all three) ---
+ownership_grouped_all <- full_TCs_clean %>%
+  filter(YEAR >= 1999, !is.na(state), OWNERSHP_code %in% 1:6) %>%
+  mutate(ownership_type = case_when(
+    OWNERSHP_code == 1 ~ "For-profit",
+    OWNERSHP_code == 2 ~ "Non-profit",
+    OWNERSHP_code %in% c(3,4,5,6) ~ "Public"
+  )) %>%
+  count(YEAR, state, ownership_type, name = "n") %>%
+  group_by(YEAR, state) %>%
+  mutate(pct = 100 * n / sum(n)) %>%
+  ungroup()
+
+# --- 3) State polygons (+ minor validity fix) ---
+sf::sf_use_s2(FALSE)
+us_states <- st_as_sf(map("state", plot = FALSE, fill = TRUE)) %>%
+  rename(state_name = ID) %>%
+  mutate(state_name = tolower(state_name)) %>%
+  left_join(tibble(state_name = tolower(state.name), state_abbr = state.abb), by = "state_name") %>%
+  sf::st_make_valid() %>%
+  st_cast("MULTIPOLYGON", warn = FALSE) %>%
+  group_by(state_abbr) %>%
+  summarise(geom = sf::st_union(geom), .groups = "drop")
+
+# --- 4) Expand state x year once ---
+years <- sort(unique(ownership_grouped_all$YEAR))
+years_df  <- tibble(YEAR = years, key = 1L)
+states_df <- us_states %>% mutate(key = 1L)
+base_panel <- states_df %>%
+  left_join(years_df, by = "key") %>%
+  select(-key)
+
+# --- 5) Helper to build one GIF for a given ownership type ---
+make_gif <- function(type_label, out_path, title_prefix) {
+  og <- ownership_grouped_all %>% filter(ownership_type == type_label)
+
+  anim_df <- base_panel %>%
+    left_join(og, by = c("YEAR", "state_abbr" = "state"))
+    # keep pct as NA -> plots as grey
+
+  p <- ggplot(anim_df) +
+    geom_sf(aes(geometry = geom, fill = pct), linewidth = 0.1, color = "white") +
+    scale_fill_viridis(name = "% of facilities", option = "C", limits = c(0, 100), na.value = "grey90") +
+    labs(
+      title = paste0(title_prefix, ": {closest_state}"),
+      subtitle = "N-SSATS (1999–2020) and NSUMHSS (2021–2023)",
+      caption = "Source: NSSATS and NSUMHSS; Shares computed within state-year.",
+      x = NULL, y = NULL
+    ) +
+    theme_minimal(base_size = 13) +
+    theme(panel.grid = element_blank(), plot.title = element_text(face = "bold")) +
+    transition_states(YEAR, transition_length = 1, state_length = 1) +
+    ease_aes("linear")
+
+  dir.create(dirname(out_path), showWarnings = FALSE, recursive = TRUE)
+  anim <- animate(p, renderer = gifski_renderer(), fps = 6, width = 980, height = 600)
+  anim_save(out_path, animation = anim)
+  out_path
+}
+
+# --- 6) Render all three ---
+gif_np <- make_gif("Non-profit", here("series", "TC_Ownership", "output", "np_share_by_state.gif"),
+                   "Share of Non-profit Treatment Centers by State")
+gif_fp <- make_gif("For-profit", here("series", "TC_Ownership", "output", "fp_share_by_state.gif"),
+                   "Share of For-profit Treatment Centers by State")
+gif_pub <- make_gif("Public", here("series", "TC_Ownership", "output", "public_share_by_state.gif"),
+                    "Share of Public Treatment Centers by State")
+
+c(gif_np, gif_fp, gif_pub)
+
+```
+
+Doing this for hospitals as well:
+
+```{r}
+# --- 1) Tidy the hospitals_by_state table (wide -> long) ---
+# Expect columns like "1999__Non-Profit", "1999__For-Profit", "1999__State/Local Government"
+library(readr)  # for parse_number()
+
+library(dplyr)
+library(stringr)
+library(tidyr)
+library(readr)
+
+hosp_tidy <- hospitals_by_state %>%
+  mutate(Location = str_trim(Location)) %>%
+  filter(Location %in% state.name) %>%
+  # make all year/type columns the SAME type to avoid pivot conflicts
+  mutate(across(-Location, as.character)) %>%
+  pivot_longer(
+    cols = -Location,
+    names_to = c("YEAR", "ownership_raw"),
+    names_sep = "__",
+    values_to = "pct_raw"
+  ) %>%
+  mutate(
+    YEAR = parse_number(YEAR),                # guarantees numeric years
+    pct  = parse_number(pct_raw),             # handles "36", "36%", " 36.0 "
+    ownership_type = case_when(
+      str_detect(ownership_raw, regex("state\\s*/?\\s*local", TRUE)) ~ "Public",
+      str_detect(ownership_raw, regex("non[- ]?profit", TRUE))       ~ "Non-profit",
+      str_detect(ownership_raw, regex("for[- ]?profit", TRUE))       ~ "For-profit",
+      TRUE ~ ownership_raw
+    ),
+    state_abbr = state.abb[match(Location, state.name)]
+  ) %>%
+  mutate(pct = if_else(pct <= 1, pct * 100, pct)) %>%
+  select(YEAR, state_abbr, ownership_type, pct)
+
+
+# --- 2) Build US state polygons (1 row per state), fix validity ---
+sf::sf_use_s2(FALSE)
+
+us_states <- st_as_sf(map("state", plot = FALSE, fill = TRUE)) %>%
+  rename(state_name = ID) %>%
+  mutate(state_name = tolower(state_name)) %>%
+  left_join(
+    tibble(state_name = tolower(state.name), state_abbr = state.abb),
+    by = "state_name"
+  ) %>%
+  sf::st_make_valid() %>%
+  st_cast("MULTIPOLYGON", warn = FALSE) %>%
+  group_by(state_abbr) %>%
+  summarise(geom = sf::st_union(geom), .groups = "drop")
+
+# --- 3) Expand to state x year panel once (preserves sf geometry) ---
+years <- sort(unique(hosp_tidy$YEAR))
+years_df  <- tibble(YEAR = years, key = 1L)
+states_df <- us_states %>% mutate(key = 1L)
+
+base_panel <- states_df %>%
+  left_join(years_df, by = "key") %>%
+  select(-key)
+
+# --- 4) Helper to render a GIF for one ownership type ---
+make_gif <- function(type_label, out_path, title_prefix) {
+  dat <- hosp_tidy %>% filter(ownership_type == type_label)
+
+  anim_df <- base_panel %>%
+    left_join(dat, by = c("YEAR", "state_abbr"))
+
+  p <- ggplot(anim_df) +
+    geom_sf(aes(geometry = geom, fill = pct), linewidth = 0.1, color = "white") +
+    scale_fill_viridis(
+      name = "% of hospitals",
+      option = "C",
+      limits = c(0, 100),
+      na.value = "grey90"
+    ) +
+    labs(
+      title = paste0(title_prefix, ": {closest_state}"),
+      subtitle = "Hospital ownership share by state, 1999–2023",
+      caption = "Source: AHA Annual Survey",
+      x = NULL, y = NULL
+    ) +
+    theme_minimal(base_size = 13) +
+    theme(panel.grid = element_blank(), plot.title = element_text(face = "bold")) +
+    transition_states(YEAR, transition_length = 1, state_length = 1) +
+    ease_aes("linear")
+
+  dir.create(dirname(out_path), recursive = TRUE, showWarnings = FALSE)
+  anim <- animate(p, renderer = gifski_renderer(), fps = 6, width = 980, height = 600)
+  anim_save(out_path, animation = anim)
+  out_path
+}
+
+# --- 5) Render all three GIFs ---
+gif_np <- make_gif(
+  "Non-profit",
+  here("series", "TC_Ownership", "output", "hosp_np_by_state.gif"),
+  "Share of Non-profit Hospitals by State"
+)
+gif_fp <- make_gif(
+  "For-profit",
+  here("series", "TC_Ownership", "output", "hosp_fp_by_state.gif"),
+  "Share of For-profit Hospitals by State"
+)
+gif_pub <- make_gif(
+  "Public",
+  here("series", "TC_Ownership", "output", "hosp_public_by_state.gif"),
+  "Share of Public Hospitals by State"
+)
+
+c(gif_np, gif_fp, gif_pub)
+
+```
+
+

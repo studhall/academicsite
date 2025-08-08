@@ -1,0 +1,17 @@
+---
+title: "Data"
+format:
+  html:
+    toc: false
+---
+
+# Data & Visualizations
+
+This page is currently under construction. In the near future, I’ll be sharing:
+
+- Cleaned datasets for replication
+- Interactive data visualizations
+- Maps and graphs used in blog posts
+- Links to external public health data sources
+
+Stay tuned!

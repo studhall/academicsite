@@ -1,0 +1,14 @@
+---
+title: "Teaching"
+format:
+  html:
+    toc: true
+---
+
+# Teaching
+
+Teaching EC320 in Fall, updates to this page will be made soon.
+
+------------------------------------------------------------------------
+
+## 

@@ -1,0 +1,14 @@
+---
+title: "Curriculum Vitae"
+format:
+  html:
+    toc: true
+---
+
+# Curriculum Vitae
+
+[📄 Download PDF Version](cv/Hall_CV_Current.pdf)
+
+------------------------------------------------------------------------
+
+## Under Construction
