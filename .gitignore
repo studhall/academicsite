@@ -3,4 +3,21 @@
 .RData
 .Ruserdata
 
+# Quarto build cache
 /.quarto/
+
+# Quarto rendered site (don’t track HTML, JSON, etc.)
+/_site/
+
+# Quarto cache
+.qmd-cache/
+
+# Local outputs (plots, etc.)
+**/output/
+
+# Raw data files
+**/data/raw/
+
+# OS/system junk
+.DS_Store
+Thumbs.db
