@@ -5,6 +5,9 @@ description: "Ownership shares by state over time with animated maps."
 categories: [TC Ownership]
 # optional: hide header if you add your own H1 in the body
 title-block: false
+editor: 
+  markdown: 
+    wrap: sentence
 ---
 
 ## Introduction
@@ -40,7 +43,11 @@ Note that this doesn't *just* apply to hospitals for the most part and extends t
 For-profit hospitals cannot receive this tax break --- a clear example of the sort of ownership-as-a-cost-minimization I was discussing at the beginning.
 
 If you are interested in more of this work, here are three papers I had been reading.
-I highly recommend reading the one by Chen (2016) for background: \* Hospital Competition and Charity Care, Garmon (2006) [here](https://www.ftc.gov/reports/hospital-competition-charity-care) \* THE PROVISION OF CHARITY CARE BY NONPROFIT HOSPITALS, Chen [here](https://repository.upenn.edu/server/api/core/bitstreams/22f3173e-2c7f-4359-bdbb-9f0d3aa41274/content) - Just a note, this is actually a thesis but I found the background particularly insightful.
+I highly recommend reading the one by Chen (2016) for background:
+
+-   Hospital Competition and Charity Care, Garmon (2006) [here](https://www.ftc.gov/reports/hospital-competition-charity-care)
+
+-   THE PROVISION OF CHARITY CARE BY NONPROFIT HOSPITALS, Chen [here](https://repository.upenn.edu/server/api/core/bitstreams/22f3173e-2c7f-4359-bdbb-9f0d3aa41274/content) - Just a note, this is actually a thesis but I found the background particularly insightful.
 
 ## Comparing the Ownership of Hospitals and TCs Nationally
 

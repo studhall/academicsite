@@ -2,7 +2,7 @@
 title: "TC Ownership Series"
 listing:
   contents:
-    - "series/TC_Ownership/*/index.qmd"
+    - "/series/TC_Ownership/./index.qmd"
     - "series/TC_Ownership/**/index.qmd"
   sort: "date asc"
   fields: [title, description]
