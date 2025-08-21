@@ -1,0 +1,273 @@
+---
+title: "post2work"
+output: html_document
+---
+
+This document is meant to assist me in creating a few more visualizations for my second post on distinguishing some of the Tc ownership stuff.
+
+```{r setup, echo=FALSE}
+library(pacman)
+p_load(
+  tidyverse,
+  dplyr,
+  here,
+  stringr,
+  tibble,
+  tidyr,
+  readr
+)
+```
+
+My first note here is that I should also be comparing some of the data that is just for mental health so I'll be doing that here.
+
+Loading data:
+
+```{r load in}
+# establish folder path
+folder_path <- here("series", "TC_Ownership", "data", "raw")
+
+# variables wanted
+variables <- c(
+  "YEAR",
+  "OWNERSHP",
+  "OWNERSHIP",
+  "FOCUS"
+  )
+
+normalize_focus <- function(x) {
+  if (haven::is.labelled(x)) {
+    code  <- suppressWarnings(as.numeric(x))       # <- was haven::as_numeric(x)
+    label <- as.character(haven::as_factor(x))
+  } else if (is.numeric(x)) {
+    code  <- x
+    label <- as.character(x)
+  } else {
+    code  <- suppressWarnings(as.numeric(x))
+    label <- as.character(x)
+  }
+  tibble(code = code, label = label)
+}
+
+# only want nmhss files
+nmhss_files <- list.files(
+  path = folder_path,
+  pattern = "(^nmhss|^nsumhss)", # begin with nmhss
+  full.names = T
+)
+
+# create a function to read in and get ownership
+load_assign <- function(file_path, variables, env = .GlobalEnv) {
+  # obtain base name
+  base_name <- tools::file_path_sans_ext(basename(file_path))
+  
+  #establish new environment to load and rename
+  temp_env <- new.env()
+  load(file_path, envir = temp_env)
+  loaded_obj <- temp_env[[ls(temp_env)[1]]]
+  # obtain year
+  year <- as.numeric(stringr::str_extract(base_name, "\\d{4}"))
+  # clean
+  cleaned_obj <- loaded_obj %>%
+    select(any_of(variables)) %>%
+    mutate(YEAR = year) 
+  
+  if ("OWNERSHIP" %in% names(cleaned_obj)){
+    cleaned_obj <- cleaned_obj %>%
+      rename(OWNERSHP = OWNERSHIP)
+  }
+  
+  # FOCUS filtering by year rules
+  if ("FOCUS" %in% names(cleaned_obj) && !is.na(year)) {
+    nf <- normalize_focus(cleaned_obj$FOCUS)
+    cleaned_obj <- bind_cols(cleaned_obj, nf)
+
+    if (year >= 2016 && year <= 2020) {
+      cleaned_obj <- cleaned_obj %>% filter(code %in% c(1, 3))
+    } else {
+      cleaned_obj <- cleaned_obj %>%
+        filter(
+          code %in% c(2, 3) |
+          str_detect(label, "(?i)\\bmental health\\b") |
+          str_detect(label, "(?i)\\bmix\\b")
+        )
+    }
+
+    cleaned_obj <- cleaned_obj %>% select(-code, -label, - FOCUS)
+  }
+  
+  cleaned_obj <- cleaned_obj %>% mutate(OWNERSHP = as.numeric(unclass(OWNERSHP)))
+  
+  #  if ("TREATMT" %in% names(cleaned_obj)) {
+  #   cleaned_obj <- cleaned_obj %>% filter(as.numeriwhatc(unclass(TREATMT)) == 0)
+  # }
+  
+  # assign name and add to environment
+  assign(paste0("nmhss_", year), cleaned_obj, envir = env)
+}
+
+
+# use lapply to read in these
+lapply(nmhss_files, load_assign, variables = variables)
+
+## THEN WE NEED TO DO THIS FOR BEFORE 2012 AND THEN AFTER - can copy much of the code from before with a few tweaks
+load(file.path(folder_path, "nssats_1997_2011.rda"))
+nssats_1997_2011 <- da28544.0001
+rm(da28544.0001)
+
+nssats_1997_2011 <- nssats_1997_2011 %>%
+  select(any_of(variables)) %>%
+  filter(FOCUS %in% c(
+    "(2) Mental health services",
+    "(3) Mix of mental health and substance abuse"
+  )) %>%
+  mutate(
+    OWNERSHP = as.numeric(OWNERSHP)
+  ) %>%
+  select(-FOCUS)
+
+
+```
+
+Then we can combine
+
+```{r}
+nmhss_list <- mget(ls(pattern = "(^nmhss_\\d{4}|^nssats_)"), inherits = TRUE)
+
+full_MH <- bind_rows(
+  nmhss_list, .id = "src"
+)
+
+ownership_df <- full_MH %>%
+  subset(YEAR > 1998) %>%
+  mutate(
+    ownership_type = case_when(
+      OWNERSHP == 1 ~ "For-profit",
+      OWNERSHP == 2 ~ "Non-profit",
+      OWNERSHP %in% c(3, 4, 5, 6) ~ "Public",
+      TRUE ~ NA_character_
+    )
+  ) %>%
+  filter(!is.na(ownership_type)) %>%
+  group_by(YEAR, ownership_type) %>%
+  summarise(facility_count = n(), .groups = "drop") %>%
+  group_by(YEAR) %>%
+  mutate(percent = 100 * facility_count / sum(facility_count))
+
+
+ggplot(ownership_df, aes(x = YEAR, y = percent, color = ownership_type)) +
+  geom_line(size = 1.1) +
+  geom_point(size = 2) +
+  scale_color_manual(values = c("For-profit" = "#D55E00",
+                                "Non-profit" = "#009E73",
+                                "Public" = "#0072B2")) +
+  labs(
+    title = "Ownership of U.S. Mental Health Centers Over Time",
+    x = "Year",
+    y = "Percent of Facilities",
+    color = "Ownership Type"
+  ) +
+  theme_minimal(base_size = 14)
+
+ggsave(here("series", "TC_Ownership", "output", "MH_facs.png"))
+```
+
+## Service Breakdown
+
+```{r}
+paymap <- c(
+  FEESCALE = "sliding_fee_scale",
+  PAYASST  = "payment_assistance_other_than_sliding",
+  NOCHARGE = "no_charge",
+  EARMARK  = "earmarked_public_funds_for_sa_treatment",
+  REVCHK3  = "free_for_all_clients",
+  REVCHK1  = "cash_or_self_payment",
+  REVCHK8  = "medicare",
+  REVCHK5  = "medicaid",
+  REVCHK10 = "state_financed_health_insurance",
+  REVCHK15 = "federal_military_insurance",
+  REVCHK2  = "private_health_insurance",
+  REVCHK16 = "atr_vouchers",
+  REVCHK17 = "ihs_638_contract_care",
+  REVCHK2A = "other_payment_types",
+  WRITARRA = "managed_care_contracts"
+)
+
+rename_payment_cols <- function(df) {
+  cols_present <- intersect(names(df), names(paymap))
+  if (length(cols_present) == 0) return(df)
+  new_names <- paymap[cols_present]
+  df %>% rename(!!! setNames(cols_present, new_names))
+}
+
+concatenated_tc_1 <- readRDS("~/Academic Site/academicsite/series/TC_Ownership/data/clean/concatenated_tc_1.rds")
+
+concatenated_tc_1 <- rename_payment_cols(concatenated_tc_1)
+
+payment_cols <- names(concatenated_tc_1)[4:12]
+
+pay_by_year_own <- concatenated_tc_1 %>%
+  filter(YEAR> 1998) %>%
+  mutate(
+    ownership_type = case_when(
+      OWNERSHP == 1 ~ "For-profit",
+      OWNERSHP == 2 ~ "Non-profit",
+      OWNERSHP %in% 3:6 ~ "Public",
+      TRUE ~ NA_character_
+  )) %>%
+  filter(!is.na(OWNERSHP)) %>% # filter out bad ownership types
+  pivot_longer(all_of(payment_cols),
+               names_to = "payment_type",
+               values_to = "val_raw") %>%
+  mutate(val_num = ifelse(val_raw %in% c(1, 4), 1, 0)) %>% #INCLUDE 4 FOR THE YEAR 2015 WHICH WAS INCORRECTLY MAPPED
+  group_by(YEAR, ownership_type, payment_type) %>%
+  summarise(
+    n = n(),
+    accept_count = sum(val_num, na.rm = T),
+    pct_accept = accept_count / n,
+    .groups = "drop"
+  )
+
+ggplot(pay_by_year_own, aes(x = YEAR, y = pct_accept, color = ownership_type)) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~ payment_type, scales = "free_y") +
+  labs(
+    title = "Share of facilities accepting each payment type by year and ownership",
+    x = "Year",
+    y = "% accepting",
+    color = "Ownership"
+  ) +
+  theme_minimal()
+
+```
+or better yet
+
+```{r}
+# make sure YEAR is numeric just in case
+pay_by_year_own <- pay_by_year_own %>% mutate(YEAR = as.integer(YEAR))
+
+plot_payment <- function(df, pt) {
+  ggplot(dplyr::filter(df, payment_type == pt),
+         aes(x = YEAR, y = pct_accept, color = ownership_type)) +
+    geom_line(na.rm = TRUE) +
+    geom_point(na.rm = TRUE) +
+    labs(
+      title = paste("Share accepting:", pt),
+      x = "Year", y = "% accepting", color = "Ownership"
+    ) +
+    theme_minimal()
+}
+
+payment_types <- sort(unique(pay_by_year_own$payment_type))
+
+# BASE R version (correct)
+plots <- setNames(
+  lapply(payment_types, function(pt) plot_payment(pay_by_year_own, pt)),
+  payment_types
+)
+
+# display them all
+invisible(lapply(plots, print))
+
+```
+

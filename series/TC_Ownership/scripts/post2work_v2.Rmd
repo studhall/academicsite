@@ -1,0 +1,315 @@
+---
+title: "post2work_v2"
+output: html_document
+---
+
+This document is meant to assist me in creating a few more visualizations for my second post on distinguishing some of the Tc ownership stuff.
+
+```{r setup, echo=FALSE}
+library(pacman)
+p_load(
+  tidyverse,
+  dplyr,
+  here,
+  stringr,
+  tibble,
+  tidyr,
+  readr,
+  purrr, #mapping
+  tools,
+  rlang
+)
+```
+
+Today I'll be testing the ownership types of each different type of TC.
+
+Loading in teh NSSATS data:
+
+```{r load in nssats}
+nssats_folder <- here("series", "TC_Ownership", "data", "raw")
+
+nssats_files <- list.files(
+  path = nssats_folder,
+  pattern = "(^nss|^nsum)",
+  full.names = T
+)
+
+# listing variables that 
+variables_list <- c(
+  "FEESCALE",
+  "PAYASST",
+  "EARMARK",
+  "REVCHK3",
+  "REVCHK1",
+  "REVCHK8",
+  "REVCHK5",
+  "REVCHK10",
+  "REVCHK15",
+  "REVCHK2",
+  "YEAR",
+  "OWNERSHP",
+  "OWNERSHIP"
+)
+
+# rename the payments
+paymap <- c(
+  EARMARK = "gov_funds",
+  REVCHK3 = "free_tx",
+  REVCHK1 = "cash",
+  REVCHK8 = "medicare",
+  REVCHK5 = "medicaid",
+  REVCHK10 = "state_financed",
+  REVCHK15 = "VA",
+  REVCHK2 = "private"
+)
+
+env <- new.env()
+
+clean_one <- function(file) {
+  base_name <- file_path_sans_ext(basename(file))
+
+  # load the single file into a temp env
+  temp_env <- new.env()
+  load(file, envir = temp_env)
+  obj_name <- ls(temp_env)[1]
+  raw <- temp_env[[obj_name]]
+
+  # extract year if present in filename
+  year <- suppressWarnings(as.numeric(str_extract(base_name, "\\d{4}")))
+
+  # start cleaning
+  cleaned <- raw
+
+  # standardize OWNERSHP if present
+  if ("OWNERSHP" %in% names(cleaned)) {
+    cleaned <- cleaned %>% mutate(OWNERSHP = as.numeric(unclass(OWNERSHP)))
+  }
+
+  # drop FOCUS == 2 if FOCUS exists
+  if ("FOCUS" %in% names(cleaned)) {
+    cleaned <- cleaned %>%
+      filter(as.numeric(unclass(FOCUS)) != 2)
+  }
+
+  # NSUMHSS variant: drop *_MH and strip "_SU"
+  if (startsWith(tolower(base_name), "nsumhss_")) {
+    mh_vars <- grep("_MH$", names(cleaned), value = TRUE)
+    if (length(mh_vars)) cleaned <- cleaned %>% select(-all_of(mh_vars))
+
+    su_vars <- grep("_SU$", names(cleaned), value = TRUE)
+    if (length(su_vars)) {
+      names(cleaned)[match(su_vars, names(cleaned))] <- sub("_SU$", "", su_vars)
+    }
+  }
+
+  # keep only desired variables (using raw names)
+  cleaned <- cleaned %>% select(any_of(variables_list))
+
+  # apply payment renames (new = old)
+to_rename <- intersect(names(paymap), names(cleaned))
+
+if (length(to_rename) > 0) {
+  cleaned <- cleaned %>%
+    rename(!!! set_names(syms(to_rename), paymap[to_rename]))
+}
+
+  # ensure we have YEAR even if not in file name
+  if (!("YEAR" %in% names(cleaned)) && !is.na(year)) {
+    cleaned <- cleaned %>% mutate(YEAR = year)
+  }
+
+  # clean ownership
+    if("OWNERSHIP" %in% names(cleaned)) { 
+          cleaned <- cleaned %>%
+          mutate(
+            ownership_type = case_when(
+          OWNERSHIP == 1 ~ "For-profit",
+          OWNERSHIP == 2 ~ "Non-profit",
+          OWNERSHIP %in% c(3, 4, 5, 6) ~ "Public",
+          TRUE ~ NA_character_
+        )
+          )
+    }    
+        if("OWNERSHP" %in% names(cleaned)) { 
+          cleaned <- cleaned %>%
+          mutate(
+            ownership_type = case_when(
+          OWNERSHP == 1 ~ "For-profit",
+          OWNERSHP == 2 ~ "Non-profit",
+          OWNERSHP %in% c(3, 4, 5, 6) ~ "Public",
+          TRUE ~ NA_character_
+        )
+          )
+    }   
+
+  cleaned
+}
+
+cleaned_list <- map(nssats_files, clean_one)
+
+# ensure the list has nice names
+names(cleaned_list) <- tools::file_path_sans_ext(basename(nssats_files))
+
+list2env(cleaned_list, envir = .GlobalEnv)
+```
+Some variable notes now:
+
+```{r}
+# 1997-2011 uses (0) No or (1) Yes
+binary_recode <- function(x){
+  case_when(
+    x %in% c("1", "(1) Yes", "Yes") ~ 1,
+    x %in% c("0", "(0) No", "No") ~ 0,
+    TRUE ~ NA_real_
+  )
+}
+
+binary_recode2 <- function(x){
+  case_when(
+    unclass(x) %in% c("1", "(1) Yes", "Yes") ~ 1,
+    unclass(x) %in% c("0", "(0) No", "No") ~ 0,
+    TRUE ~ NA_real_
+  )
+}
+
+binary_recode_gov <- function(x){
+  case_when(
+    unclass(x) %in% c("1", "(1) Yes", "Yes") ~ 1,
+    unclass(x) %in% c("2", "(2) No", "No") ~ 0,
+    TRUE ~ NA_real_
+  )
+}
+
+nssats_1997_2011 <- nssats_1997_2011 %>%
+  mutate(across(c(1:10), binary_recode))
+# 2012 - 2014 uses 0 or 1
+nssats_2012 <- nssats_2012 %>%
+  mutate(across(c(1:10), binary_recode))
+nssats_2013 <- nssats_2013 %>%
+  mutate(across(c(1:10), binary_recode))
+nssats_2014 <- nssats_2014 %>%
+  mutate(across(c(1:9), binary_recode))
+# 2015 uses Yes or No
+nssats_2015 <- nssats_2015 %>%
+  mutate(across(c(1:10), binary_recode))
+# 2016 - 2020 uses 0 or 1
+nssats_2016 <- nssats_2016 %>%
+  mutate(across(c(1:10), binary_recode))
+nssats_2017 <- nssats_2017 %>%
+  mutate(across(c(1:10), binary_recode))
+nssats_2018 <- nssats_2018 %>%
+  mutate(across(c(1:10), binary_recode))
+nssats_2019 <- nssats_2019 %>%
+  mutate(across(c(1:10), binary_recode))
+nssats_2020 <- nssats_2020 %>%
+  mutate(across(c(1:10), binary_recode))
+# 2021-2023 uses 0 or 1 except for gov_funds (1 = yes or 2 = no)
+nsumhss_2021 <- nsumhss_2021 %>%
+  mutate(across(c(1,2,4:10), binary_recode2),
+         gov_funds = binary_recode_gov(gov_funds))
+nsumhss_2022 <- nsumhss_2022 %>%
+  mutate(across(c(1,2,4:10), binary_recode2),
+         gov_funds = binary_recode_gov(gov_funds))
+nsumhss_2023 <- nsumhss_2023 %>%
+  mutate(across(c(1,2,4:10), binary_recode2),
+         gov_funds = binary_recode_gov(gov_funds))
+```
+
+Into one dataframe:
+
+```{r}
+dfs <- ls(pattern = "^(nss|nsum)", envir = .GlobalEnv) # get all ns
+dfs <- dfs[sapply(dfs, function(x) is.data.frame(get(x, envir = .GlobalEnv)))] #only df for join
+# grab the actual data frames into a named list
+dfs <- mget(dfs, envir = .GlobalEnv)
+
+TCs_payments <- bind_rows(dfs, .id = "id")
+```
+Now want to chart over time by payment type accepted, but need to ensure that years that simply do not have data (i.e. should be NA for all) are not counted.
+
+```{r}
+# we are doing payment columns
+candidate_payments <- c("gov_funds", "free_tx", "cash", "medicare", "medicaid", "state_financed", "VA", "private") # from the pay map
+payment_cols <- intersect(candidate_payments, names(TCs_payments))
+
+# make a longer df
+long_TC_pay <- TCs_payments %>%
+  select(
+    YEAR, ownership_type, all_of(payment_cols)
+  ) %>%
+  pivot_longer(
+    cols = all_of(payment_cols),
+    names_to = "payment_type",
+    values_to = "val_raw"
+  ) 
+
+share_TC_pay <- long_TC_pay %>%
+  group_by(payment_type, ownership_type, YEAR) %>%
+  summarize(
+    prop_accept = mean(val_raw, na.rm = T),
+    .groups = "drop"
+  ) %>%
+  filter(!is.na(ownership_type))
+
+pretty_labels <- c(
+  gov_funds = "Gov. Funds (Earmark)",
+  free_tx = "Free Treatment",
+  cash = "Cash",
+  medicare = "Medicare",
+  medicaid = "Medicaid",
+  state_financed = "State-Financed",
+  VA = "VA",
+  private = "Private Insurance",
+  FEESCALE = "Sliding Fee Scale",
+  PAYASST = "Payment Assistance",
+  NOCHARGE = "No Charge"
+)
+
+plot_pay <- function(pay){
+  
+  df <- share_TC_pay %>% filter(payment_type == pay)
+  
+  label <- pretty_labels[pay]
+  if (is.na(label)) label <- pay
+  
+  min_year <- min(df$YEAR[!is.na(df$prop_accept)], na.rm = TRUE)
+  
+  ggplot(df, aes(x = YEAR, y = prop_accept, color = ownership_type, group = ownership_type)) +
+  geom_line(na.rm = FALSE) +
+  geom_point(na.rm = FALSE) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +  
+    scale_x_continuous(limits = c(min_year, max(df$YEAR, na.rm = TRUE))) +
+  labs(
+    title = paste0("Share Accepting ", label),
+    subtitle = "Gaps indicate years the item was not asked or entirely missing for that ownership type",
+    x = "Year",
+    y = "Share of facilities",
+    color = "Ownership"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "bottom",
+    panel.grid.minor = element_blank()
+  )
+  
+}
+
+# get a list
+plots <- plots <- map(payment_cols, plot_pay)
+names(plots) <- payment_cols
+
+# print
+invisible(iwalk(plots, ~ print(.x)))
+
+# save
+out_dir <- here("series", "TC_Ownership", "output")
+safe_name <- function(x) gsub("[^A-Za-z0-9_]+", "_", x)
+walk(payment_cols, function(pay){
+  p <- plot_pay(pay)
+  ggsave(
+    filename = file.path(out_dir, paste0("payment_", safe_name(pay), ".png")),
+    plot = p, dpi = 300, height = 5, width = 8
+  )
+})
+```
+
