@@ -1,5 +1,6 @@
-/* css styles */
-/* Banner styling */
+/* =========================
+   Banner & Navbar
+   ========================= */
 .home-banner {
   background-image: url("images/cover1.jpg");
   background-size: cover;
@@ -20,7 +21,7 @@
 
 /* Remove spacing between navbar and content */
 main.content {
-  padding-top: -300px;
+  /* Note: negative padding has no effect; margin handles spacing */
   margin-top: 0;
 }
 
@@ -34,3 +35,119 @@ header.navbar {
   box-shadow: none;
   background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
 }
+
+
+/* =========================
+   Follow.it Subscription Form
+   ========================= */
+
+/* Layout + card look */
+.followit--follow-form-container[attr-a][attr-b][attr-c][attr-d][attr-e][attr-f] .form-preview {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  margin-top: 30px !important;
+  padding: clamp(17px, 5%, 40px) clamp(17px, 7%, 50px) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 5px 25px rgba(34, 60, 47, 0.25) !important;
+  box-sizing: border-box !important;
+}
+
+/* Ensure all inner elements use border-box */
+.followit--follow-form-container[attr-a][attr-b][attr-c][attr-d][attr-e][attr-f] .form-preview * {
+  box-sizing: border-box !important;
+}
+
+/* Heading spacing */
+.followit--follow-form-container[attr-a][attr-b][attr-c][attr-d][attr-e][attr-f] .form-preview .preview-heading {
+  width: 100% !important;
+}
+.followit--follow-form-container[attr-a][attr-b][attr-c][attr-d][attr-e][attr-f] .form-preview .preview-heading h5 {
+  margin: 0 !important;
+}
+
+/* Input wrapper */
+.followit--follow-form-container[attr-a][attr-b][attr-c][attr-d][attr-e][attr-f] .form-preview .preview-input-field {
+  margin-top: 20px !important;
+  width: 100% !important;
+}
+
+/* Email input (purple bg, white bold text, centered) */
+.followit--follow-form-container[attr-a][attr-b][attr-c][attr-d][attr-e][attr-f]
+.form-preview .preview-input-field input {
+  width: 100% !important;
+  height: 40px !important;
+  border-radius: 6px !important;
+  background-color: #593196 !important;  /* Pulse purple */
+  border: 2px solid #ffffff !important;  /* white border for contrast */
+  outline: none !important;
+
+  color: #ffffff !important;            /* typed text */
+  font-weight: bold !important;
+  font-family: Arial, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 20px !important;
+  text-align: center !important;
+}
+
+/* Placeholder (white, bold, same font) */
+.followit--follow-form-container[attr-a][attr-b][attr-c][attr-d][attr-e][attr-f]
+.form-preview .preview-input-field input::placeholder {
+  color: #ffffff !important;
+  font-weight: bold !important;
+  font-family: Arial, sans-serif !important;
+  font-size: 16px !important;
+  opacity: 1 !important;
+}
+
+/* Submit button container (center the button) */
+.followit--follow-form-container .preview-submit-button {
+  display: flex !important;
+  justify-content: center !important;
+  margin-top: 10px !important;
+  width: 100% !important;
+}
+
+/* Subscribe button (blue with white text) */
+.followit--follow-form-container .preview-submit-button button {
+  background-color: #007BFF !important; /* blue */
+  color: #ffffff !important;            /* white text */
+  font-weight: bold !important;
+  font-family: Arial, sans-serif !important;
+  font-size: 16px !important;
+
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 10px 20px !important;
+  cursor: pointer !important;
+  width: auto !important;               /* shrink to fit */
+  text-align: center !important;
+}
+
+/* Hover state */
+.followit--follow-form-container .preview-submit-button button:hover {
+  background-color: #0056b3 !important; /* darker blue on hover */
+}
+
+/* Powered-by line */
+.followit--follow-form-container[attr-a][attr-b][attr-c][attr-d][attr-e][attr-f] .powered-by-line {
+  color: #231f20 !important;
+  font-family: "Montserrat", Arial, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  line-height: 25px !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  display: flex !important;
+  width: 100% !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin-top: 10px !important;
+}
+.followit--follow-form-container[attr-a][attr-b][attr-c][attr-d][attr-e][attr-f] .powered-by-line img {
+  margin-left: 10px !important;
+  height: 1.13em !important;
+  max-height: 1.13em !important;
+}
+
+

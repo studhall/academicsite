@@ -10,7 +10,7 @@ project:
 
 website:
   title: "David Hall"
-  site-url: "https://studhall.github.io/academicsite"
+  site-url: https://studhall.github.io/academicsite
   description: "David's Blog and Academic Site"
   navbar:
     left:
@@ -28,7 +28,10 @@ website:
         text: CV
     right:
       - icon: rss
-        href: blog.xml
+        href: posts.xml
+      - icon: envelope
+        href: https://follow.it/david-hall?leanpub
+        target: _blank
   page-footer:
     left: "© 2025 David Hall"
     right: "Built with [Quarto](https://quarto.org)"
@@ -38,6 +41,7 @@ format:
     theme: pulse
     toc: true
     css: styles.css
+    include-after-body: includes/subscribe.html
 
 # Apply default post metadata (ok to keep even if posts/ is empty now)
 metadata-files:
