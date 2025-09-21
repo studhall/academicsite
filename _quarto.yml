@@ -11,6 +11,7 @@ project:
 website:
   title: "David Hall"
   site-url: "https://studhall.github.io/academicsite"
+  description: "David's Blog and Academic Site"
   navbar:
     left:
       - href: index.qmd
@@ -25,6 +26,9 @@ website:
         text: Data
       - href: cv.qmd
         text: CV
+    right:
+      - icon: rss
+        href: blog.xml
   page-footer:
     left: "© 2025 David Hall"
     right: "Built with [Quarto](https://quarto.org)"

@@ -4,6 +4,7 @@ listing:
   contents:
     - "posts/*/index.qmd"          # regular blog post bundles
     - "series/*/*/index.qmd"       # series entries (e.g., series/TC_Ownership/post1/index.qmd)
+  feed: true
   sort: "date desc"
   categories: true
   fields: [title, date, categories, summary]
