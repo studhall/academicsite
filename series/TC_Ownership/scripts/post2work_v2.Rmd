@@ -23,7 +23,7 @@ p_load(
 
 Today I'll be testing the ownership types of each different type of TC.
 
-Loading in teh NSSATS data:
+Loading in the NSSATS data:
 
 ```{r load in nssats}
 nssats_folder <- here("series", "TC_Ownership", "data", "raw")

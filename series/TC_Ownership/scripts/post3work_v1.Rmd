@@ -1,0 +1,795 @@
+---
+title: "post3work_v1"
+author: "David Hall"
+date: "2025-09-20"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(pacman)
+p_load(
+  tidyverse,
+  dplyr,
+  here,
+  stringr,
+  tibble,
+  tidyr,
+  readr,
+  purrr, #mapping
+  tools,
+  rlang
+)
+
+```
+
+I will be loading in the NSSATS data and collecting the variables that are relevant to types of services offered.
+
+```{r load data}
+nssats_folder <- here("series", "TC_Ownership", "data", "raw")
+
+nssats_files <- list.files(
+  path = nssats_folder,
+  pattern = "(^nss|^nsum)",
+  full.names = T
+)
+
+# listing variables that identify services in each set of years - full disclosure, used NSUMHSS into GPT5
+variables_list <- c(
+  "FOCUS",
+  "CTYPEHI1","CTYPEHI2","CTYPE7","CTYPERC1","CTYPERC3","CTYPERC4","CTYPE1",
+  "YEAR",
+  "OWNERSHP",
+  "OWNERSHIP"
+)
+
+env <- new.env()
+
+clean_one <- function(file) {
+  base_name <- file_path_sans_ext(basename(file))
+
+  # load the single file into a temp env
+  temp_env <- new.env()
+  load(file, envir = temp_env)
+  obj_name <- ls(temp_env)[1]
+  raw <- temp_env[[obj_name]]
+
+  # extract year if present in filename
+  year <- suppressWarnings(as.numeric(str_extract(base_name, "\\d{4}")))
+
+  # start cleaning
+  cleaned <- raw
+
+  # standardize OWNERSHP if present
+  if ("OWNERSHP" %in% names(cleaned)) {
+    cleaned <- cleaned %>% mutate(OWNERSHP = as.numeric(unclass(OWNERSHP)))
+  }
+
+  # drop FOCUS == 2 if FOCUS exists
+  if ("FOCUS" %in% names(cleaned)) {
+    cleaned <- cleaned %>%
+      filter(as.numeric(unclass(FOCUS)) != 2)
+  }
+
+  # NSUMHSS variant: drop *_MH and strip "_SU"
+  if (startsWith(tolower(base_name), "nsumhss_")) {
+    mh_vars <- grep("_MH$", names(cleaned), value = TRUE)
+    if (length(mh_vars)) cleaned <- cleaned %>% select(-all_of(mh_vars))
+
+    su_vars <- grep("_SU$", names(cleaned), value = TRUE)
+    if (length(su_vars)) {
+      names(cleaned)[match(su_vars, names(cleaned))] <- sub("_SU$", "", su_vars)
+    }
+  }
+
+  # keep only desired variables (using raw names)
+  cleaned <- cleaned %>% select(any_of(variables_list))
+
+  # apply payment renames (new = old)
+# to_rename <- intersect(names(paymap), names(cleaned))
+# 
+# if (length(to_rename) > 0) {
+#   cleaned <- cleaned %>%
+#     rename(!!! set_names(syms(to_rename), paymap[to_rename]))
+# }
+
+  # ensure we have YEAR even if not in file name
+  if (!("YEAR" %in% names(cleaned)) && !is.na(year)) {
+    cleaned <- cleaned %>% mutate(YEAR = year)
+  }
+
+  # clean ownership
+    if("OWNERSHIP" %in% names(cleaned)) { 
+          cleaned <- cleaned %>%
+          mutate(
+            ownership_type = case_when(
+          OWNERSHIP == 1 ~ "For-profit",
+          OWNERSHIP == 2 ~ "Non-profit",
+          OWNERSHIP %in% c(3, 4, 5, 6) ~ "Public",
+          TRUE ~ NA_character_
+        )
+          )
+    }    
+        if("OWNERSHP" %in% names(cleaned)) { 
+          cleaned <- cleaned %>%
+          mutate(
+            ownership_type = case_when(
+          OWNERSHP == 1 ~ "For-profit",
+          OWNERSHP == 2 ~ "Non-profit",
+          OWNERSHP %in% c(3, 4, 5, 6) ~ "Public",
+          TRUE ~ NA_character_
+        )
+          )
+    }   
+
+  cleaned
+}
+
+cleaned_list <- map(nssats_files, clean_one)
+
+# ensure the list has nice names
+names(cleaned_list) <- tools::file_path_sans_ext(basename(nssats_files))
+
+list2env(cleaned_list, envir = .GlobalEnv)
+```
+
+after feeding to GPT this is what it is asking me to test...
+
+```{r}
+# --- Ownership × SU care-type breakdown across many files (robust) ---
+
+library(dplyr)
+library(stringr)
+library(purrr)
+library(tidyr)
+library(ggplot2)
+library(haven)    # zap_labels / read_dta / read_sav
+library(readr)    # read_csv
+
+# ---- 0) Inputs ----
+# nssats_folder <- here("series", "TC_Ownership", "data", "raw")
+nssats_files <- list.files(
+  path = nssats_folder,
+  pattern = "(^nss|^nsum)",   # adjust if needed
+  full.names = TRUE
+)
+
+# ---- 1) Helpers ----
+# Integer-ish parser
+as01 <- function(x) {
+  if (is.null(x)) return(NULL)
+  if (inherits(x, "haven_labelled")) x <- haven::zap_labels(x)
+  if (is.factor(x)) x <- as.character(x)
+
+  if (is.numeric(x))  return(as.integer(x))
+  if (is.logical(x))  return(as.integer(x))
+
+  if (is.character(x)) {
+    d  <- suppressWarnings(as.integer(stringr::str_extract(x, "\\d+")))
+    lx <- stringr::str_to_lower(stringr::str_trim(x))
+    yn <- dplyr::case_when(
+      !is.na(d) & d %in% 0:1 ~ d,
+      grepl("^\\(?\\s*yes\\b|^\\(?\\s*y\\b|^true\\b",  lx) ~ 1L,
+      grepl("^\\(?\\s*no\\b|^\\(?\\s*n\\b|^false\\b", lx) ~ 0L,
+      TRUE ~ NA_integer_
+    )
+    return(as.integer(yn))
+  }
+  as.integer(suppressWarnings(as.numeric(x)))
+}
+
+# ---- 1.5) State normalization helper (LOCATIONSTATE / STATE / STFIPS only) ----
+# State lookup (50 states + DC)
+state_names <- tibble::tibble(
+  state      = c(state.abb, "DC"),
+  state_name = c(state.name, "District of Columbia")
+)
+state_fips_map <- tibble::tribble(
+  ~state, ~fips,
+  "AL",1,  "AK",2,  "AZ",4,  "AR",5,  "CA",6,  "CO",8,  "CT",9,  "DE",10, "DC",11,
+  "FL",12, "GA",13, "HI",15, "ID",16, "IL",17, "IN",18, "IA",19, "KS",20,
+  "KY",21, "LA",22, "ME",23, "MD",24, "MA",25, "MI",26, "MN",27, "MS",28,
+  "MO",29, "MT",30, "NE",31, "NV",32, "NH",33, "NJ",34, "NM",35, "NY",36,
+  "NC",37, "ND",38, "OH",39, "OK",40, "OR",41, "PA",42, "RI",44, "SC",45,
+  "SD",46, "TN",47, "TX",48, "UT",49, "VT",50, "VA",51, "WA",53, "WV",54,
+  "WI",55, "WY",56
+)
+state_lookup <- dplyr::left_join(state_names, state_fips_map, by = "state")
+stopifnot(nrow(state_lookup) == 51L, all(!is.na(state_lookup$fips)))
+
+normalize_state <- function(df, has) {
+  # 1) STFIPS first: numeric OR strings like "(54) WEST VIRGINIA"
+  if (has("STFIPS")) {
+    x <- df[["STFIPS"]]; if (inherits(x, "haven_labelled")) x <- haven::zap_labels(x)
+    xnum <- if (is.numeric(x)) as.integer(x) else suppressWarnings(as.integer(stringr::str_extract(as.character(x), "\\d+")))
+    out <- state_lookup$state[match(xnum, state_lookup$fips)]
+    if (!all(is.na(out))) return(out)
+  }
+  # 2) LOCATIONSTATE next (USPS / full name / strings like "US-CA")
+  if (has("LOCATIONSTATE")) {
+    x <- df[["LOCATIONSTATE"]]; if (inherits(x, "haven_labelled")) x <- haven::zap_labels(x)
+    up <- stringr::str_to_upper(stringr::str_trim(as.character(x)))
+    out <- ifelse(up %in% state_lookup$state, up, NA_character_)
+    miss <- is.na(out)
+    two <- stringr::str_extract(up, "\\b[A-Z]{2}\\b")
+    out[miss & two %in% state_lookup$state] <- two[miss & two %in% state_lookup$state]
+    miss <- is.na(out)
+    up_clean <- gsub("[^A-Z ]", "", up)
+    idx <- match(up_clean, toupper(state_lookup$state_name))
+    out[miss & !is.na(idx)] <- state_lookup$state[idx[miss & !is.na(idx)]]
+    if (!all(is.na(out))) return(out)
+  }
+  # 3) STATE last — treat as FIPS only if it looks like FIPS in bulk
+  if (has("STATE")) {
+    x <- df[["STATE"]]; if (inherits(x, "haven_labelled")) x <- haven::zap_labels(x)
+    if (is.numeric(x)) {
+      xnum <- as.integer(x); valid <- xnum %in% state_lookup$fips
+      if (mean(valid, na.rm = TRUE) >= 0.8) {
+        out <- state_lookup$state[match(xnum, state_lookup$fips)]
+        if (!all(is.na(out))) return(out)
+      }
+    } else {
+      ch  <- as.character(x)
+      up  <- stringr::str_to_upper(stringr::str_trim(ch))
+      out <- ifelse(up %in% state_lookup$state, up, NA_character_)
+      miss <- is.na(out)
+      if (any(miss)) {
+        up_clean <- gsub("[^A-Z ]", "", up)
+        idx <- match(up_clean, toupper(state_lookup$state_name))
+        out[miss & !is.na(idx)] <- state_lookup$state[idx[miss & !is.na(idx)]]
+      }
+      miss <- is.na(out)
+      if (any(miss)) {
+        digs <- stringr::str_extract(up, "\\d+")
+        xnum <- suppressWarnings(as.integer(digs))
+        out[miss] <- state_lookup$state[match(xnum[miss], state_lookup$fips)]
+      }
+      if (!all(is.na(out))) return(out)
+    }
+  }
+  rep(NA_character_, nrow(df))
+}
+
+# ---- 2) Single-file cleaner (returns SAME columns every time) ----
+clean_one <- function(file) {
+  base_name  <- tools::file_path_sans_ext(basename(file))
+  year_guess <- suppressWarnings(as.integer(stringr::str_extract(base_name, "\\d{4}")))
+
+  # Loader
+  if (grepl("\\.(RData|rdata|rda|Rda)$", file)) {
+    temp_env <- new.env(); load(file, envir = temp_env); nm <- ls(temp_env)
+    if (!length(nm)) stop("No object inside ", file)
+    obj <- temp_env[[nm[1]]]
+  } else if (grepl("\\.(rds)$", file, ignore.case = TRUE)) {
+    obj <- readRDS(file)
+  } else if (grepl("\\.(sav)$", file, ignore.case = TRUE)) {
+    obj <- haven::read_sav(file)
+  } else if (grepl("\\.(dta)$", file, ignore.case = TRUE)) {
+    obj <- haven::read_dta(file)
+  } else if (grepl("\\.(csv)$", file, ignore.case = TRUE)) {
+    obj <- readr::read_csv(file, show_col_types = FALSE)
+  } else stop("Unsupported file type: ", file)
+
+  df <- as.data.frame(obj)
+
+  # helpers (pre-filter)
+  has  <- function(v) v %in% names(df)
+  vcol <- function(name) if (has(name)) as01(df[[name]]) else NULL
+
+  # Keep SU module if FOCUS exists (drop MH-only = 2)
+  if (has("FOCUS")) {
+    if (inherits(df$FOCUS, "haven_labelled")) df$FOCUS <- haven::zap_labels(df$FOCUS)
+    df <- dplyr::filter(df, as.integer(FOCUS) != 2L)
+  }
+
+  # NSUMHSS: drop *_MH, strip _SU
+  if (startsWith(tolower(base_name), "nsumhss_")) {
+    mh_vars <- grep("_MH$", names(df), value = TRUE)
+    if (length(mh_vars)) df <- dplyr::select(df, -dplyr::all_of(mh_vars))
+    su_vars <- grep("_SU$", names(df), value = TRUE)
+    if (length(su_vars)) names(df)[match(su_vars, names(df))] <- sub("_SU$", "", su_vars)
+  }
+
+  # Rebuild helpers AFTER df has changed
+  has  <- function(v) v %in% names(df)
+  vcol <- function(name) if (has(name)) as01(df[[name]]) else NULL
+
+  # ---- derive STATE *after* filtering/munging ----
+  state <- normalize_state(df, has)
+
+  # Survey year (prefer YEAR col if present, otherwise filename)
+  yr_col <- if (has("YEAR")) as01(df$YEAR) else rep(NA_integer_, nrow(df))
+  survey_year <- if (!all(is.na(yr_col))) as.integer(yr_col[1]) else year_guess
+  if (is.na(survey_year)) survey_year <- year_guess
+
+  # Build care flags (legacy ≤2011 vs modern)
+  if (!is.na(survey_year) && survey_year <= 2011) {
+    x_out <- list(vcol("CTYPE1"), vcol("CTYPE2"), vcol("CTYPE3"), vcol("CTYPE6"), vcol("CTYPEML"), vcol("CTYPEOP"))
+    x_res <- list(vcol("CTYPE7"), vcol("CTYPERC1"), vcol("CTYPERC2"), vcol("CTYPERC3"), vcol("CTYPERC4"))
+    x_inp <- list(vcol("CTYPE4"), vcol("CTYPEHI1"), vcol("CTYPEHI2"))
+  } else {
+    x_out <- list(vcol("CTYPE1"))
+    x_res <- list(vcol("CTYPE7"), vcol("CTYPERC1"), vcol("CTYPERC3"), vcol("CTYPERC4"))
+    x_inp <- list(vcol("CTYPEHI1"), vcol("CTYPEHI2"))
+  }
+
+  x_out <- purrr::compact(x_out); x_res <- purrr::compact(x_res); x_inp <- purrr::compact(x_inp)
+  x_out <- if (length(x_out)) do.call(pmax, c(x_out, list(na.rm=TRUE))) else rep(NA_integer_, nrow(df))
+  x_res <- if (length(x_res)) do.call(pmax, c(x_res, list(na.rm=TRUE))) else rep(NA_integer_, nrow(df))
+  x_inp <- if (length(x_inp)) do.call(pmax, c(x_inp, list(na.rm=TRUE))) else rep(NA_integer_, nrow(df))
+
+  su_outpatient  <- as.integer(replace(x_out, is.na(x_out), 0L) > 0)
+  su_residential <- as.integer(replace(x_res, is.na(x_res), 0L) > 0)
+  su_inpatient   <- as.integer(replace(x_inp, is.na(x_inp), 0L) > 0)
+
+  # YEAR column (vectorized fill)
+  YEAR <- as.integer(ifelse(is.na(yr_col), rep(survey_year, nrow(df)), yr_col))
+
+  # Ownership mapping
+  ownership_type <- NA_character_
+  if (!is.na(survey_year) && survey_year <= 2011) {
+    if (has("OWNERSHP")) {
+      codes <- suppressWarnings(as.integer(stringr::str_extract(as.character(df$OWNERSHP), "\\d+")))
+      ownership_type <- dplyr::case_when(
+        codes == 1 ~ "For-profit",
+        codes == 2 ~ "Non-profit",
+        codes %in% 3:6 ~ "Public",
+        TRUE ~ NA_character_
+      )
+    } else {
+      ownership_type <- rep(NA_character_, nrow(df))
+    }
+  } else {
+    get_owner_code <- function(x) {
+      if (inherits(x, "haven_labelled")) x <- haven::zap_labels(x)
+      if (is.factor(x)) x <- as.character(x)
+      if (is.numeric(x)) return(as.integer(x))
+      if (is.character(x)) return(suppressWarnings(as.integer(stringr::str_extract(x, "\\d+"))))
+      suppressWarnings(as.integer(x))
+    }
+    if (has("OWNERSHIP")) {
+      oc <- get_owner_code(df$OWNERSHIP)
+    } else if (has("OWNERSHP")) {
+      oc <- get_owner_code(df$OWNERSHP)
+    } else {
+      oc <- rep(NA_integer_, nrow(df))
+    }
+    ownership_type <- dplyr::case_when(
+      oc == 1 ~ "For-profit",
+      oc == 2 ~ "Non-profit",
+      oc %in% 3:6 ~ "Public",
+      TRUE ~ NA_character_
+    )
+  }
+
+  # ---- Sanity check: lengths must match nrow(df) ----
+  n <- nrow(df)
+  lens <- c(
+    YEAR            = length(YEAR),
+    state           = length(state),
+    ownership_type  = length(ownership_type),
+    su_outpatient   = length(su_outpatient),
+    su_residential  = length(su_residential),
+    su_inpatient    = length(su_inpatient)
+  )
+  if (!all(lens == n)) {
+    stop(
+      sprintf("Tibble columns must have compatible sizes. nrow(df)=%d | lengths -> %s",
+              n,
+              paste(sprintf("%s:%d", names(lens), lens), collapse=", "))
+    )
+  }
+
+  # Return a tibble with consistent columns and types
+  tibble::tibble(
+    YEAR = as.integer(YEAR),
+    state = as.character(state),
+    ownership_type = as.character(ownership_type),
+    su_outpatient  = as.integer(su_outpatient),
+    su_residential = as.integer(su_residential),
+    su_inpatient   = as.integer(su_inpatient)
+  )
+}
+
+# ---- 3) Run cleaner across all files & bind (robust) ----
+cleaned_list <- map(
+  nssats_files,
+  \(f) tryCatch(clean_one(f), error = function(e) { message("Skipped: ", basename(f), " -> ", e$message); NULL })
+)
+
+# keep only data frames/tibbles, drop NULLs
+cleaned_list <- purrr::keep(cleaned_list, ~ inherits(.x, "data.frame"))
+if (!length(cleaned_list)) stop("No files produced data. Check file patterns and loader.")
+
+# ensure each element has the same columns (last guard)
+need_cols <- c("YEAR","state","ownership_type","su_outpatient","su_residential","su_inpatient")
+cleaned_list <- map(cleaned_list, \(x) {
+  miss <- setdiff(need_cols, names(x))
+  if (length(miss)) x[miss] <- NA
+  x[need_cols]
+})
+
+panel <- dplyr::bind_rows(cleaned_list)
+
+# ---- 4) Ownership × care-type shares by year ----
+care_by_own <- panel %>%
+  dplyr::filter(!is.na(ownership_type), !is.na(YEAR)) %>%
+  dplyr::group_by(YEAR, ownership_type) %>%
+  dplyr::summarise(
+    n_fac = dplyr::n(),
+    share_outpatient  = mean(su_outpatient  == 1, na.rm = TRUE),
+    share_residential = mean(su_residential == 1, na.rm = TRUE),
+    share_inpatient   = mean(su_inpatient   == 1, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+print(care_by_own)
+
+# ---- 5) (Optional) Plot: ownership vs care type (latest year available) ----
+if (nrow(care_by_own)) {
+  latest_year <- max(care_by_own$YEAR, na.rm = TRUE)
+
+  plot_df <- care_by_own %>%
+    dplyr::filter(YEAR == latest_year) %>%
+    tidyr::pivot_longer(
+      c(share_outpatient, share_residential, share_inpatient),
+      names_to = "care_type", values_to = "share"
+    )
+
+  gg <- ggplot(plot_df, aes(x = ownership_type, y = share, fill = care_type)) +
+    geom_col(position = position_dodge(width = 0.75)) +
+    scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+    labs(
+      title = paste0("Substance Use Care Types by Ownership (", latest_year, ")"),
+      x = "Ownership type", y = "Share of facilities",
+      fill = "Care type"
+    ) +
+    theme_minimal(base_size = 12)
+
+  print(gg)
+} else {
+  message("No rows in care_by_own after filtering. Check ownership parsing or YEAR detection.")
+}
+
+saveRDS(panel, here("series","TC_Ownership","data","clean","panel_su_flags.rds"))
+
+```
+
+
+```{r}
+legacy_idx  <- grepl("1997|1998|1999|200[0-9]|2010|2011", basename(nssats_files))
+legacy_files <- nssats_files[legacy_idx]
+length(legacy_files)
+
+#1 inspect
+inspect_legacy <- function(file) {
+  # raw
+  env <- new.env(); load(file, envir = env)
+  raw <- as.data.frame(env[[ls(env)[1]]])
+
+  # parsed (your cleaner)
+  parsed <- clean_one(file)
+
+  cat("\n---", basename(file), "---\n")
+  # Ownership: show raw labels and parsed mapping (first 20)
+  if ("OWNERSHP" %in% names(raw)) {
+    cat("Raw OWNERSHP examples:\n")
+    print(unique(head(as.character(raw$OWNERSHP), 20)))
+  } else {
+    cat("OWNERSHP NOT FOUND in raw\n")
+  }
+
+  cat("\nParsed ownership_type head():\n")
+  print(head(parsed$ownership_type, 20))
+
+  # Care flags: show shares and whether all-zero
+  s <- summarise(parsed,
+    n = n(),
+    share_out = mean(su_outpatient==1, na.rm=TRUE),
+    share_res = mean(su_residential==1, na.rm=TRUE),
+    share_inp = mean(su_inpatient==1, na.rm=TRUE)
+  )
+  print(s)
+
+  invisible(parsed)
+}
+
+# Example on one legacy file:
+# inspect_legacy(legacy_files[1])
+
+env <- new.env()
+load(here("series/TC_Ownership/data/raw/nssats_1997_2011.rda"), envir = env)
+raw <- as.data.frame(env[[ls(env)[1]]])
+
+names(raw)[grepl("TYPE|OUT|INP|RES|CARE", names(raw), ignore.case = TRUE)]
+
+p <- clean_one(file.path(nssats_folder, "nssats_1997_2011.rda"))
+summary(p$su_outpatient); summary(p$su_residential); summary(p$su_inpatient)
+
+# Also compare raw vs parsed for CTYPE1 quickly:
+env <- new.env(); load(file.path(nssats_folder, "nssats_1997_2011.rda"), envir = env)
+raw <- as.data.frame(env[[ls(env)[1]]])
+table_raw <- table(head(as.character(raw$CTYPE1), 50), useNA = "ifany")
+head(table_raw)
+
+```
+## Plots
+
+```{r}
+care_shares_by_own <- panel %>%
+  filter(!is.na(ownership_type), !is.na(YEAR)) %>%
+  group_by(YEAR, ownership_type) %>%
+  summarise(
+    n_fac = n(),
+    share_outpatient  = mean(su_outpatient  == 1, na.rm = TRUE),
+    share_residential = mean(su_residential == 1, na.rm = TRUE),
+    share_inpatient   = mean(su_inpatient   == 1, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  tidyr::pivot_longer(
+    cols = starts_with("share_"),
+    names_to = "care_type",
+    values_to = "share"
+  ) %>%
+  mutate(
+    care_type = dplyr::recode(care_type,
+      "share_outpatient"  = "Outpatient",
+      "share_residential" = "Residential",
+      "share_inpatient"   = "Inpatient"
+    )
+  )
+
+care_shares_by_own
+
+```
+
+
+```{r}
+ggplot(care_shares_by_own,
+       aes(x = YEAR, y = share, color = care_type)) +
+  geom_line(size = 1.1) +
+  facet_wrap(~ ownership_type, ncol = 1) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  labs(
+    title = "Share of Facilities Offering SU Care Types by Ownership, 1997–2023",
+    x = "Year",
+    y = "Share of facilities",
+    color = "Care type"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "bottom")
+
+```
+```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+# ensure consistent ownership order
+panel <- panel %>%
+  mutate(ownership_type = factor(ownership_type,
+                                 levels = c("For-profit","Non-profit","Public")))
+
+# Helper: compute, for a given care flag, the share of that care type owned by each ownership group
+# Denominator each year = number of facilities that OFFER that care type
+summarize_ownership_share <- function(df, care_var, care_label) {
+  df %>%
+    filter(!is.na(YEAR), !is.na(ownership_type)) %>%
+    mutate(care = .data[[care_var]] == 1) %>%
+    group_by(YEAR) %>%
+    mutate(total_care = sum(care, na.rm = TRUE)) %>%
+    ungroup() %>%
+    filter(total_care > 0) %>%                                 # avoid 0-denominator years
+    group_by(YEAR, ownership_type) %>%
+    summarise(
+      n_care_owned = sum(care, na.rm = TRUE),
+      total_care   = first(total_care),
+      share_owned  = n_care_owned / total_care,
+      .groups = "drop"
+    ) %>%
+    mutate(care_type = care_label)
+}
+
+# Build three series
+out_own <- summarize_ownership_share(panel, "su_outpatient",  "Outpatient")
+res_own <- summarize_ownership_share(panel, "su_residential", "Residential")
+inp_own <- summarize_ownership_share(panel, "su_inpatient",   "Inpatient")
+
+# Plot function (one chart per care type)
+plot_ownership_share <- function(df_care) {
+  ggplot(df_care, aes(x = YEAR, y = share_owned, color = ownership_type)) +
+    geom_line(size = 1.1) +
+    scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,1)) +
+    scale_color_manual(values = c("#1f77b4","#2ca02c","#d62728")) +  # optional; remove if you prefer defaults
+    labs(
+      title = paste0("Ownership Share of ", unique(df_care$care_type), " Facilities Over Time"),
+      x = "Year",
+      y = "Share of facilities offering this care type",
+      color = "Ownership"
+    ) +
+    theme_minimal(base_size = 13) +
+    theme(legend.position = "bottom")
+}
+
+# Create the three separate plots
+p_out <- plot_ownership_share(out_own)
+p_res <- plot_ownership_share(res_own)
+p_inp <- plot_ownership_share(inp_own)
+
+# Print them (in order)
+print(p_out)
+ggsave(here("series", "TC_Ownership", "output", "outpatient_shares.png"))
+print(p_res)
+ggsave(here("series", "TC_Ownership", "output", "residential_shares.png"))
+print(p_inp)
+ggsave(here("series", "TC_Ownership", "output", "inpatient_shares.png"))
+
+
+
+
+
+
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(maps)
+library(stringr)
+
+# 1) Compute state-level nonprofit share for RESIDENTIAL (2023)
+res_2023 <- panel %>%
+  filter(YEAR == 2023, !is.na(state)) %>%
+  filter(su_residential == 1) %>%                         # <-- residential denominator
+  group_by(state) %>%
+  summarise(
+    n_res = n(),
+    share_np = mean(ownership_type == "Non-profit", na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# 2) USPS -> map region names (maps::map_data doesn't include DC polygons)
+usps_to_name <- tibble::tibble(
+  state_usps = c(state.abb, "DC"),
+  state_name = c(state.name, "District of Columbia")
+) %>% mutate(region = tolower(state_name))
+
+res_map <- res_2023 %>% left_join(usps_to_name, by = c("state" = "state_usps"))
+us_map <- map_data("state")
+plot_df <- us_map %>% left_join(res_map, by = "region")
+
+# Optional: grey out states with tiny Ns (e.g., < 5 residential facilities)
+# plot_df <- plot_df %>% mutate(share_np = ifelse(n_res < 5, NA_real_, share_np))
+
+# 3) Choropleth (two-color sequential scale: white -> dark blue)
+ggplot(plot_df, aes(long, lat, group = group, fill = share_np)) +
+  geom_polygon(color = "white", size = 0.25) +
+  coord_fixed(1.3) +
+  scale_fill_gradient(
+    name   = "Non-profit share",
+    labels = scales::percent_format(accuracy = 1),
+    limits = c(0, 1),
+    low = "white", high = "darkblue",
+    na.value = "grey90"
+  ) +
+  labs(
+    title = "Share of Residential Substance Use Treatment Centers that are Non-profit (2023)",
+    caption = "Source: NSSATS/NSUMHSS panel"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    axis.title = element_blank(),
+    axis.text  = element_blank(),
+    panel.grid = element_blank(),
+    legend.position = "right"
+  )
+
+
+
+ggsave(here("series", "TC_Ownership", "output", "res_by_state_own.png"))
+```
+and comparing to their share of other types of firms to show that it isn't just maybe a state is nicer for for profits anyhow?
+
+```{r}
+library(dplyr)
+
+np_share_by_state <- panel %>%
+  filter(YEAR == 2023, !is.na(state)) %>%
+  group_by(state) %>%
+  summarise(
+    share_np_out = mean(ownership_type == "Non-profit" & su_outpatient == 1, na.rm = TRUE) /
+                   mean(su_outpatient == 1, na.rm = TRUE),
+
+    share_np_res = mean(ownership_type == "Non-profit" & su_residential == 1, na.rm = TRUE) /
+                   mean(su_residential == 1, na.rm = TRUE),
+
+    share_np_inp = mean(ownership_type == "Non-profit" & su_inpatient == 1, na.rm = TRUE) /
+                   mean(su_inpatient == 1, na.rm = TRUE),
+
+    .groups = "drop"
+  )
+
+library(tidyr)
+library(ggplot2)
+
+np_long <- np_share_by_state %>%
+  pivot_longer(cols = starts_with("share_np"),
+               names_to = "service_type", values_to = "share") %>%
+  mutate(service_type = recode(service_type,
+                               share_np_out = "Outpatient",
+                               share_np_res = "Residential",
+                               share_np_inp = "Inpatient"))
+
+ggplot(np_long, aes(x = service_type, y = share, fill = service_type)) +
+  geom_boxplot() +
+  scale_y_continuous(labels = scales::percent_format()) +
+  labs(title = "Nonprofit share of facilities by service type (2023)",
+       y = "Share nonprofit", x = "") +
+  theme_minimal()
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(maps)
+
+# 1) Compute nonprofit shares within each service type, by state
+np_share_by_state <- panel %>%
+  filter(YEAR == 2023, !is.na(state)) %>%
+  group_by(state) %>%
+  summarise(
+    share_np_out = mean(ownership_type == "Non-profit" & su_outpatient == 1, na.rm = TRUE) /
+                   mean(su_outpatient == 1, na.rm = TRUE),
+
+    share_np_res = mean(ownership_type == "Non-profit" & su_residential == 1, na.rm = TRUE) /
+                   mean(su_residential == 1, na.rm = TRUE),
+
+    share_np_inp = mean(ownership_type == "Non-profit" & su_inpatient == 1, na.rm = TRUE) /
+                   mean(su_inpatient == 1, na.rm = TRUE),
+
+    .groups = "drop"
+  ) %>%
+  mutate(
+    share_np_high = pmax(share_np_res, share_np_inp, na.rm = TRUE),   # residential/inpatient "high-acuity"
+    diff_out_vs_high = share_np_out - share_np_high
+  )
+
+# 2) Join with state map polygons
+usps_to_name <- tibble::tibble(
+  state_usps = c(state.abb, "DC"),
+  state_name = c(state.name, "District of Columbia")
+) %>%
+  mutate(region = tolower(state_name))
+
+share_map <- np_share_by_state %>%
+  left_join(usps_to_name, by = c("state" = "state_usps"))
+
+us_map <- map_data("state")
+
+plot_df <- us_map %>%
+  left_join(share_map, by = "region")
+
+# 3) Choropleth of the difference
+ggplot(plot_df, aes(long, lat, group = group, fill = diff_out_vs_high)) +
+  geom_polygon(color = "white", size = 0.25) +
+  coord_fixed(1.3) +
+  scale_fill_gradient2(
+    name = "NP Outpatient –\nNP In/Res",
+    labels = scales::percent_format(accuracy = 1),
+    low = "red", mid = "white", high = "blue", midpoint = 0,
+    na.value = "grey90"
+  ) +
+  labs(
+    title = "Difference in Nonprofit Share: Outpatient vs Inpatient/Residential (2023)",
+    subtitle = "Blue = more nonprofit dominance in outpatient; Red = more in inpatient/residential",
+    caption = "Source: NSSATS/NSUMHSS panel"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    axis.title = element_blank(),
+    axis.text  = element_blank(),
+    panel.grid = element_blank()
+  )
+
+
+```
+
