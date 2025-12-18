@@ -41,7 +41,10 @@ format:
     theme: pulse
     toc: true
     css: styles.css
-    include-after-body: includes/subscribe.html
+    include-after-body: 
+      - includes/subscribe.html
+    include-in-header: 
+      - includes/followit-meta.html
 
 # Apply default post metadata (ok to keep even if posts/ is empty now)
 metadata-files:

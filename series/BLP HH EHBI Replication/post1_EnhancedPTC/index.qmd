@@ -1,0 +1,69 @@
+---
+title: "Enhanced PTC and What We Don't Know"
+date: 2025-08-08
+description: "An overview of recent issues in Medicaid and a perspective on what we do not yet know about their impact."
+categories: [Medicaid, Insurance]
+# optional: hide header if you add your own H1 in the body
+title-block: false
+editor: 
+  markdown: 
+    wrap: sentence
+---
+
+## Introduction 
+
+Enhanced premium tax credits (PTCs) are set to expire this year after being in place since 2021. I did not know much about these enhanced PTCs, or really the PTC system at all, so I decided to read a bit. I came across this article by Matthew Buettgens, Michael Simpson, Jason Levitis, Fernando Hernandez-Lepe, and Jessica Banthin:  
+<https://www.urban.org/research/publication/48-million-people-will-lose-coverage-2026-if-enhanced-premium-tax-credits>.  
+In it, they use the Urban Institute’s Health Insurance Policy Simulation Model (HIPSM) to estimate the impact of losing enhanced PTCs on insurance coverage and household spending on insurance premiums in 2026. 
+
+This article, and doing a deeper dive into enhanced PTCs overall, has been pretty relevant to some of my side projects. Namely, the enhanced PTCs give us an excellent experiment we can use to further understand the impact of expanding Medicaid (and, more broadly, insurance) eligibility on a variety of health outcomes. I was rereading the beginning of the Bhattacharya et al. *Health Economics* textbook yesterday—one of my goals is to read through textbooks more often and create study materials for myself, same with journal articles—and they point out that our understanding of the demand for health is driven mostly by two experiments: the RAND Health Insurance Experiment and the Oregon Health Insurance Experiment. We typically do not witness much in the way of experimental settings in the case of insurance. Experiments on health insurance are expensive and involve the health of individuals, so I am not sure an IRB would approve them without a very well-thought-out risk mitigation strategy. Yet, we need more experiments to understand demand for health, and we cannot just use observational data due to what the authors call non-random selection into insurance, which leads to non-random pricing. 
+
+That being said, we can at least add to the evidence on the demand for health using shocks to eligibility arising from things like the ACA and these enhanced PTCs. While they target lower-income individuals (in the case of the ACA, at least, with a more progressive structure for the PTCs), they do at least tell us something about the demand for health for a subset of the population. Given this is probably a population that is more price-sensitive than wealthier folks, the demand estimates (by which I usually mean price elasticities) will likely overestimate the sensitivity of the average consumer. At the same time, do we really care about the average person’s demand for health? I might make the case that we should care more about the distribution of demand for health by income or wealth. But that is beside the point.
+
+The point is that we should be using the enhanced PTCs to provide more evidence on people’s demand for health and healthcare. To understand how we might model and write our results, we can look to articles on the ACA. There may be other areas to look at, but ACA expansion is top of mind for me since I just had my EC320 students replicate a paper by [Grooms and Ortega](https://scholarworks.iu.edu/iuswrrest/api/core/bitstreams/82b49887-1824-48ed-b924-02457223b8c8/content) (2019) in *AEA Papers & Proceedings* that discusses Medicaid expansion’s impact on substance use disorder treatment. 
+
+Another reason this is top of mind is that I have been working on replicating *Household Demand for Employer-Based Health Insurance* (<https://www.nber.org/papers/w9144>), which looks at estimating coverage for people eligible for employer-based health insurance. This is much closer to the PTC story, since what they are really estimating is take-up changes in response to shifts in premiums. I am looking at replicating this because I want to remind myself how to run a BLP-style demand estimation as I work with another coauthor at my university on a more structural paper. I do not want to be up presenting it while not knowing how I came to the very same estimations I am presenting. 
+
+This is all a long-winded way of saying that enhanced PTCs are an interesting avenue of research. I will break down the article first, discuss what they found and how they found it, and then talk about some areas of research I think we (as economists—though if you are reading this you are probably just some friend of mine who was nice enough to read my blog) should be thinking about a bit more. These are things that have made my list of future projects, though they are more likely to be done after I complete my dissertation.
+
+## The Article
+
+What the authors do in the article is a simple counterfactual exercise: they ask what would happen in 2026 if Congress truly does not extend enhanced PTCs. In particular, what would happen to individuals’ insurance coverage, and for those who remain on marketplace insurance, what would happen to their premiums?
+
+Let’s first discuss what (enhanced) PTCs are and why they might impact coverage and premiums. Premium tax credits have been around since 2010 and were passed along with the ACA. They are essentially limits on the percentage of total income that households must spend on health insurance premiums for marketplace plans. They are declining in income, meaning that as income rises, households pay a lower share of income toward premiums (though, of course, the dollar amount paid is higher). In 2021, the American Rescue Plan Act changed the subsidy schedule and lowered the effective income limits. Overall, since 2021, those using marketplace insurance have seen lower premiums and stronger incentives to enroll. The Inflation Reduction Act extended these provisions through the end of 2025. 
+
+We have seen, since 2021, a huge jump in the number of people enrolled in marketplace insurance. According to the article, there were around 12 million enrollees in 2021 versus 24.3 million in 2025. Certainly, some of this is due to the change in PTCs, as we know from prior work (namely the EBHI paper) that differences in premiums can have a significant impact on individuals’ insurance status. That said, this claim is somewhat speculative. I have not yet read many papers that use causal inference methods to directly estimate the effects of enhanced PTCs, but one I plan to read is [this paper](https://arxiv.org/abs/2510.13791) by Drake, Meiselbach, and Polsky. 
+
+The One Big Beautiful Bill Act (OBBBA) omits an extension of enhanced PTCs. A reconciliation bill passed in 2025 also enacted several other policy changes that the authors attempt to model in order to isolate the effect of the lapse in enhanced PTCs alone. These include removing eligibility for lawful immigrants below 100% of the federal poverty level who are ineligible for Medicaid for other reasons (try saying that five times fast), removing the cap on repayment of advance PTC payments, removing special enrollment periods for people under 150% FPL (I believe this moves back to 100% or 138%), and other changes that could, in theory, reduce marketplace enrollment. The authors’ analysis needs to account for all of this to ensure that their estimates reflect changes in premium tax credits rather than other concurrent policies. 
+
+Before moving to the results, it is worth briefly discussing why the authors focus on both coverage and premiums. Focusing on coverage alone is straightforward. What I found more interesting were the estimates of changes in premiums. Since enhanced PTCs disproportionately affect individuals who are particularly price-sensitive, a lapse in these credits would change the composition of the marketplace risk pool. Those remaining insured would, on average, be higher risk for medical expenditures, which in turn would require higher premiums. This creates a compounding mechanism that HIPSM attempts to capture: an initial drop in enrollment raises premiums, which then induces further drops in enrollment, and so on. I will note, however, that the model is (based on my quick reading) a partial equilibrium model, so it captures changes in the risk pool and enrollment but not broader supply-side responses. One final note is that the outside option in the model is uninsurance (along with employer-based coverage if available). 
+
+The results indicate a drop of around 7.3 million people from marketplace insurance, with about 4.8 million moving into the uninsured category (an increase of roughly 21% in the uninsured population). Those who remain on marketplace insurance would see premiums increase by roughly 2–4×, with larger increases at lower income levels (around 4×) and nearly doubling for those above 400% of the federal poverty level. The authors also estimate that a substantial number of people—mostly children—would lose Medicaid coverage because their eligibility was tied to another household member’s marketplace enrollment. They refer to this as a reverse woodwork effect. 
+
+The heterogeneity in the results is particularly interesting. States expected to experience the largest impacts tend to be red states with lower Medicaid eligibility thresholds and therefore stronger incentives to go uninsured. I suspect this is one reason the issue has received so much media attention: governors and representatives in red states are acutely aware that a policy enacted by a Republican-controlled Congress would disproportionately affect red states and could sway voters. 
+
+## Avenues for Future Work
+
+Now that I understand enhanced PTCs and their context a bit better, I see several avenues for future research. In other words, I have questions that I feel maybe I should answer—or that someone should. 
+
+As a human who understands the importance of insurance, I am concerned about those who opt to go uninsured. As an economist (Kris Jenner voice), I wonder whether the impact of removing PTCs will be asymmetric relative to their introduction. This question is especially interesting because enhanced PTCs were always intended as a temporary policy. Did consumers enroll in marketplace insurance with an understanding that these subsidies might disappear, or do they discount the future heavily and respond primarily to current prices?
+
+![Every time I deal with the double coincidence of wants that comes with being a health economist I think of Kris Jenner's line "When I first heard about Kim's tape, as her mother, I wanted to kill her. But as her manager..." This is how I think of myself a bit as an economist and a human being: As a human being, I do not want uninsured folks to suffer. As an economist, it is unfortunately going to be an excellent setting to study demand for health insurance. Does it sound as bad to you as it does to me?](kris-jenner-1-2000-1-5aa8699207a94b5ea560878a98a2bb6e.jpg)
+
+I am also curious about temporary health shocks, particularly for individuals with substance use disorders. Consider young people with SUDs who are otherwise healthy. How do they respond to a temporary expansion in insurance coverage? Could enhanced PTCs have placed them on a different long-run trajectory? Did some people enter SUD treatment who otherwise would not have? And if so, will the loss of insurance push them back to their prior state? I have been trying for some time to think through these questions by combining the Grossman model of health demand with the Becker–Grossman–Murphy model of rational addiction. At its core, my question is whether a temporary health capital shock is sufficient to move someone to a different steady state, or whether addiction requires a more sustained sequence of shocks. 
+
+I am looking forward to reading more on this topic and working on it myself. Over the next few weeks, I plan to read the following:
+
+- [Price-Linked Subsidies and Imperfect Competition in Health Insurance](https://soniajaffe.com/articles/Jaffe_Shepard_Subsidies.pdf)
+- [Subsidizing Health Insurance for Low-Income Adults: Evidence from Massachusetts](https://economics.mit.edu/sites/default/files/2022-08/Subsidizing%20Health%20Insurance%20for%20Low-Income%20Adults.pdf)
+- [The Effect of Public Insurance Expansions on Substance Use Disorder Treatment: Evidence from the Affordable Care Act](https://www.nber.org/system/files/working_papers/w23342/w23342.pdf)
+
+I plan to continue working on demand estimation for health insurance, so look forward to that—likely a New Year’s post.
+
+Thanks for reading my brain dump!
+
+David
+
+
+
+
