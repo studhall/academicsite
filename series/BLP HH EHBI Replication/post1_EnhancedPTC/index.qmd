@@ -1,7 +1,7 @@
 ---
 title: "Enhanced PTC and What We Don't Know"
-date: 2025-08-08
-description: "An overview of recent issues in Medicaid and a perspective on what we do not yet know about their impact."
+date: 2025-12-18
+description-: "An overview of recent issues in Medicaid and a perspective on what we do not yet know about their impact."
 categories: [Medicaid, Insurance]
 # optional: hide header if you add your own H1 in the body
 title-block: false
