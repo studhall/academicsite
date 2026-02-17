@@ -1,16 +1,24 @@
 [
   {
     "listing": "/series/TC_Ownership/index.html",
-    "items": []
+    "items": [
+      "/series/TC_Ownership/post1_trackingTCownership/index.html",
+      "/series/TC_Ownership/post2_servicesbyownershp/index.html",
+      "/series/TC_Ownership/post3_servicesprovidedbyownership/index.html"
+    ]
+  },
+  {
+    "listing": "/series/BLP HH EHBI Replication/index.html",
+    "items": [
+      "/series/BLP HH EHBI Replication/post1_EnhancedPTC/index.html"
+    ]
   },
   {
     "listing": "/posts.html",
     "items": [
-      "/series/BLP HH EHBI Replication/post1_EnhancedPTC/index.html",
-      "/series/TC_Ownership/post3_servicesprovidedbyownership/index.html",
       "/posts/Newhouse_9.5.25/index.html",
-      "/series/TC_Ownership/post2_servicesbyownershp/index.html",
-      "/series/TC_Ownership/post1_trackingTCownership/index.html"
+      "/series/BLP HH EHBI Replication/index.html",
+      "/series/TC_Ownership/index.html"
     ]
   }
 ]

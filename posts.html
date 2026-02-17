@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="David Hall">
 
-<title>posts – David Hall</title>
+<title>Blog – David Hall</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -73,20 +72,48 @@ ul.task-list li input[type="checkbox"] {
 <script>
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    const listingTargetEl = window.document.querySelector('#listing-latest-posts .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
       return; 
     }
 
     const options = {
-      valueNames: ['listing-title','listing-date','listing-categories','listing-summary',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-title','listing-date','listing-categories','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
       searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+    window['quarto-listings']['listing-latest-posts'] = new List('listing-latest-posts', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-series-list .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-image","listing-description","listing-categories"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-series-list'] = new List('listing-series-list', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -165,13 +192,28 @@ window.Quarto = {
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./posts.html#series"> 
+<span class="menu-text">Series</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./teaching.html"> 
 <span class="menu-text">Teaching</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./data.html"> 
-<span class="menu-text">Data</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-data" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Data</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-data">    
+        <li>
+    <a class="dropdown-item" href="./data.html">
+ <span class="dropdown-text">Data Home</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./data/moud-dashboard/index.html">
+ <span class="dropdown-text">MOUD Dashboard</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="./cv.html"> 
 <span class="menu-text">CV</span></a>
@@ -204,30 +246,24 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#blog" id="toc-blog" class="nav-link active" data-scroll-target="#blog">Blog</a>
-  <ul class="collapse">
-  <li><a href="#latest-posts" id="toc-latest-posts" class="nav-link" data-scroll-target="#latest-posts">🔥 Latest Posts</a></li>
-  </ul></li>
+  <li><a href="#latest-posts" id="toc-latest-posts" class="nav-link active" data-scroll-target="#latest-posts">Latest Posts</a></li>
+  <li><a href="#series" id="toc-series" class="nav-link" data-scroll-target="#series">Series</a></li>
+  <li><a href="#featured-pages" id="toc-featured-pages" class="nav-link" data-scroll-target="#featured-pages">Featured Pages</a></li>
   </ul>
 </nav>
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="SW5zdXJhbmNl">Insurance <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TWVkaWNhaWQ=">Medicaid <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VEMlMjBPd25lcnNoaXA=">TC Ownership <span class="quarto-category-count">(3)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
+<h1 class="title">Blog</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>David Hall </p>
-          </div>
-  </div>
     
   
     
@@ -238,65 +274,20 @@ window.Quarto = {
 </header>
 
 
-<section id="blog" class="level1">
-<h1>Blog</h1>
-<p>Welcome! Here you’ll find a mix of one-off posts and ongoing series.</p>
+<p>Welcome. This page has recent standalone posts plus direct entry points into each series.</p>
 <hr>
 <section id="latest-posts" class="level2">
-<h2 class="anchored" data-anchor-id="latest-posts">🔥 Latest Posts</h2>
-
-
-
-</section>
-</section>
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<h2 class="anchored" data-anchor-id="latest-posts">Latest Posts</h2>
+<div id="listing-latest-posts" class="quarto-listing quarto-listing-container-default">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="TWVkaWNhaWQlMkNJbnN1cmFuY2U=" data-listing-date-sort="1766044800000" data-listing-file-modified-sort="1766087877253" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1905">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./series/BLP HH EHBI Replication/post1_EnhancedPTC/index.html" class="no-external">Enhanced PTC and What We Don’t Know</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('TWVkaWNhaWQ='); return false;">Medicaid</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('SW5zdXJhbmNl'); return false;">Insurance</div>
-
-</div>
-</div>
-<div class="metadata">
-<a href="./series/BLP HH EHBI Replication/post1_EnhancedPTC/index.html" class="no-external">
-<div class="listing-date">
-Dec 18, 2025
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="VEMlMjBPd25lcnNoaXA=" data-listing-date-sort="1758351600000" data-listing-file-modified-sort="1766089199185" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1056">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./series/TC_Ownership/post3_servicesprovidedbyownership/index.html" class="no-external">Tracking TC Ownership: Service Type</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('VEMlMjBPd25lcnNoaXA='); return false;">TC Ownership</div>
-
-</div>
-</div>
-<div class="metadata">
-<a href="./series/TC_Ownership/post3_servicesprovidedbyownership/index.html" class="no-external">
-<div class="listing-date">
-Sep 20, 2025
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1757055600000" data-listing-file-modified-sort="1766089198696" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2261">
+<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1757055600000" data-listing-file-modified-sort="1771284283728" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2261">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="./posts/Newhouse_9.5.25/index.html" class="no-external">The Newhouse Model of Nonprofit Hospitals</a>
 </h3>
+<div class="delink listing-description"><a href="./posts/Newhouse_9.5.25/index.html" class="no-external">
+This post will discuss the theory and contributions of Newhouse’s 1970 model of nonprofit hospitals which can be found here I started reading up on this model after looking…
+</a></div>
 </div>
 <div class="metadata">
 <a href="./posts/Newhouse_9.5.25/index.html" class="no-external">
@@ -306,47 +297,61 @@ Sep 5, 2025
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="VEMlMjBPd25lcnNoaXA=" data-listing-date-sort="1755759600000" data-listing-file-modified-sort="1766089199183" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1046">
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+</div>
+<hr>
+</section>
+<section id="series" class="level2">
+<h2 class="anchored" data-anchor-id="series">Series</h2>
+<p>Pick a series to open its dedicated landing page and full sequence of entries.</p>
+<div id="listing-series-list" class="quarto-listing quarto-listing-container-default">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1771292133090" data-listing-reading-time-sort="1" data-listing-word-count-sort="15">
 <div class="body">
 <h3 class="no-anchor listing-title">
-<a href="./series/TC_Ownership/post2_servicesbyownershp/index.html" class="no-external">Tracking TC Ownership: Payment Acceptance</a>
+<a href="./series/BLP HH EHBI Replication/index.html" class="no-external">BLP HH EHBI Replication Series</a>
 </h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('VEMlMjBPd25lcnNoaXA='); return false;">TC Ownership</div>
-
-</div>
+<div class="delink listing-description"><a href="./series/BLP HH EHBI Replication/index.html" class="no-external">
+<p>Posts on replicating household demand for employer-based health insurance and related premium subsidy questions.</p>
+</a></div>
 </div>
 <div class="metadata">
-<a href="./series/TC_Ownership/post2_servicesbyownershp/index.html" class="no-external">
-<div class="listing-date">
-Aug 21, 2025
-</div>
+<a href="./series/BLP HH EHBI Replication/index.html" class="no-external">
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="VEMlMjBPd25lcnNoaXA=" data-listing-date-sort="1754636400000" data-listing-file-modified-sort="1766089199183" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1166">
+<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1771292119912" data-listing-reading-time-sort="1" data-listing-word-count-sort="22">
 <div class="body">
 <h3 class="no-anchor listing-title">
-<a href="./series/TC_Ownership/post1_trackingTCownership/index.html" class="no-external">Tracking TC Ownership: Descriptive Stats</a>
+<a href="./series/TC_Ownership/index.html" class="no-external">Tracking TC Ownership Series</a>
 </h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('VEMlMjBPd25lcnNoaXA='); return false;">TC Ownership</div>
-
-</div>
+<div class="delink listing-description"><a href="./series/TC_Ownership/index.html" class="no-external">
+<p>A running set of posts on ownership structure, payment acceptance, and service mix in US substance use treatment centers.</p>
+</a></div>
 </div>
 <div class="metadata">
-<a href="./series/TC_Ownership/post1_trackingTCownership/index.html" class="no-external">
-<div class="listing-date">
-Aug 8, 2025
-</div>
+<a href="./series/TC_Ownership/index.html" class="no-external">
 </a>
 </div>
 </div>
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</div>
+<hr>
+</section>
+<section id="featured-pages" class="level2">
+<h2 class="anchored" data-anchor-id="featured-pages">Featured Pages</h2>
+<ul>
+<li><a href="./cv.html">Curriculum Vitae (HTML)</a></li>
+<li><a href="cv/Hall_CV_Current.pdf">Curriculum Vitae (PDF)</a></li>
+</ul>
+
+
+
+</section>
+
+</main> <!-- /main -->
 <div class="followit--follow-form-container" attr-a="" attr-b="" attr-c="" attr-d="" attr-e="" attr-f="">
 
   <form action="https://follow.it/david-hall?leanpub" method="post">
@@ -785,7 +790,9 @@ Aug 8, 2025
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© 2025 David Hall</p>
+<ol start="3" type="a">
+<li>2026 David Hall</li>
+</ol>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

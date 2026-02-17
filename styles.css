@@ -1,4 +1,63 @@
 /* =========================
+   Global Theme Refresh
+   ========================= */
+
+:root {
+  --site-navy: #1f3a5f;
+  --site-teal: #1f8a8a;
+  --site-gold: #f2b134;
+  --site-cream: #fffef8;
+  --site-slate: #2f2f46;
+}
+
+body {
+  background:
+    radial-gradient(circle at 0% 0%, rgba(31, 138, 138, 0.12), transparent 42%),
+    radial-gradient(circle at 95% 8%, rgba(242, 177, 52, 0.12), transparent 38%),
+    linear-gradient(180deg, #f8fbff 0%, var(--site-cream) 100%);
+}
+
+main.content {
+  background: #ffffff;
+  border: 1px solid rgba(31, 58, 95, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 14px 30px rgba(31, 58, 95, 0.08);
+  padding: 1.2rem 1.4rem;
+}
+
+h2 {
+  margin-top: 1.3rem;
+  padding: 0.45rem 0.75rem;
+  border-left: 6px solid var(--site-teal);
+  background: linear-gradient(90deg, rgba(31, 138, 138, 0.12), rgba(31, 138, 138, 0.03));
+  border-radius: 8px;
+}
+
+h3 {
+  color: var(--site-navy);
+}
+
+hr {
+  border: 0;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--site-teal), var(--site-gold));
+  opacity: 0.95;
+}
+
+a {
+  text-underline-offset: 0.18em;
+}
+
+/* Hide author in title blocks and bylines everywhere */
+.quarto-title-meta-author,
+.quarto-title-author,
+.byline,
+.article-meta .author {
+  display: none !important;
+}
+
+/* =========================
    Banner & Navbar
    ========================= */
 .home-banner {
@@ -33,7 +92,7 @@ header.navbar {
   z-index: 10;
   border: none;
   box-shadow: none;
-  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+  background: linear-gradient(90deg, rgba(31, 58, 95, 0.84), rgba(31, 138, 138, 0.72));
 }
 
 
@@ -148,6 +207,148 @@ header.navbar {
   margin-left: 10px !important;
   height: 1.13em !important;
   max-height: 1.13em !important;
+}
+
+
+/* =========================
+   Homepage
+   ========================= */
+
+.home-headshot {
+  width: 100%;
+  max-width: 260px;
+  border-radius: 16px;
+  display: block;
+  margin: 0 auto 1rem auto;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
+.about-headshot {
+  max-width: 230px;
+}
+
+/* =========================
+   Blog/Series Listing Cards
+   ========================= */
+
+.quarto-listing .quarto-post {
+  background: linear-gradient(180deg, #ffffff 0%, #f5fbff 100%);
+  border: 1px solid rgba(31, 58, 95, 0.18);
+  border-left: 7px solid var(--site-teal);
+  border-radius: 14px;
+  box-shadow: 0 8px 18px rgba(31, 58, 95, 0.08);
+  padding: 0.8rem 0.95rem;
+  margin-bottom: 1rem;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+
+.quarto-listing .quarto-post:hover {
+  transform: translateY(-2px);
+  border-color: rgba(31, 58, 95, 0.32);
+  box-shadow: 0 14px 22px rgba(31, 58, 95, 0.14);
+}
+
+.quarto-listing .listing-title a {
+  text-decoration: none;
+  color: var(--site-navy);
+}
+
+.quarto-listing .listing-title a:hover {
+  color: var(--site-teal);
+}
+
+.quarto-listing-category .category {
+  background: rgba(31, 138, 138, 0.1);
+  border: 1px solid rgba(31, 138, 138, 0.32);
+  border-radius: 999px;
+  padding: 0.25rem 0.55rem;
+}
+
+@media (max-width: 768px) {
+  .home-banner {
+    height: 220px;
+  }
+
+  main.content {
+    border-radius: 14px;
+    padding: 1rem;
+  }
+
+  .home-headshot {
+    max-width: 220px;
+  }
+}
+
+
+/* =========================
+   MOUD Dashboard
+   ========================= */
+
+.dashboard-grid {
+  background: rgba(31, 58, 95, 0.04);
+  border: 1px solid rgba(31, 58, 95, 0.15);
+  border-radius: 12px;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.dashboard-card {
+  background: #ffffff;
+  border: 1px solid rgba(31, 58, 95, 0.18);
+  border-left: 5px solid var(--site-teal);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  box-shadow: 0 8px 20px rgba(31, 58, 95, 0.08);
+}
+
+.dashboard-card h3 {
+  margin-top: 0;
+}
+
+.dashboard-card.compact {
+  padding: 0.6rem 0.8rem;
+}
+
+.dashboard-card .muted {
+  color: #556070;
+  margin-bottom: 0;
+}
+
+.control-panel-dark {
+  background: linear-gradient(180deg, #10253f 0%, #0b1a2d 100%);
+  border-color: rgba(133, 171, 214, 0.45);
+  color: #e8f1ff;
+}
+
+.control-panel-dark h3 {
+  color: #f4f8ff;
+}
+
+.control-panel-dark .cell {
+  margin-bottom: 0.55rem;
+}
+
+.control-panel-dark label {
+  color: #dbe9ff !important;
+  font-weight: 600;
+}
+
+.control-panel-dark select,
+.control-panel-dark input,
+.control-panel-dark button,
+.control-panel-dark textarea {
+  background-color: #122b49 !important;
+  color: #f3f8ff !important;
+  border: 1px solid #5e7fa6 !important;
+}
+
+.control-panel-dark option {
+  background-color: #122b49;
+  color: #f3f8ff;
+}
+
+.control-panel-dark .muted {
+  color: #b6cae8;
 }
 
 

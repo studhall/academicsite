@@ -6,7 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="David Hall">
 
 <title>Data – David Hall</title>
 <style>
@@ -105,13 +104,28 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./posts.html#series"> 
+<span class="menu-text">Series</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./teaching.html"> 
 <span class="menu-text">Teaching</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="./data.html" aria-current="page"> 
-<span class="menu-text">Data</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-data" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Data</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-data">    
+        <li>
+    <a class="dropdown-item" href="./data.html">
+ <span class="dropdown-text">Data Home</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./data/moud-dashboard/index.html">
+ <span class="dropdown-text">MOUD Dashboard</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="./cv.html"> 
 <span class="menu-text">CV</span></a>
@@ -152,12 +166,6 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>David Hall </p>
-          </div>
-  </div>
     
   
     
@@ -170,16 +178,23 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="data-visualizations" class="level1">
 <h1>Data &amp; Visualizations</h1>
-<p>This page is currently under construction. In the near future, I’ll be sharing:</p>
+<p>This section hosts interactive tools and data products linked to my policy and health economics work.</p>
+<section id="featured-dashboard" class="level2">
+<h2 class="anchored" data-anchor-id="featured-dashboard">Featured Dashboard</h2>
+<ul>
+<li><a href="./data/moud-dashboard/index.html">MOUD Dashboard</a></li>
+</ul>
+</section>
+<section id="planned-additions" class="level2">
+<h2 class="anchored" data-anchor-id="planned-additions">Planned Additions</h2>
 <ul>
 <li>Cleaned datasets for replication</li>
-<li>Interactive data visualizations</li>
-<li>Maps and graphs used in blog posts</li>
-<li>Links to external public health data sources</li>
+<li>Interactive visualizations and maps</li>
+<li>Data documentation and source links</li>
 </ul>
-<p>Stay tuned!</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -621,7 +636,9 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© 2025 David Hall</p>
+<ol start="3" type="a">
+<li>2026 David Hall</li>
+</ol>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
