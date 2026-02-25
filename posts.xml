@@ -10,7 +10,775 @@
 <atom:link href="https://studhall.github.io/academicsite/posts.xml" rel="self" type="application/rss+xml"/>
 <description>David&#39;s Blog and Academic Site</description>
 <generator>quarto-1.7.32</generator>
-<lastBuildDate>Fri, 05 Sep 2025 07:00:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 24 Feb 2026 08:00:00 GMT</lastBuildDate>
+<item>
+  <title>Synthetic Control Placebo Inference in Synthdid</title>
+  <link>https://studhall.github.io/academicsite/posts/synthdid_placebo_2.24.26/</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="setup" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="setup"><span class="header-section-number">1</span> Setup</h2>
+<p>The <a href="https://synth-inference.github.io/synthdid/index.html"><em>synthdid</em> package put out by David Hirshberg</a> is my go-to when it comes to running all things synthetic control. I find it very helpful for both synthetic controls (SC) and synthetic difference-in-differences (SDiD), and even comparing to a base TWFE specification. In a recent project I’ve been working on, typical DiD specifications seem not to capture pre-trends well and I’m getting noisy results. Part of the reason for this is that I am expecting some heterogeneity in results by-state. Instead of trying to run state-specific results, I found myself (with some advising by Ed Rubin) running synthetic controls. This has the advantage of a better pre-period match as well as being better able to visualize the trends in treated states.</p>
+<p>As I began to run this, I realized that the synthdid package does not have a built-in way (and I double checked with Kyu Matuzawa) to run inference on syntetic control results. It <em>does</em> have built-in the Arkhangelsky et al.&nbsp;procedure which returns a standard error using the placebo method they derive, but it can only be used for the SDiD specification. See for yourself here:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(synthdid)</span>
+<span id="cb1-2"></span>
+<span id="cb1-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">data</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'california_prop99'</span>)</span>
+<span id="cb1-4">setup <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">panel.matrices</span>(california_prop99)</span>
+<span id="cb1-5">tau.sc <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sc_estimate</span>(setup<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>Y, setup<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>N0, setup<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>T0)</span>
+<span id="cb1-6"></span>
+<span id="cb1-7">se <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sqrt</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">vcov</span>(tau.sc, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">method=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'placebo'</span>))</span>
+<span id="cb1-8">se</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        [,1]
+[1,] 11.4213</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">t_stat <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">as.numeric</span>(tau.sc) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> se</span>
+<span id="cb3-2">p_val  <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">pnorm</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">abs</span>(t_stat)))</span>
+<span id="cb3-3">p_val</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           [,1]
+[1,] 0.08583067</code></pre>
+</div>
+</div>
+<p>The p-value I obtain here is off from the original estimate using random inference in the original Abadie et al.&nbsp;2010 paper which obtains a p-value of <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7B1%7D%7B39%7D%20%5Csim%200.026">. The standard error calculated requires a distributional assumption I think many of us are unwilling to make, or maybe that is just me worrying about what the referees would say were I to implement the above exercise. This would probably be a conservative way to obtain p-values anyhow, but still, I wanted to ensure that I can obtain the p-values using the random inference procedure described by <a href="https://economics.mit.edu/sites/default/files/publications/Synthetic%20Control%20Methods.pdf">Abadie Diamond and Hainmueller, 2010</a>.</p>
+</section>
+<section id="review" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="review"><span class="header-section-number">2</span> Review</h2>
+<p>As a quick refresher for what we’re doing here, I’ll write in words what the random inference procedure we need to do is, then show you how to implement it with the assumption you’ve created a panel for your synthetic control already. I’m using the notation from the synthdid package in this case.</p>
+<p>We observe one treated unit and <img src="https://latex.codecogs.com/png.latex?N_0"> donor units over <img src="https://latex.codecogs.com/png.latex?T"> periods. Let <img src="https://latex.codecogs.com/png.latex?T_0"> denote the number of pre-treatment periods and <img src="https://latex.codecogs.com/png.latex?T_1%20=%20T%20-%20T_0"> the number of post-treatment periods.</p>
+<p>Let:</p>
+<ul>
+<li><img src="https://latex.codecogs.com/png.latex?Y_%7B1t%7D"> denote the outcome for the treated unit<br>
+</li>
+<li><img src="https://latex.codecogs.com/png.latex?Y_%7Bjt%7D"> denote the outcome for donor unit <img src="https://latex.codecogs.com/png.latex?j%20=%202,%20%5Cdots,%20N_0+1"></li>
+</ul>
+<section id="pre-treatment-outcomes" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="pre-treatment-outcomes"><span class="header-section-number">2.1</span> Pre-treatment Outcomes</h3>
+<p>The treated unit’s pre-treatment outcome vector is</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AX_1%20=%0A%5Cbegin%7Bpmatrix%7D%0AY_%7B11%7D%20%5C%5C%0A%5Cvdots%20%5C%5C%0AY_%7B1T_0%7D%0A%5Cend%7Bpmatrix%7D%0A"></p>
+<p>The donor matrix of pre-treatment outcomes is</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AX_0%20=%0A%5Cbegin%7Bpmatrix%7D%0AY_%7B21%7D%20&amp;%20%5Cdots%20&amp;%20Y_%7BN_0+1,1%7D%20%5C%5C%0A%5Cvdots%20&amp;%20%5Cddots%20&amp;%20%5Cvdots%20%5C%5C%0AY_%7B2T_0%7D%20&amp;%20%5Cdots%20&amp;%20Y_%7BN_0+1,T_0%7D%0A%5Cend%7Bpmatrix%7D%0A"></p>
+</section>
+<section id="weight-selection-problem" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="weight-selection-problem"><span class="header-section-number">2.2</span> Weight Selection Problem</h3>
+<p>The synthetic control weights <img src="https://latex.codecogs.com/png.latex?w%20=%20(w_2,%20%5Cdots,%20w_%7BN_0+1%7D)'"> solve</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cmin_%7Bw%7D%0A%5Cquad%0A%5Csqrt%7B%0A%5Cleft(%20X_1%20-%20X_0%20w%20%5Cright)'%0AV%0A%5Cleft(%20X_1%20-%20X_0%20w%20%5Cright)%0A%7D%0A"></p>
+<p>subject to</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Aw_j%20%5Cge%200%20%5Cquad%20%5Ctext%7Bfor%20all%20%7D%20j%0A"></p>
+<p>and</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Csum_%7Bj=2%7D%5E%7BN_0+1%7D%20w_j%20=%201%0A"></p>
+<p>where <img src="https://latex.codecogs.com/png.latex?V"> is a positive semi-definite weighting matrix.</p>
+</section>
+<section id="synthetic-control-path" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="synthetic-control-path"><span class="header-section-number">2.3</span> Synthetic Control Path</h3>
+<p>Given optimal weights <img src="https://latex.codecogs.com/png.latex?%5Chat%7Bw%7D">, the synthetic outcome for any period <img src="https://latex.codecogs.com/png.latex?t"> is</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7BY%7D_%7B1t%7D%5E%7B%5Ctext%7Bsynth%7D%7D%0A=%0A%5Csum_%7Bj=2%7D%5E%7BN_0+1%7D%0A%5Chat%7Bw%7D_j%20Y_%7Bjt%7D%0A"></p>
+</section>
+<section id="treatment-effect" class="level3" data-number="2.4">
+<h3 data-number="2.4" class="anchored" data-anchor-id="treatment-effect"><span class="header-section-number">2.4</span> Treatment Effect</h3>
+<p>The treatment effect at time <img src="https://latex.codecogs.com/png.latex?t"> is</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7B%5Ctau%7D_%7B1t%7D%0A=%0AY_%7B1t%7D%0A-%0A%5Chat%7BY%7D_%7B1t%7D%5E%7B%5Ctext%7Bsynth%7D%7D%0A"></p>
+<p>The average post-treatment effect is</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7B%5Ctau%7D%0A=%0A%5Cfrac%7B1%7D%7BT_1%7D%0A%5Csum_%7Bt=T_0+1%7D%5E%7BT%7D%0A%5Cleft(%0AY_%7B1t%7D%0A-%0A%5Chat%7BY%7D_%7B1t%7D%5E%7B%5Ctext%7Bsynth%7D%7D%0A%5Cright)%0A"> ### Inference</p>
+<p>The idea behind the randomized inference procedure is to then assign treatment iteratively over each of the donor units and run the same synthetic control procedure. But, importantly, we do this to obtain not the average treatment effect but the mean-square prediction-error.</p>
+<p>We can think of this as a numerical representation of how far the treated unit (and, in turn, each iterated donor unit when we pretend it is treated) varies from its synthetic control in the pre- and post-treatment periods. We want a nice pre-treatment fit. If the treatment we are estimating is non-random, we would also expect a large deviance from the post-treatment synthetic control. Taking the ratio of these gets us our RMSPE ratio which we then rank. The higher the rank, the more likely it is that our treated unit did not see deviation at random.</p>
+<p>Formally, for each unit <img src="https://latex.codecogs.com/png.latex?i">, define the synthetic control gap</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7B%5Ctau%7D_%7Bit%7D%0A=%0AY_%7Bit%7D%0A-%0A%5Chat%7BY%7D_%7Bit%7D%5E%7B%5Ctext%7Bsynth%7D%7D.%0A"></p>
+<p>We then compute the pre-treatment root mean squared prediction error:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Ctext%7BPre-RMSPE%7D_i%0A=%0A%5Csqrt%7B%0A%5Cfrac%7B1%7D%7BT_0%7D%0A%5Csum_%7Bt=1%7D%5E%7BT_0%7D%0A%5Chat%7B%5Ctau%7D_%7Bit%7D%5E2%0A%7D.%0A"></p>
+<p>Similarly, we compute the post-treatment RMSPE:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Ctext%7BPost-RMSPE%7D_i%0A=%0A%5Csqrt%7B%0A%5Cfrac%7B1%7D%7BT_1%7D%0A%5Csum_%7Bt=T_0+1%7D%5E%7BT%7D%0A%5Chat%7B%5Ctau%7D_%7Bit%7D%5E2%0A%7D.%0A"></p>
+<p>The object of interest is the ratio</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AR_i%0A=%0A%5Cfrac%7B%5Ctext%7BPost-RMSPE%7D_i%7D%7B%5Ctext%7BPre-RMSPE%7D_i%7D.%0A"></p>
+<p>We compute this ratio for the true treated unit and then for each donor unit after iteratively assigning it treatment and re-running the synthetic control procedure.</p>
+<p>Let <img src="https://latex.codecogs.com/png.latex?R_1"> denote the ratio for the actual treated unit and let <img src="https://latex.codecogs.com/png.latex?%5C%7BR_j%5C%7D_%7Bj=2%7D%5E%7BN_0+1%7D"> denote the ratios for each placebo unit.</p>
+<p>The randomization-based p-value is simply the rank of the treated unit’s ratio among all possible assignments:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ap%0A=%0A%5Cfrac%7B%0A1%20+%20%5Csum_%7Bj=2%7D%5E%7BN_0+1%7D%0A%5Cmathbf%7B1%7D%0A%5C%7B%20R_j%20%5Cge%20R_1%20%5C%7D%0A%7D%7B%0A1%20+%20N_0%0A%7D.%0A"></p>
+<p>Intuitively, if the treated unit’s post-treatment deviation is unusually large relative to its pre-treatment fit — compared to what we see when we pretend each donor was treated — then the p-value will be small.</p>
+</section>
+</section>
+<section id="implementing-in-synthdid" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="implementing-in-synthdid"><span class="header-section-number">3</span> Implementing in synthdid</h2>
+<section id="randomization-inference-abadie-style-in-space-placebos" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="randomization-inference-abadie-style-in-space-placebos"><span class="header-section-number">3.1</span> Randomization inference (Abadie-style in-space placebos)</h3>
+<p>Once you have your synthetic control estimate, the key idea for inference is to <strong>re-run the exact same synthetic control procedure while pretending each donor unit was treated</strong>. This gives us a placebo distribution. If the true treated unit looks unusually “extreme” relative to those placebos, we interpret that as evidence the effect is unlikely to be due to chance.</p>
+<p>The subtle but important point is that we don’t rank the raw ATT. Instead, following Abadie et al.&nbsp;(2010), we rank a <strong>fit-adjusted statistic</strong> based on prediction error:</p>
+<ol type="1">
+<li><p>Compute the synthetic control gap for unit (i): [ <em>{it} = Y</em>{it} - _{it}^{}. ]</p></li>
+<li><p>Turn that into a pre-treatment RMSPE and post-treatment RMSPE: [ _i = , _i = . ]</p></li>
+<li><p>Take the ratio: [ R_i = . ]</p></li>
+</ol>
+<p>Intuition: we want a good pre-period fit (small denominator), and if treatment mattered we should see a bigger post-period gap (large numerator). The ratio is a simple way to combine both.</p>
+<p>To get a p-value, we compute (R_1) for the treated unit, then compute (R_j) for each donor unit (j) when we pretend it was treated. The p-value is just the rank:</p>
+<p>[ p = . ]</p>
+</section>
+<section id="done-in-synthdid" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="done-in-synthdid"><span class="header-section-number">3.2</span> Done in synthdid</h3>
+<p>Below is a minimal implementation that assumes you already have a <code>setup</code> object from <code>panel.matrices()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Assumes you already have: setup &lt;- panel.matrices(...)</span></span>
+<span id="cb5-2"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># setup$Y is (N x T), rownames(setup$Y) are unit names, setup$T0 is pre-period length.</span></span>
+<span id="cb5-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># This loops over EVERY unit, treats it as "treated" by moving it to the last row,</span></span>
+<span id="cb5-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># runs sc_estimate, computes pre/post RMSE and MSPE ratios, and ranks California.</span></span>
+<span id="cb5-5"></span>
+<span id="cb5-6"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(synthdid)</span>
+<span id="cb5-7"></span>
+<span id="cb5-8">sc_placebo_inference <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">function</span>(setup, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">stat =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"mspe"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"rmse"</span>)) {</span>
+<span id="cb5-9">  stat <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">match.arg</span>(stat)</span>
+<span id="cb5-10"></span>
+<span id="cb5-11">  Y0 <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> setup<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>Y</span>
+<span id="cb5-12">  T0 <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> setup<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>T0</span>
+<span id="cb5-13">  TT <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ncol</span>(Y0)</span>
+<span id="cb5-14">  units <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">rownames</span>(Y0)</span>
+<span id="cb5-15">  N <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">nrow</span>(Y0)</span>
+<span id="cb5-16"></span>
+<span id="cb5-17">  out <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">data.frame</span>(</span>
+<span id="cb5-18">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">unit =</span> units,</span>
+<span id="cb5-19">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">att =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">NA_real_</span>,</span>
+<span id="cb5-20">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">pre_mspe =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">NA_real_</span>,</span>
+<span id="cb5-21">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">post_mspe =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">NA_real_</span>,</span>
+<span id="cb5-22">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">pre_rmse =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">NA_real_</span>,</span>
+<span id="cb5-23">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">post_rmse =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">NA_real_</span>,</span>
+<span id="cb5-24">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">ratio_rmse =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">NA_real_</span>,</span>
+<span id="cb5-25">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">ratio_mspe =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">NA_real_</span></span>
+<span id="cb5-26">  )</span>
+<span id="cb5-27"></span>
+<span id="cb5-28">  <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> (i <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">seq_len</span>(N)) {</span>
+<span id="cb5-29">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># reorder Y so unit i is last (treated)</span></span>
+<span id="cb5-30">    ord <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">setdiff</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">seq_len</span>(N), i), i)</span>
+<span id="cb5-31">    Y <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> Y0[ord, , drop <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">FALSE</span>]</span>
+<span id="cb5-32"></span>
+<span id="cb5-33">    run <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> synthdid<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sc_estimate</span>(Y, N <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, T0)</span>
+<span id="cb5-34">    out<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>att[i] <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">as.numeric</span>(run)</span>
+<span id="cb5-35"></span>
+<span id="cb5-36">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Use the full donor weight vector (not summary(run)$controls display output).</span></span>
+<span id="cb5-37">    w_full <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">attr</span>(run, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"weights"</span>)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>omega</span>
+<span id="cb5-38"></span>
+<span id="cb5-39">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># synthetic path and gaps</span></span>
+<span id="cb5-40">    y_synth <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">as.numeric</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">t</span>(w_full) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">%*%</span> Y[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span>(N <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>), , <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">drop =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">FALSE</span>])</span>
+<span id="cb5-41">    y_tr <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">as.numeric</span>(Y[N, ])</span>
+<span id="cb5-42">    gap     <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> y_tr <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> y_synth</span>
+<span id="cb5-43"></span>
+<span id="cb5-44">    pre_mspe <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mean</span>(gap[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span>T0]<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">^</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">na.rm =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>)</span>
+<span id="cb5-45">    post_mspe <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mean</span>(gap[(T0 <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span>TT]<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">^</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">na.rm =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>)</span>
+<span id="cb5-46">    pre_rmse <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sqrt</span>(pre_mspe)</span>
+<span id="cb5-47">    post_rmse <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sqrt</span>(post_mspe)</span>
+<span id="cb5-48"></span>
+<span id="cb5-49">    out<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>pre_mspe[i] <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> pre_mspe</span>
+<span id="cb5-50">    out<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>post_mspe[i] <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> post_mspe</span>
+<span id="cb5-51">    out<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>pre_rmse[i]  <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> pre_rmse</span>
+<span id="cb5-52">    out<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>post_rmse[i] <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> post_rmse</span>
+<span id="cb5-53">    out<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>ratio_rmse[i] <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> post_rmse <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> pre_rmse</span>
+<span id="cb5-54">    out<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>ratio_mspe[i] <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> post_mspe <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> pre_mspe</span>
+<span id="cb5-55">  }</span>
+<span id="cb5-56"></span>
+<span id="cb5-57">  ratio_vec <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> (stat <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"mspe"</span>) out<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>ratio_mspe <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">else</span> out<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>ratio_rmse</span>
+<span id="cb5-58">  treated_unit <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">rownames</span>(setup<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>Y)[setup<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>N0 <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]</span>
+<span id="cb5-59">  R_treated <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> ratio_vec[out<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>unit <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> treated_unit]</span>
+<span id="cb5-60">  R_placebo <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> ratio_vec[out<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>unit <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!=</span> treated_unit]</span>
+<span id="cb5-61">  p_val <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sum</span>(R_placebo <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;=</span> R_treated, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">na.rm =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span></span>
+<span id="cb5-62">    (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sum</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">is.finite</span>(R_placebo)))</span>
+<span id="cb5-63"></span>
+<span id="cb5-64">  table_ranked <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> out[<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">order</span>(ratio_vec, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">decreasing =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>), ]</span>
+<span id="cb5-65">  table_ranked<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>rank <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">seq_len</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">nrow</span>(table_ranked))</span>
+<span id="cb5-66">  rank_treated <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> table_ranked<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>rank[table_ranked<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>unit <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> treated_unit]</span>
+<span id="cb5-67"></span>
+<span id="cb5-68">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">list</span>(</span>
+<span id="cb5-69">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">treated_unit =</span> treated_unit,</span>
+<span id="cb5-70">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">statistic =</span> stat,</span>
+<span id="cb5-71">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">R_treated =</span> R_treated,</span>
+<span id="cb5-72">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">rank_treated =</span> rank_treated,</span>
+<span id="cb5-73">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">p_val =</span> p_val,</span>
+<span id="cb5-74">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">table =</span> table_ranked</span>
+<span id="cb5-75">  )</span>
+<span id="cb5-76">}</span>
+<span id="cb5-77"></span>
+<span id="cb5-78"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Example:</span></span>
+<span id="cb5-79">setup <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">panel.matrices</span>(california_prop99)</span>
+<span id="cb5-80">res <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sc_placebo_inference</span>(setup, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">stat =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"mspe"</span>)</span>
+<span id="cb5-81">res[<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"treated_unit"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"statistic"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"R_treated"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"rank_treated"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"p_val"</span>)]</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$treated_unit
+[1] "California"
+
+$statistic
+[1] "mspe"
+
+$R_treated
+[1] 154.94
+
+$rank_treated
+[1] 3
+
+$p_val
+[1] 0.07692308</code></pre>
+</div>
+</div>
+<p>The way the code is written is that the very last row in the panel object corresponds to the treated unit. So all we have to do is iterate the observations to the bottom. In other words, take the first observation, move to the bottom, and so on. Then we can use that to calculate the RMSE as we go along.</p>
+<p>There <em>are</em> a few differences in the synthdid code that resulted in some differences in the ATT and p-value of the estimate I wrote here. Namely, there is something about ridge-type regularization that makes it so the SC doesn’t produce the same exact weights, and also I don’t include controls here which are in the original paper.</p>
+<p>We can confirm this when using the tidysynth package, which has always felt fairly unintuitive to me, but is now making me feel as I look at it that I should’ve used that. Regardless, I feel good about writing a nice little piece on synthetic controls and knowing I can run this manually if computers were ever not a thing.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">require</span>(tidysynth)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: tidysynth</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidysynth' was built under R version 4.4.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">data</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"smoking"</span>)</span>
+<span id="cb10-2"></span>
+<span id="cb10-3">smoking_out <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span></span>
+<span id="cb10-4">  smoking <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">%&gt;%</span></span>
+<span id="cb10-5"></span>
+<span id="cb10-6">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">synthetic_control</span>(</span>
+<span id="cb10-7">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">outcome =</span> cigsale,</span>
+<span id="cb10-8">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">unit    =</span> state,</span>
+<span id="cb10-9">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">time    =</span> year,</span>
+<span id="cb10-10">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">i_unit  =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"California"</span>,</span>
+<span id="cb10-11">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">i_time  =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1988</span>,</span>
+<span id="cb10-12">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">generate_placebos =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span></span>
+<span id="cb10-13">  ) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">%&gt;%</span></span>
+<span id="cb10-14"></span>
+<span id="cb10-15">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Outcome-only matching:</span></span>
+<span id="cb10-16">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># use the pre-treatment outcome path (or a subset of pre-years) as predictors.</span></span>
+<span id="cb10-17">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Here I include every pre-treatment year up through 1988.</span></span>
+<span id="cb10-18">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">generate_predictor</span>(</span>
+<span id="cb10-19">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">time_window =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1970</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1988</span>,</span>
+<span id="cb10-20">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">cigsale_pre =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mean</span>(cigsale, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">na.rm =</span> T)</span>
+<span id="cb10-21">  ) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">%&gt;%</span></span>
+<span id="cb10-22"></span>
+<span id="cb10-23">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">generate_weights</span>(</span>
+<span id="cb10-24">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">optimization_window =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1970</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1988</span>,</span>
+<span id="cb10-25">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">margin_ipop =</span> .<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">02</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">sigf_ipop =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">7</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">bound_ipop =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">6</span></span>
+<span id="cb10-26">  ) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">%&gt;%</span></span>
+<span id="cb10-27"></span>
+<span id="cb10-28">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">generate_control</span>()</span>
+<span id="cb10-29"></span>
+<span id="cb10-30">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">head</span>(smoking_out <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">%&gt;%</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">grab_significance</span>())</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 8
+  unit_name     type    pre_mspe post_mspe mspe_ratio  rank fishers_exact_pvalue
+  &lt;chr&gt;         &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;                &lt;dbl&gt;
+1 West Virginia Donor      13.6      351.        25.8     1               0.0256
+2 Illinois      Donor       9.36     202.        21.6     2               0.0513
+3 California    Treated    61.4     1004.        16.3     3               0.0769
+4 Missouri      Donor      23.4      324.        13.8     4               0.103 
+5 Indiana       Donor      34.8      453.        13.0     5               0.128 
+6 South Dakota  Donor       6.92      70.2       10.1     6               0.154 
+# ℹ 1 more variable: z_score &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>If you read this, thanks!</p>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <guid>https://studhall.github.io/academicsite/posts/synthdid_placebo_2.24.26/</guid>
+  <pubDate>Tue, 24 Feb 2026 08:00:00 GMT</pubDate>
+</item>
 <item>
   <title>The Newhouse Model of Nonprofit Hospitals</title>
   <link>https://studhall.github.io/academicsite/posts/Newhouse_9.5.25/</link>
@@ -1222,7 +1990,7 @@ Dec 18, 2025
 
  ]]></description>
   <guid>https://studhall.github.io/academicsite/series/BLP HH EHBI Replication/</guid>
-  <pubDate>Tue, 17 Feb 2026 01:37:31 GMT</pubDate>
+  <pubDate>Wed, 25 Feb 2026 06:41:12 GMT</pubDate>
 </item>
 <item>
   <title>Tracking TC Ownership Series</title>
@@ -1313,7 +2081,7 @@ Sep 20, 2025
 
  ]]></description>
   <guid>https://studhall.github.io/academicsite/series/TC_Ownership/</guid>
-  <pubDate>Tue, 17 Feb 2026 01:37:31 GMT</pubDate>
+  <pubDate>Wed, 25 Feb 2026 06:41:12 GMT</pubDate>
 </item>
 </channel>
 </rss>

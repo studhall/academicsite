@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-02-24">
+
+<title>Synthetic Control Placebo Inference in Synthdid – David Hall</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-f32118e2f0abedbe9034b1e6846ded24.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<meta name="follow.it-verification-code" content="9CYbS2nPKPHaBSxgGLmH">
+
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">David Hall</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts.html#series"> 
+<span class="menu-text">Series</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../teaching.html"> 
+<span class="menu-text">Teaching</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-data" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Data</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-data">    
+        <li>
+    <a class="dropdown-item" href="../../data.html">
+ <span class="dropdown-text">Data Home</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../data/moud-dashboard/index.html">
+ <span class="dropdown-text">MOUD Dashboard</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../cv.html"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../posts.xml"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://follow.it/david-hall?leanpub" target="_blank"> <i class="bi bi-envelope" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="header-section-number">1</span> Setup</a></li>
+  <li><a href="#review" id="toc-review" class="nav-link" data-scroll-target="#review"><span class="header-section-number">2</span> Review</a>
+  <ul class="collapse">
+  <li><a href="#pre-treatment-outcomes" id="toc-pre-treatment-outcomes" class="nav-link" data-scroll-target="#pre-treatment-outcomes"><span class="header-section-number">2.1</span> Pre-treatment Outcomes</a></li>
+  <li><a href="#weight-selection-problem" id="toc-weight-selection-problem" class="nav-link" data-scroll-target="#weight-selection-problem"><span class="header-section-number">2.2</span> Weight Selection Problem</a></li>
+  <li><a href="#synthetic-control-path" id="toc-synthetic-control-path" class="nav-link" data-scroll-target="#synthetic-control-path"><span class="header-section-number">2.3</span> Synthetic Control Path</a></li>
+  <li><a href="#treatment-effect" id="toc-treatment-effect" class="nav-link" data-scroll-target="#treatment-effect"><span class="header-section-number">2.4</span> Treatment Effect</a></li>
+  </ul></li>
+  <li><a href="#implementing-in-synthdid" id="toc-implementing-in-synthdid" class="nav-link" data-scroll-target="#implementing-in-synthdid"><span class="header-section-number">3</span> Implementing in synthdid</a>
+  <ul class="collapse">
+  <li><a href="#randomization-inference-abadie-style-in-space-placebos" id="toc-randomization-inference-abadie-style-in-space-placebos" class="nav-link" data-scroll-target="#randomization-inference-abadie-style-in-space-placebos"><span class="header-section-number">3.1</span> Randomization inference (Abadie-style in-space placebos)</a></li>
+  <li><a href="#done-in-synthdid" id="toc-done-in-synthdid" class="nav-link" data-scroll-target="#done-in-synthdid"><span class="header-section-number">3.2</span> Done in synthdid</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Synthetic Control Placebo Inference in Synthdid</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 24, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="setup" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="setup"><span class="header-section-number">1</span> Setup</h2>
+<p>The <a href="https://synth-inference.github.io/synthdid/index.html"><em>synthdid</em> package put out by David Hirshberg</a> is my go-to when it comes to running all things synthetic control. I find it very helpful for both synthetic controls (SC) and synthetic difference-in-differences (SDiD), and even comparing to a base TWFE specification. In a recent project I’ve been working on, typical DiD specifications seem not to capture pre-trends well and I’m getting noisy results. Part of the reason for this is that I am expecting some heterogeneity in results by-state. Instead of trying to run state-specific results, I found myself (with some advising by Ed Rubin) running synthetic controls. This has the advantage of a better pre-period match as well as being better able to visualize the trends in treated states.</p>
+<p>As I began to run this, I realized that the synthdid package does not have a built-in way (and I double checked with Kyu Matuzawa) to run inference on syntetic control results. It <em>does</em> have built-in the Arkhangelsky et al.&nbsp;procedure which returns a standard error using the placebo method they derive, but it can only be used for the SDiD specification. See for yourself here:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(synthdid)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">'california_prop99'</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>setup <span class="ot">=</span> <span class="fu">panel.matrices</span>(california_prop99)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>tau.sc <span class="ot">=</span> <span class="fu">sc_estimate</span>(setup<span class="sc">$</span>Y, setup<span class="sc">$</span>N0, setup<span class="sc">$</span>T0)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>se <span class="ot">=</span> <span class="fu">sqrt</span>(<span class="fu">vcov</span>(tau.sc, <span class="at">method=</span><span class="st">'placebo'</span>))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>se</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        [,1]
+[1,] 11.4213</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>t_stat <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(tau.sc) <span class="sc">/</span> se</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p_val  <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(t_stat)))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>p_val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           [,1]
+[1,] 0.08583067</code></pre>
+</div>
+</div>
+<p>The p-value I obtain here is off from the original estimate using random inference in the original Abadie et al.&nbsp;2010 paper which obtains a p-value of <span class="math inline">\(\frac{1}{39} \sim 0.026\)</span>. The standard error calculated requires a distributional assumption I think many of us are unwilling to make, or maybe that is just me worrying about what the referees would say were I to implement the above exercise. This would probably be a conservative way to obtain p-values anyhow, but still, I wanted to ensure that I can obtain the p-values using the random inference procedure described by <a href="https://economics.mit.edu/sites/default/files/publications/Synthetic%20Control%20Methods.pdf">Abadie Diamond and Hainmueller, 2010</a>.</p>
+</section>
+<section id="review" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="review"><span class="header-section-number">2</span> Review</h2>
+<p>As a quick refresher for what we’re doing here, I’ll write in words what the random inference procedure we need to do is, then show you how to implement it with the assumption you’ve created a panel for your synthetic control already. I’m using the notation from the synthdid package in this case.</p>
+<p>We observe one treated unit and <span class="math inline">\(N_0\)</span> donor units over <span class="math inline">\(T\)</span> periods. Let <span class="math inline">\(T_0\)</span> denote the number of pre-treatment periods and <span class="math inline">\(T_1 = T - T_0\)</span> the number of post-treatment periods.</p>
+<p>Let:</p>
+<ul>
+<li><span class="math inline">\(Y_{1t}\)</span> denote the outcome for the treated unit<br>
+</li>
+<li><span class="math inline">\(Y_{jt}\)</span> denote the outcome for donor unit <span class="math inline">\(j = 2, \dots, N_0+1\)</span></li>
+</ul>
+<section id="pre-treatment-outcomes" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="pre-treatment-outcomes"><span class="header-section-number">2.1</span> Pre-treatment Outcomes</h3>
+<p>The treated unit’s pre-treatment outcome vector is</p>
+<p><span class="math display">\[
+X_1 =
+\begin{pmatrix}
+Y_{11} \\
+\vdots \\
+Y_{1T_0}
+\end{pmatrix}
+\]</span></p>
+<p>The donor matrix of pre-treatment outcomes is</p>
+<p><span class="math display">\[
+X_0 =
+\begin{pmatrix}
+Y_{21} &amp; \dots &amp; Y_{N_0+1,1} \\
+\vdots &amp; \ddots &amp; \vdots \\
+Y_{2T_0} &amp; \dots &amp; Y_{N_0+1,T_0}
+\end{pmatrix}
+\]</span></p>
+</section>
+<section id="weight-selection-problem" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="weight-selection-problem"><span class="header-section-number">2.2</span> Weight Selection Problem</h3>
+<p>The synthetic control weights <span class="math inline">\(w = (w_2, \dots, w_{N_0+1})'\)</span> solve</p>
+<p><span class="math display">\[
+\min_{w}
+\quad
+\sqrt{
+\left( X_1 - X_0 w \right)'
+V
+\left( X_1 - X_0 w \right)
+}
+\]</span></p>
+<p>subject to</p>
+<p><span class="math display">\[
+w_j \ge 0 \quad \text{for all } j
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+\sum_{j=2}^{N_0+1} w_j = 1
+\]</span></p>
+<p>where <span class="math inline">\(V\)</span> is a positive semi-definite weighting matrix.</p>
+</section>
+<section id="synthetic-control-path" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="synthetic-control-path"><span class="header-section-number">2.3</span> Synthetic Control Path</h3>
+<p>Given optimal weights <span class="math inline">\(\hat{w}\)</span>, the synthetic outcome for any period <span class="math inline">\(t\)</span> is</p>
+<p><span class="math display">\[
+\hat{Y}_{1t}^{\text{synth}}
+=
+\sum_{j=2}^{N_0+1}
+\hat{w}_j Y_{jt}
+\]</span></p>
+</section>
+<section id="treatment-effect" class="level3" data-number="2.4">
+<h3 data-number="2.4" class="anchored" data-anchor-id="treatment-effect"><span class="header-section-number">2.4</span> Treatment Effect</h3>
+<p>The treatment effect at time <span class="math inline">\(t\)</span> is</p>
+<p><span class="math display">\[
+\hat{\tau}_{1t}
+=
+Y_{1t}
+-
+\hat{Y}_{1t}^{\text{synth}}
+\]</span></p>
+<p>The average post-treatment effect is</p>
+<p><span class="math display">\[
+\hat{\tau}
+=
+\frac{1}{T_1}
+\sum_{t=T_0+1}^{T}
+\left(
+Y_{1t}
+-
+\hat{Y}_{1t}^{\text{synth}}
+\right)
+\]</span> ### Inference</p>
+<p>The idea behind the randomized inference procedure is to then assign treatment iteratively over each of the donor units and run the same synthetic control procedure. But, importantly, we do this to obtain not the average treatment effect but the mean-square prediction-error.</p>
+<p>We can think of this as a numerical representation of how far the treated unit (and, in turn, each iterated donor unit when we pretend it is treated) varies from its synthetic control in the pre- and post-treatment periods. We want a nice pre-treatment fit. If the treatment we are estimating is non-random, we would also expect a large deviance from the post-treatment synthetic control. Taking the ratio of these gets us our RMSPE ratio which we then rank. The higher the rank, the more likely it is that our treated unit did not see deviation at random.</p>
+<p>Formally, for each unit <span class="math inline">\(i\)</span>, define the synthetic control gap</p>
+<p><span class="math display">\[
+\hat{\tau}_{it}
+=
+Y_{it}
+-
+\hat{Y}_{it}^{\text{synth}}.
+\]</span></p>
+<p>We then compute the pre-treatment root mean squared prediction error:</p>
+<p><span class="math display">\[
+\text{Pre-RMSPE}_i
+=
+\sqrt{
+\frac{1}{T_0}
+\sum_{t=1}^{T_0}
+\hat{\tau}_{it}^2
+}.
+\]</span></p>
+<p>Similarly, we compute the post-treatment RMSPE:</p>
+<p><span class="math display">\[
+\text{Post-RMSPE}_i
+=
+\sqrt{
+\frac{1}{T_1}
+\sum_{t=T_0+1}^{T}
+\hat{\tau}_{it}^2
+}.
+\]</span></p>
+<p>The object of interest is the ratio</p>
+<p><span class="math display">\[
+R_i
+=
+\frac{\text{Post-RMSPE}_i}{\text{Pre-RMSPE}_i}.
+\]</span></p>
+<p>We compute this ratio for the true treated unit and then for each donor unit after iteratively assigning it treatment and re-running the synthetic control procedure.</p>
+<p>Let <span class="math inline">\(R_1\)</span> denote the ratio for the actual treated unit and let <span class="math inline">\(\{R_j\}_{j=2}^{N_0+1}\)</span> denote the ratios for each placebo unit.</p>
+<p>The randomization-based p-value is simply the rank of the treated unit’s ratio among all possible assignments:</p>
+<p><span class="math display">\[
+p
+=
+\frac{
+1 + \sum_{j=2}^{N_0+1}
+\mathbf{1}
+\{ R_j \ge R_1 \}
+}{
+1 + N_0
+}.
+\]</span></p>
+<p>Intuitively, if the treated unit’s post-treatment deviation is unusually large relative to its pre-treatment fit — compared to what we see when we pretend each donor was treated — then the p-value will be small.</p>
+</section>
+</section>
+<section id="implementing-in-synthdid" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="implementing-in-synthdid"><span class="header-section-number">3</span> Implementing in synthdid</h2>
+<section id="randomization-inference-abadie-style-in-space-placebos" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="randomization-inference-abadie-style-in-space-placebos"><span class="header-section-number">3.1</span> Randomization inference (Abadie-style in-space placebos)</h3>
+<p>Once you have your synthetic control estimate, the key idea for inference is to <strong>re-run the exact same synthetic control procedure while pretending each donor unit was treated</strong>. This gives us a placebo distribution. If the true treated unit looks unusually “extreme” relative to those placebos, we interpret that as evidence the effect is unlikely to be due to chance.</p>
+<p>The subtle but important point is that we don’t rank the raw ATT. Instead, following Abadie et al.&nbsp;(2010), we rank a <strong>fit-adjusted statistic</strong> based on prediction error:</p>
+<ol type="1">
+<li><p>Compute the synthetic control gap for unit (i): [ <em>{it} = Y</em>{it} - _{it}^{}. ]</p></li>
+<li><p>Turn that into a pre-treatment RMSPE and post-treatment RMSPE: [ _i = , _i = . ]</p></li>
+<li><p>Take the ratio: [ R_i = . ]</p></li>
+</ol>
+<p>Intuition: we want a good pre-period fit (small denominator), and if treatment mattered we should see a bigger post-period gap (large numerator). The ratio is a simple way to combine both.</p>
+<p>To get a p-value, we compute (R_1) for the treated unit, then compute (R_j) for each donor unit (j) when we pretend it was treated. The p-value is just the rank:</p>
+<p>[ p = . ]</p>
+</section>
+<section id="done-in-synthdid" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="done-in-synthdid"><span class="header-section-number">3.2</span> Done in synthdid</h3>
+<p>Below is a minimal implementation that assumes you already have a <code>setup</code> object from <code>panel.matrices()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assumes you already have: setup &lt;- panel.matrices(...)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># setup$Y is (N x T), rownames(setup$Y) are unit names, setup$T0 is pre-period length.</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># This loops over EVERY unit, treats it as "treated" by moving it to the last row,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># runs sc_estimate, computes pre/post RMSE and MSPE ratios, and ranks California.</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(synthdid)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>sc_placebo_inference <span class="ot">&lt;-</span> <span class="cf">function</span>(setup, <span class="at">stat =</span> <span class="fu">c</span>(<span class="st">"mspe"</span>, <span class="st">"rmse"</span>)) {</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  stat <span class="ot">&lt;-</span> <span class="fu">match.arg</span>(stat)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  Y0 <span class="ot">&lt;-</span> setup<span class="sc">$</span>Y</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  T0 <span class="ot">&lt;-</span> setup<span class="sc">$</span>T0</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  TT <span class="ot">&lt;-</span> <span class="fu">ncol</span>(Y0)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  units <span class="ot">&lt;-</span> <span class="fu">rownames</span>(Y0)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(Y0)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">unit =</span> units,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">att =</span> <span class="cn">NA_real_</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">pre_mspe =</span> <span class="cn">NA_real_</span>,</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">post_mspe =</span> <span class="cn">NA_real_</span>,</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">pre_rmse =</span> <span class="cn">NA_real_</span>,</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">post_rmse =</span> <span class="cn">NA_real_</span>,</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">ratio_rmse =</span> <span class="cn">NA_real_</span>,</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">ratio_mspe =</span> <span class="cn">NA_real_</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(N)) {</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># reorder Y so unit i is last (treated)</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    ord <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">setdiff</span>(<span class="fu">seq_len</span>(N), i), i)</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    Y <span class="ot">&lt;-</span> Y0[ord, , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    run <span class="ot">&lt;-</span> synthdid<span class="sc">::</span><span class="fu">sc_estimate</span>(Y, N <span class="sc">-</span> <span class="dv">1</span>, T0)</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    out<span class="sc">$</span>att[i] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(run)</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Use the full donor weight vector (not summary(run)$controls display output).</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    w_full <span class="ot">&lt;-</span> <span class="fu">attr</span>(run, <span class="st">"weights"</span>)<span class="sc">$</span>omega</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    <span class="co"># synthetic path and gaps</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    y_synth <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">t</span>(w_full) <span class="sc">%*%</span> Y[<span class="dv">1</span><span class="sc">:</span>(N <span class="sc">-</span> <span class="dv">1</span>), , <span class="at">drop =</span> <span class="cn">FALSE</span>])</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    y_tr <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(Y[N, ])</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    gap     <span class="ot">&lt;-</span> y_tr <span class="sc">-</span> y_synth</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    pre_mspe <span class="ot">&lt;-</span> <span class="fu">mean</span>(gap[<span class="dv">1</span><span class="sc">:</span>T0]<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    post_mspe <span class="ot">&lt;-</span> <span class="fu">mean</span>(gap[(T0 <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>TT]<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    pre_rmse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(pre_mspe)</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>    post_rmse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(post_mspe)</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>    out<span class="sc">$</span>pre_mspe[i] <span class="ot">&lt;-</span> pre_mspe</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    out<span class="sc">$</span>post_mspe[i] <span class="ot">&lt;-</span> post_mspe</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>    out<span class="sc">$</span>pre_rmse[i]  <span class="ot">&lt;-</span> pre_rmse</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>    out<span class="sc">$</span>post_rmse[i] <span class="ot">&lt;-</span> post_rmse</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>    out<span class="sc">$</span>ratio_rmse[i] <span class="ot">&lt;-</span> post_rmse <span class="sc">/</span> pre_rmse</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>    out<span class="sc">$</span>ratio_mspe[i] <span class="ot">&lt;-</span> post_mspe <span class="sc">/</span> pre_mspe</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>  ratio_vec <span class="ot">&lt;-</span> <span class="cf">if</span> (stat <span class="sc">==</span> <span class="st">"mspe"</span>) out<span class="sc">$</span>ratio_mspe <span class="cf">else</span> out<span class="sc">$</span>ratio_rmse</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>  treated_unit <span class="ot">&lt;-</span> <span class="fu">rownames</span>(setup<span class="sc">$</span>Y)[setup<span class="sc">$</span>N0 <span class="sc">+</span> <span class="dv">1</span>]</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>  R_treated <span class="ot">&lt;-</span> ratio_vec[out<span class="sc">$</span>unit <span class="sc">==</span> treated_unit]</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>  R_placebo <span class="ot">&lt;-</span> ratio_vec[out<span class="sc">$</span>unit <span class="sc">!=</span> treated_unit]</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>  p_val <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">sum</span>(R_placebo <span class="sc">&gt;=</span> R_treated, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">sum</span>(<span class="fu">is.finite</span>(R_placebo)))</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>  table_ranked <span class="ot">&lt;-</span> out[<span class="fu">order</span>(ratio_vec, <span class="at">decreasing =</span> <span class="cn">TRUE</span>), ]</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>  table_ranked<span class="sc">$</span>rank <span class="ot">&lt;-</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(table_ranked))</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>  rank_treated <span class="ot">&lt;-</span> table_ranked<span class="sc">$</span>rank[table_ranked<span class="sc">$</span>unit <span class="sc">==</span> treated_unit]</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>    <span class="at">treated_unit =</span> treated_unit,</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> stat,</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>    <span class="at">R_treated =</span> R_treated,</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">rank_treated =</span> rank_treated,</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_val =</span> p_val,</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>    <span class="at">table =</span> table_ranked</span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a><span class="co"># Example:</span></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>setup <span class="ot">&lt;-</span> <span class="fu">panel.matrices</span>(california_prop99)</span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">sc_placebo_inference</span>(setup, <span class="at">stat =</span> <span class="st">"mspe"</span>)</span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>res[<span class="fu">c</span>(<span class="st">"treated_unit"</span>, <span class="st">"statistic"</span>, <span class="st">"R_treated"</span>, <span class="st">"rank_treated"</span>, <span class="st">"p_val"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$treated_unit
+[1] "California"
+
+$statistic
+[1] "mspe"
+
+$R_treated
+[1] 154.94
+
+$rank_treated
+[1] 3
+
+$p_val
+[1] 0.07692308</code></pre>
+</div>
+</div>
+<p>The way the code is written is that the very last row in the panel object corresponds to the treated unit. So all we have to do is iterate the observations to the bottom. In other words, take the first observation, move to the bottom, and so on. Then we can use that to calculate the RMSE as we go along.</p>
+<p>There <em>are</em> a few differences in the synthdid code that resulted in some differences in the ATT and p-value of the estimate I wrote here. Namely, there is something about ridge-type regularization that makes it so the SC doesn’t produce the same exact weights, and also I don’t include controls here which are in the original paper.</p>
+<p>We can confirm this when using the tidysynth package, which has always felt fairly unintuitive to me, but is now making me feel as I look at it that I should’ve used that. Regardless, I feel good about writing a nice little piece on synthetic controls and knowing I can run this manually if computers were ever not a thing.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(tidysynth)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: tidysynth</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidysynth' was built under R version 4.4.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"smoking"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>smoking_out <span class="ot">&lt;-</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  smoking <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">synthetic_control</span>(</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">outcome =</span> cigsale,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">unit    =</span> state,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">time    =</span> year,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">i_unit  =</span> <span class="st">"California"</span>,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">i_time  =</span> <span class="dv">1988</span>,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">generate_placebos =</span> <span class="cn">TRUE</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Outcome-only matching:</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># use the pre-treatment outcome path (or a subset of pre-years) as predictors.</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Here I include every pre-treatment year up through 1988.</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate_predictor</span>(</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">time_window =</span> <span class="dv">1970</span><span class="sc">:</span><span class="dv">1988</span>,</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">cigsale_pre =</span> <span class="fu">mean</span>(cigsale, <span class="at">na.rm =</span> T)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate_weights</span>(</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">optimization_window =</span> <span class="dv">1970</span><span class="sc">:</span><span class="dv">1988</span>,</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">margin_ipop =</span> .<span class="dv">02</span>, <span class="at">sigf_ipop =</span> <span class="dv">7</span>, <span class="at">bound_ipop =</span> <span class="dv">6</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate_control</span>()</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(smoking_out <span class="sc">%&gt;%</span> <span class="fu">grab_significance</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 8
+  unit_name     type    pre_mspe post_mspe mspe_ratio  rank fishers_exact_pvalue
+  &lt;chr&gt;         &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;                &lt;dbl&gt;
+1 West Virginia Donor      13.6      351.        25.8     1               0.0256
+2 Illinois      Donor       9.36     202.        21.6     2               0.0513
+3 California    Treated    61.4     1004.        16.3     3               0.0769
+4 Missouri      Donor      23.4      324.        13.8     4               0.103 
+5 Indiana       Donor      34.8      453.        13.0     5               0.128 
+6 South Dakota  Donor       6.92      70.2       10.1     6               0.154 
+# ℹ 1 more variable: z_score &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>If you read this, thanks!</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<div class="followit--follow-form-container" attr-a="" attr-b="" attr-c="" attr-d="" attr-e="" attr-f="">
+
+  <form action="https://follow.it/david-hall?leanpub" method="post">
+
+    <div class="form-preview">
+
+      <div class="preview-heading">
+
+        <h5>Get new posts by email:</h5>
+
+      </div>
+
+      <div class="preview-input-field">
+
+        <input type="email" name="email" required="" placeholder="Enter your email">
+
+      </div>
+
+      <div class="preview-submit-button">
+
+        <button type="submit">Subscribe</button>
+
+      </div>
+
+    </div>
+
+  </form>
+
+  <a href="https://follow.it" class="powered-by-line">
+
+    Powered by <img src="https://follow.it/images/colored-logo.svg" alt="follow.it">
+
+  </a>
+
+</div>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/studhall\.github\.io\/academicsite");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<ol start="3" type="a">
+<li>2026 David Hall</li>
+</ol>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
