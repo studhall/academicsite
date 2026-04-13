@@ -6,14 +6,14 @@
       version="2.0">
 <channel>
 <title>David Hall</title>
-<link>https://studhall.github.io/academicsite/posts.html</link>
-<atom:link href="https://studhall.github.io/academicsite/posts.xml" rel="self" type="application/rss+xml"/>
+<link>https://econdavidhall.com/posts.html</link>
+<atom:link href="https://econdavidhall.com/posts.xml" rel="self" type="application/rss+xml"/>
 <description>David&#39;s Blog and Academic Site</description>
 <generator>quarto-1.7.32</generator>
 <lastBuildDate>Tue, 24 Feb 2026 08:00:00 GMT</lastBuildDate>
 <item>
   <title>Synthetic Control Placebo Inference in Synthdid</title>
-  <link>https://studhall.github.io/academicsite/posts/synthdid_placebo_2.24.26/</link>
+  <link>https://econdavidhall.com/posts/synthdid_placebo_2.24.26/</link>
   <description><![CDATA[ 
 
 
@@ -776,12 +776,12 @@ font-style: inherit;">grab_significance</span>())</span></code></pre></div>
 </section>
 
  ]]></description>
-  <guid>https://studhall.github.io/academicsite/posts/synthdid_placebo_2.24.26/</guid>
+  <guid>https://econdavidhall.com/posts/synthdid_placebo_2.24.26/</guid>
   <pubDate>Tue, 24 Feb 2026 08:00:00 GMT</pubDate>
 </item>
 <item>
   <title>The Newhouse Model of Nonprofit Hospitals</title>
-  <link>https://studhall.github.io/academicsite/posts/Newhouse_9.5.25/</link>
+  <link>https://econdavidhall.com/posts/Newhouse_9.5.25/</link>
   <description><![CDATA[ 
 
 
@@ -1340,7 +1340,7 @@ font-style: inherit;">12</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://studhall.github.io/academicsite/posts/Newhouse_9.5.25/index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://econdavidhall.com/posts/Newhouse_9.5.25/index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
 <figcaption>Newhouse choice: the DM picks (Q<em>, K</em>) where the indifference curve is tangent to the break-even locus K = h(Q).</figcaption>
 </figure>
 </div>
@@ -1923,7 +1923,7 @@ font-style: inherit;">12</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://studhall.github.io/academicsite/posts/Newhouse_9.5.25/index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="960"></p>
+<p><img src="https://econdavidhall.com/posts/Newhouse_9.5.25/index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="960"></p>
 <figcaption>Flat vs.&nbsp;steep break-even loci. <strong>Example:</strong> When the break-even curve is flatter (left), the nonprofit administrator can expand patient quantity with only modest reductions in quality—think of a community hospital adding beds without cutting staff ratios too sharply. When the curve is steeper (right), each additional patient sharply reduces quality—like a facility where adding beds quickly overwhelms nursing staff—so the nonprofit limits patient volume to preserve care quality.</figcaption>
 </figure>
 </div>
@@ -1940,12 +1940,12 @@ font-style: inherit;">12</span>)</span></code></pre></div>
 </section>
 
  ]]></description>
-  <guid>https://studhall.github.io/academicsite/posts/Newhouse_9.5.25/</guid>
+  <guid>https://econdavidhall.com/posts/Newhouse_9.5.25/</guid>
   <pubDate>Fri, 05 Sep 2025 07:00:00 GMT</pubDate>
 </item>
 <item>
   <title>BLP HH EHBI Replication Series</title>
-  <link>https://studhall.github.io/academicsite/series/BLP HH EHBI Replication/</link>
+  <link>https://econdavidhall.com/series/BLP HH EHBI Replication/</link>
   <description><![CDATA[ 
 
 
@@ -1989,12 +1989,12 @@ Dec 18, 2025
 </section>
 
  ]]></description>
-  <guid>https://studhall.github.io/academicsite/series/BLP HH EHBI Replication/</guid>
-  <pubDate>Wed, 25 Feb 2026 06:41:12 GMT</pubDate>
+  <guid>https://econdavidhall.com/series/BLP HH EHBI Replication/</guid>
+  <pubDate>Mon, 13 Apr 2026 02:00:35 GMT</pubDate>
 </item>
 <item>
   <title>Tracking TC Ownership Series</title>
-  <link>https://studhall.github.io/academicsite/series/TC_Ownership/</link>
+  <link>https://econdavidhall.com/series/TC_Ownership/</link>
   <description><![CDATA[ 
 
 
@@ -2080,8 +2080,8 @@ Sep 20, 2025
 </section>
 
  ]]></description>
-  <guid>https://studhall.github.io/academicsite/series/TC_Ownership/</guid>
-  <pubDate>Wed, 25 Feb 2026 06:41:12 GMT</pubDate>
+  <guid>https://econdavidhall.com/series/TC_Ownership/</guid>
+  <pubDate>Mon, 13 Apr 2026 02:00:35 GMT</pubDate>
 </item>
 </channel>
 </rss>
