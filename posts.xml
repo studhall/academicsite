@@ -10,7 +10,161 @@
 <atom:link href="https://econdavidhall.com/posts.xml" rel="self" type="application/rss+xml"/>
 <description>David&#39;s Blog and Academic Site</description>
 <generator>quarto-1.7.32</generator>
-<lastBuildDate>Tue, 24 Feb 2026 08:00:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 01 May 2026 07:00:00 GMT</lastBuildDate>
+<item>
+  <title>Synthetic Control With One Outcome and Many Outcomes</title>
+  <link>https://econdavidhall.com/posts/multiple_outcome_scm/</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="synthetic-control-with-multiple-outcomes" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="synthetic-control-with-multiple-outcomes"><span class="header-section-number">1</span> Synthetic Control with Multiple Outcomes</h2>
+<section id="can-it-be-useful-for-you" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="can-it-be-useful-for-you"><span class="header-section-number">1.1</span> Can it be useful for you?</h3>
+<p>I recently presented a paper using the synthetic control method to understand the impact of a California policy. I received a lot of great feedback–even if the feedback made me understand how far I have to go as a presenter, as an economist, and with this paper in particular–and one of the comments was that my synthetic controls had somewhat poor pre-period fits. This is actually quite rare for synthetic controls; in fact, the issue most people point out is that (especially when we have long pre-periods), SCM has a tendency to overfit. Regardless, we got into a discussion of how to alleviate any concerns folks would have over my method. I have multiple <em>related</em> outputs (i.e.&nbsp;a factor model might find some strong common factors across the outcomes), and we discussed what would happen if we used a multiple-outcome synthetic control.</p>
+<p>As I learn more about this method, I thought it would be best to write about it. This helps me, selfishly, because I have to feel somewhat confident before putting this on my website. I also thought it might be good to get an overview from someone less statistically nuanced. I might end up putting together a presentation on this for my graduate group brown bag and, if so, will post that here.</p>
+<p>This post is meant to be a setup note on the difference between the standard synthetic control method in <a href="https://economics.mit.edu/sites/default/files/publications/Synthetic%20Control%20Methods.pdf">Abadie, Diamond, and Hainmueller (2010)</a> and the newer multi-outcome extensions in <a href="https://doi.org/10.1093/ectj/utag005">Tian, Lee, and Panchenko (2026)</a> and <a href="https://arxiv.org/abs/2311.16260">Sun, Ben-Michael, and Feller (2025)</a>. The goal is not to cover every identification result, but to write down what changes in the implementation. It would be good, prior to presenting this, to briefly go over the proofs in the texts to understand any changes made to our typical assumptions, though they do not change <em>all that</em> much.</p>
+</section>
+</section>
+<section id="setup-and-notation" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="setup-and-notation"><span class="header-section-number">2</span> Setup and Notation</h2>
+<p>Suppose we observe <img src="https://latex.codecogs.com/png.latex?J+1"> units over <img src="https://latex.codecogs.com/png.latex?T"> periods. Unit <img src="https://latex.codecogs.com/png.latex?i=1"> is WOLG, the treated unit. The donor units are indexed by <img src="https://latex.codecogs.com/png.latex?j=2,%5Cdots,J+1">. Treatment begins after period <img src="https://latex.codecogs.com/png.latex?T_0">, so there are <img src="https://latex.codecogs.com/png.latex?T_0"> pre-treatment periods and <img src="https://latex.codecogs.com/png.latex?T_1%20=%20T%20-%20T_0"> post-treatment periods.</p>
+<p>Let <img src="https://latex.codecogs.com/png.latex?Y_%7Bit%7D(0)"> denote the untreated potential outcome for unit <img src="https://latex.codecogs.com/png.latex?i"> at time <img src="https://latex.codecogs.com/png.latex?t">, and let <img src="https://latex.codecogs.com/png.latex?Y_%7Bit%7D(1)"> denote the treated potential outcome. For the treated unit, we observe</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AY_%7B1t%7D%0A=%0A%5Cbegin%7Bcases%7D%0AY_%7B1t%7D(0),%20&amp;%20t%20%5Cleq%20T_0,%20%5C%5C%0AY_%7B1t%7D(1),%20&amp;%20t%20%3E%20T_0.%0A%5Cend%7Bcases%7D%0A"></p>
+<p>For donor units, which are never treated, we observe <img src="https://latex.codecogs.com/png.latex?Y_%7Bjt%7D=Y_%7Bjt%7D(0)"> for all <img src="https://latex.codecogs.com/png.latex?t">. The missing object is the post-treatment untreated path for the treated unit:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AY_%7B1t%7D(0)%0A%5Cqquad%0A%5Ctext%7Bfor%20%7D%20t%20=%20T_0+1,%5Cdots,T.%0A"></p>
+<p>Synthetic control estimates this missing path using a weighted average of donor units:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7BY%7D_%7B1t%7D(0)%0A=%0A%5Csum_%7Bj=2%7D%5E%7BJ+1%7D%0A%5Chat%7Bw%7D_j%20Y_%7Bjt%7D.%0A"></p>
+<p>The weights live on the simplex</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5CDelta_J%0A=%0A%5Cleft%5C%7B%0Aw%20%5Cin%20%5Cmathbb%7BR%7D%5EJ:%0Aw_j%20%5Cgeq%200,%5C%0A%5Csum_%7Bj=2%7D%5E%7BJ+1%7D%20w_j%20=%201%0A%5Cright%5C%7D.%0A"></p>
+<p>The intuition: we are just choosing the best weights to match the pre-treatment outcome while restricting the weights to be non-negative and sum to one. So if you are tired of reading up on difference-in-differences and worrying about negative weights, fear not.</p>
+</section>
+<section id="standard-synthetic-control" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="standard-synthetic-control"><span class="header-section-number">3</span> Standard Synthetic Control</h2>
+<p>If we match only on the pre-treatment outcome path (something worth being careful about; check out this <a href="https://doi.org/10.1002/pam.22206">cherry-picking article</a>), the standard synthetic control problem chooses donor weights that make the pre-treatment treated outcome look as close as possible to the weighted donor outcome path:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bw%7D%0A=%0A%5Carg%5Cmin_%7Bw%5Cin%5CDelta_J%7D%0A%5Csum_%7Bt=1%7D%5E%7BT_0%7D%0A%5Cleft(%0AY_%7B1t%7D%0A-%0A%5Csum_%7Bj=2%7D%5E%7BJ+1%7D%20w_j%20Y_%7Bjt%7D%0A%5Cright)%5E2.%0A"></p>
+<p>In matrix form, define</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AY_%7B1,%5Ctext%7Bpre%7D%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0AY_%7B11%7D%5C%5C%0A%5Cvdots%5C%5C%0AY_%7B1T_0%7D%0A%5Cend%7Bbmatrix%7D,%0A%5Cqquad%0AY_%7B0,%5Ctext%7Bpre%7D%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0AY_%7B21%7D%20&amp;%20%5Ccdots%20&amp;%20Y_%7BJ+1,1%7D%5C%5C%0A%5Cvdots%20&amp;%20%5Cddots%20&amp;%20%5Cvdots%5C%5C%0AY_%7B2T_0%7D%20&amp;%20%5Ccdots%20&amp;%20Y_%7BJ+1,T_0%7D%0A%5Cend%7Bbmatrix%7D.%0A"></p>
+<p>Then the same problem is</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bw%7D%0A=%0A%5Carg%5Cmin_%7Bw%5Cin%5CDelta_J%7D%0A%5Cleft%5C%7C%0AY_%7B1,%5Ctext%7Bpre%7D%7D%0A-%0AY_%7B0,%5Ctext%7Bpre%7D%7Dw%0A%5Cright%5C%7C%5E2.%0A"></p>
+<p>With the dimensions written underneath, something I tend to do since my econometrics class with George Evans who always paid particular attention to this, the implementation object is</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bw%7D%0A=%0A%5Carg%5Cmin_%7Bw%5Cin%5CDelta_J%7D%0A%5Cleft%5C%7C%0A%5Cunderset%7BT_0%5Ctimes%201%7D%7BY_%7B1,%5Ctext%7Bpre%7D%7D%7D%0A-%0A%5Cunderset%7BT_0%5Ctimes%20J%7D%7BY_%7B0,%5Ctext%7Bpre%7D%7D%7D%0A%5Cunderset%7BJ%5Ctimes%201%7D%7Bw%7D%0A%5Cright%5C%7C%5E2.%0A"></p>
+<p>Once we have <img src="https://latex.codecogs.com/png.latex?%5Chat%7Bw%7D">, the period-specific treatment effect estimate is</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7B%5Ctau%7D_%7B1t%7D%0A=%0AY_%7B1t%7D%0A-%0A%5Csum_%7Bj=2%7D%5E%7BJ+1%7D%0A%5Chat%7Bw%7D_jY_%7Bjt%7D,%0A%5Cqquad%0At=T_0+1,%5Cdots,T.%0A"></p>
+<p>The average post-treatment effect is</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7B%5Ctau%7D%0A=%0A%5Cfrac%7B1%7D%7BT_1%7D%0A%5Csum_%7Bt=T_0+1%7D%5E%7BT%7D%0A%5Chat%7B%5Ctau%7D_%7B1t%7D.%0A"></p>
+<p>Then you can get into placebo inference, or there is some work on <a href="https://arxiv.org/pdf/1812.10820v6">t-statistics for SCM</a> I haven’t quite read up on too much.</p>
+</section>
+<section id="why-multiple-outcomes-help" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="why-multiple-outcomes-help"><span class="header-section-number">4</span> Why Multiple Outcomes Help</h2>
+<p>Standard synthetic control can fit the pre-treatment path very tightly, especially when there are many donor units relative to the number of pre-treatment periods. That can be useful, but it also creates an overfitting concern: the weights can match noise in one outcome rather than the common structure that generates the untreated path. One of the first things we discuss in econometrics courses is that errors exist–we will never be able to model everything. Synthetic control sometimes tries to be an overzealous student in that regard.</p>
+<p>The multiple-outcome idea is to use related outcomes to discipline the weight-selection problem. Instead of finding weights that only match one outcome, we estimate a common set of weights that performs well across several outcome series. In the language of the newer papers, this can help focus the fit on shared factors rather than outcome-specific noise.</p>
+</section>
+<section id="multi-outcome-scm-two-implementations" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="multi-outcome-scm-two-implementations"><span class="header-section-number">5</span> Multi-Outcome SCM: Two Implementations</h2>
+<p>Now suppose there are <img src="https://latex.codecogs.com/png.latex?m"> outcomes. Let</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AY_%7Bitk%7D%0A"></p>
+<p>denote outcome <img src="https://latex.codecogs.com/png.latex?k"> for unit <img src="https://latex.codecogs.com/png.latex?i"> in period <img src="https://latex.codecogs.com/png.latex?t">, where <img src="https://latex.codecogs.com/png.latex?k=1,%5Cdots,m">. The main implementation change is that we still want one donor weight vector <img src="https://latex.codecogs.com/png.latex?w">, but we use multiple outcomes to choose it.</p>
+<p>There are two main ways that we can do this. The first is probably what you were initially considering when you found out people did multiple-outcome synthetic control: find the weights that minimize the distance of a whole host of outcomes. The second is an averaging method that, frankly, sounded odd to me at first but has some perks that I will go over.</p>
+<section id="way-1-concatenation" class="level3" data-number="5.1">
+<h3 data-number="5.1" class="anchored" data-anchor-id="way-1-concatenation"><span class="header-section-number">5.1</span> Way 1: Concatenation</h3>
+<p>The concatenation approach stacks the pre-treatment outcome paths on top of one another. For the treated unit,</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AY%5EC_%7B1,%5Ctext%7Bpre%7D%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0AY_%7B1,%5Ctext%7Bpre%7D,1%7D%5C%5C%0A%5Cvdots%5C%5C%0AY_%7B1,%5Ctext%7Bpre%7D,m%7D%0A%5Cend%7Bbmatrix%7D,%0A"></p>
+<p>and for the donor units,</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AY%5EC_%7B0,%5Ctext%7Bpre%7D%7D%0A=%0A%5Cbegin%7Bbmatrix%7D%0AY_%7B0,%5Ctext%7Bpre%7D,1%7D%5C%5C%0A%5Cvdots%5C%5C%0AY_%7B0,%5Ctext%7Bpre%7D,m%7D%0A%5Cend%7Bbmatrix%7D.%0A"></p>
+<p>The minimization problem becomes</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bw%7D%5E%7BC%7D%0A=%0A%5Carg%5Cmin_%7Bw%5Cin%5CDelta_J%7D%0A%5Cleft%5C%7C%0AY%5EC_%7B1,%5Ctext%7Bpre%7D%7D%0A-%0AY%5EC_%7B0,%5Ctext%7Bpre%7D%7Dw%0A%5Cright%5C%7C%5E2.%0A"></p>
+<p>With dimensions, the same object is</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bw%7D%5E%7BC%7D%0A=%0A%5Carg%5Cmin_%7Bw%5Cin%5CDelta_J%7D%0A%5Cleft%5C%7C%0A%5Cunderset%7BmT_0%5Ctimes%201%7D%7BY%5EC_%7B1,%5Ctext%7Bpre%7D%7D%7D%0A-%0A%5Cunderset%7BmT_0%5Ctimes%20J%7D%7BY%5EC_%7B0,%5Ctext%7Bpre%7D%7D%7D%0A%5Cunderset%7BJ%5Ctimes%201%7D%7Bw%7D%0A%5Cright%5C%7C%5E2.%0A"></p>
+<p>The practical meaning is simple: instead of asking the donor weights to match one <img src="https://latex.codecogs.com/png.latex?T_0">-length path, we ask them to match one longer <img src="https://latex.codecogs.com/png.latex?mT_0">-length object that contains all the pre-treatment outcome paths.</p>
+<p>What’s the issue with this? Well, suppose I had a really noisy outcome or two. The weights can end up chasing that noise rather than the underlying structure of the model. At the same time, I think this method is quite intuitive, so if you do not have to worry about that, then this is maybe the safer route.</p>
+</section>
+<section id="way-2-average-or-index" class="level3" data-number="5.2">
+<h3 data-number="5.2" class="anchored" data-anchor-id="way-2-average-or-index"><span class="header-section-number">5.2</span> Way 2: Average or Index</h3>
+<p>The second approach first combines the outcomes into an average or index, then runs the usual synthetic control problem on that constructed outcome. Let <img src="https://latex.codecogs.com/png.latex?%5Cwidetilde%7BY%7D_%7Bitk%7D"> be the normalized version of outcome <img src="https://latex.codecogs.com/png.latex?k">. Define</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Coverline%7BY%7D_%7Bit%7D%0A=%0A%5Cfrac%7B1%7D%7Bm%7D%0A%5Csum_%7Bk=1%7D%5E%7Bm%7D%0A%5Cwidetilde%7BY%7D_%7Bitk%7D.%0A"></p>
+<p>Then construct <img src="https://latex.codecogs.com/png.latex?%5Coverline%7BY%7D_%7B1,%5Ctext%7Bpre%7D%7D"> and <img src="https://latex.codecogs.com/png.latex?%5Coverline%7BY%7D_%7B0,%5Ctext%7Bpre%7D%7D"> exactly as in the standard SCM setup, but using the averaged outcome:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bw%7D%5E%7BA%7D%0A=%0A%5Carg%5Cmin_%7Bw%5Cin%5CDelta_J%7D%0A%5Cleft%5C%7C%0A%5Coverline%7BY%7D_%7B1,%5Ctext%7Bpre%7D%7D%0A-%0A%5Coverline%7BY%7D_%7B0,%5Ctext%7Bpre%7D%7Dw%0A%5Cright%5C%7C%5E2.%0A"></p>
+<p>With dimensions, this is</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7Bw%7D%5E%7BA%7D%0A=%0A%5Carg%5Cmin_%7Bw%5Cin%5CDelta_J%7D%0A%5Cleft%5C%7C%0A%5Cunderset%7BT_0%5Ctimes%201%7D%7B%5Coverline%7BY%7D_%7B1,%5Ctext%7Bpre%7D%7D%7D%0A-%0A%5Cunderset%7BT_0%5Ctimes%20J%7D%7B%5Coverline%7BY%7D_%7B0,%5Ctext%7Bpre%7D%7D%7D%0A%5Cunderset%7BJ%5Ctimes%201%7D%7Bw%7D%0A%5Cright%5C%7C%5E2.%0A"></p>
+<p>The practical meaning is that the multiple outcomes enter before the SCM step. Once the average or index is built, the weight-selection problem looks like the original one-outcome SCM problem.</p>
+<p>What I imagine will be the big hang-up for this method is the index or average used. You may have to defend it or show some robustness to other non-mean-based indices.</p>
+</section>
+</section>
+<section id="normalization" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="normalization"><span class="header-section-number">6</span> Normalization</h2>
+<p>One last thing that matters more than I initially wanted it to: the outcomes need to be put on comparable footing. Otherwise, stable level differences across units or outcomes can end up doing a lot of work in the optimization problem. The math is not being mean; it is just doing exactly what we asked it to do.</p>
+<p>The normalization used in these papers is pretty simple. They use demeaned outcomes, where each unit-outcome series is centered by its own pre-treatment mean:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cdot%7BY%7D_%7Bitk%7D%0A=%0AY_%7Bitk%7D%0A-%0A%5Cfrac%7B1%7D%7BT_0%7D%0A%5Csum_%7Bs=1%7D%5E%7BT_0%7D%0AY_%7Bisk%7D.%0A"></p>
+<p>So rather than matching on the raw level of each outcome, we are matching on movement relative to that unit’s own pre-period average. This is also why it is sometimes described as an intercept-shifted synthetic control. We let units differ by a stable level difference, but still ask the synthetic control to track the treated unit’s dynamics.</p>
+<p>In practice, this means the concatenation or averaging step above is done with <img src="https://latex.codecogs.com/png.latex?%5Cdot%7BY%7D_%7Bitk%7D"> instead of <img src="https://latex.codecogs.com/png.latex?Y_%7Bitk%7D">. Then, when we construct the counterfactual for a specific outcome, we can add the treated unit’s pre-treatment mean back in:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7BY%7D_%7B1tk%7D(0)%0A=%0A%5Cbar%7BY%7D_%7B1%5Ccdot%20k%7D%0A+%0A%5Csum_%7Bj=2%7D%5E%7BJ+1%7D%0A%5Chat%7Bw%7D_j%5Cdot%7BY%7D_%7Bjtk%7D,%0A%5Cqquad%0A%5Cbar%7BY%7D_%7B1%5Ccdot%20k%7D%0A=%0A%5Cfrac%7B1%7D%7BT_0%7D%0A%5Csum_%7Bs=1%7D%5E%7BT_0%7D%0AY_%7B1sk%7D.%0A"></p>
+<p>The short version: before estimating the weights, subtract each unit’s pre-treatment average for each outcome. This is not a separate research design choice so much as a practical step that keeps the multiple outcomes from turning into a contest of levels.</p>
+</section>
+<section id="matrix-size-comparison" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="matrix-size-comparison"><span class="header-section-number">7</span> Matrix Size Comparison</h2>
+<p>So all in all, if you understand the base SCM well, it is a fairly simple jump to the multi-outcome methods described here.</p>
+<p>TL;DR:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th style="text-align: right;">Outcomes Used For Weights</th>
+<th style="text-align: right;">Treated Pre Matrix</th>
+<th style="text-align: right;">Donor Pre Matrix</th>
+<th style="text-align: right;">Weight Vector</th>
+<th>Main Idea</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Standard SCM</td>
+<td style="text-align: right;"><img src="https://latex.codecogs.com/png.latex?1"></td>
+<td style="text-align: right;"><img src="https://latex.codecogs.com/png.latex?T_0%5Ctimes%201"></td>
+<td style="text-align: right;"><img src="https://latex.codecogs.com/png.latex?T_0%5Ctimes%20J"></td>
+<td style="text-align: right;"><img src="https://latex.codecogs.com/png.latex?J%5Ctimes%201"></td>
+<td>Match one treated outcome path</td>
+</tr>
+<tr class="even">
+<td>Multi-outcome concatenation</td>
+<td style="text-align: right;"><img src="https://latex.codecogs.com/png.latex?m"></td>
+<td style="text-align: right;"><img src="https://latex.codecogs.com/png.latex?mT_0%5Ctimes%201"></td>
+<td style="text-align: right;"><img src="https://latex.codecogs.com/png.latex?mT_0%5Ctimes%20J"></td>
+<td style="text-align: right;"><img src="https://latex.codecogs.com/png.latex?J%5Ctimes%201"></td>
+<td>Match all outcome paths jointly</td>
+</tr>
+<tr class="odd">
+<td>Multi-outcome average/index</td>
+<td style="text-align: right;"><img src="https://latex.codecogs.com/png.latex?m"></td>
+<td style="text-align: right;"><img src="https://latex.codecogs.com/png.latex?T_0%5Ctimes%201"></td>
+<td style="text-align: right;"><img src="https://latex.codecogs.com/png.latex?T_0%5Ctimes%20J"></td>
+<td style="text-align: right;"><img src="https://latex.codecogs.com/png.latex?J%5Ctimes%201"></td>
+<td>Match an averaged/indexed outcome path</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="conclusion" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">8</span> Conclusion</h2>
+<p>When I have a working paper version of what I’m doing right now, after I implement the feedback I got before, I’ll post it and you can see the results for yourself. For the most part, my results are stable to whether I run many separate single-outcome SCMs or the two different types of multi-outcome SCMs.</p>
+
+
+</section>
+
+ ]]></description>
+  <guid>https://econdavidhall.com/posts/multiple_outcome_scm/</guid>
+  <pubDate>Fri, 01 May 2026 07:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Synthetic Control Placebo Inference in Synthdid</title>
   <link>https://econdavidhall.com/posts/synthdid_placebo_2.24.26/</link>
@@ -1990,7 +2144,7 @@ Dec 18, 2025
 
  ]]></description>
   <guid>https://econdavidhall.com/series/BLP HH EHBI Replication/</guid>
-  <pubDate>Mon, 13 Apr 2026 02:00:35 GMT</pubDate>
+  <pubDate>Sat, 02 May 2026 00:08:01 GMT</pubDate>
 </item>
 <item>
   <title>Tracking TC Ownership Series</title>
@@ -2081,7 +2235,7 @@ Sep 20, 2025
 
  ]]></description>
   <guid>https://econdavidhall.com/series/TC_Ownership/</guid>
-  <pubDate>Mon, 13 Apr 2026 02:00:35 GMT</pubDate>
+  <pubDate>Sat, 02 May 2026 00:08:01 GMT</pubDate>
 </item>
 </channel>
 </rss>
