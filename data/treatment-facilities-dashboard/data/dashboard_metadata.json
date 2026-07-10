@@ -1,0 +1,435 @@
+{
+  "version": "preliminary-2026-06-13",
+  "built_on": "2026-06-13",
+  "run_id": "run-20260612-full-v0.1.0",
+  "years": [
+    {
+      "directory_year": 1998,
+      "survey_year": 1998,
+      "qa_status": "Partial review",
+      "reviewed_listings": 30,
+      "gold_target": 100
+    },
+    {
+      "directory_year": 2000,
+      "survey_year": 1999,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 100
+    },
+    {
+      "directory_year": 2001,
+      "survey_year": 2000,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 100
+    },
+    {
+      "directory_year": 2003,
+      "survey_year": 2002,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 100
+    },
+    {
+      "directory_year": 2004,
+      "survey_year": 2003,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 100
+    },
+    {
+      "directory_year": 2005,
+      "survey_year": 2004,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 50
+    },
+    {
+      "directory_year": 2006,
+      "survey_year": 2005,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 50
+    },
+    {
+      "directory_year": 2007,
+      "survey_year": 2006,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 50
+    },
+    {
+      "directory_year": 2008,
+      "survey_year": 2007,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 50
+    },
+    {
+      "directory_year": 2009,
+      "survey_year": 2008,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 50
+    },
+    {
+      "directory_year": 2010,
+      "survey_year": 2009,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 50
+    },
+    {
+      "directory_year": 2011,
+      "survey_year": 2010,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 50
+    },
+    {
+      "directory_year": 2012,
+      "survey_year": 2011,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 50
+    },
+    {
+      "directory_year": 2013,
+      "survey_year": 2012,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 50
+    },
+    {
+      "directory_year": 2014,
+      "survey_year": 2013,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 50
+    },
+    {
+      "directory_year": 2015,
+      "survey_year": 2014,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 50
+    },
+    {
+      "directory_year": 2016,
+      "survey_year": 2015,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 50
+    },
+    {
+      "directory_year": 2017,
+      "survey_year": 2016,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 100
+    },
+    {
+      "directory_year": 2018,
+      "survey_year": 2017,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 100
+    },
+    {
+      "directory_year": 2019,
+      "survey_year": 2018,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 50
+    },
+    {
+      "directory_year": 2020,
+      "survey_year": 2019,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 50
+    },
+    {
+      "directory_year": 2021,
+      "survey_year": 2020,
+      "qa_status": "Not reviewed",
+      "reviewed_listings": 0,
+      "gold_target": 100
+    }
+  ],
+  "state_fips": {
+    "AL": "01",
+    "AK": "02",
+    "AZ": "04",
+    "AR": "05",
+    "CA": "06",
+    "CO": "08",
+    "CT": "09",
+    "DE": "10",
+    "DC": "11",
+    "FL": "12",
+    "GA": "13",
+    "HI": "15",
+    "ID": "16",
+    "IL": "17",
+    "IN": "18",
+    "IA": "19",
+    "KS": "20",
+    "KY": "21",
+    "LA": "22",
+    "ME": "23",
+    "MD": "24",
+    "MA": "25",
+    "MI": "26",
+    "MN": "27",
+    "MS": "28",
+    "MO": "29",
+    "MT": "30",
+    "NE": "31",
+    "NV": "32",
+    "NH": "33",
+    "NJ": "34",
+    "NM": "35",
+    "NY": "36",
+    "NC": "37",
+    "ND": "38",
+    "OH": "39",
+    "OK": "40",
+    "OR": "41",
+    "PA": "42",
+    "RI": "44",
+    "SC": "45",
+    "SD": "46",
+    "TN": "47",
+    "TX": "48",
+    "UT": "49",
+    "VT": "50",
+    "VA": "51",
+    "WA": "53",
+    "WV": "54",
+    "WI": "55",
+    "WY": "56"
+  },
+  "filter_groups": {
+    "ownership": [
+      {
+        "value": "private_unspecified",
+        "label": "Private (type unspecified)",
+        "bit": 1
+      },
+      {
+        "value": "private_nonprofit",
+        "label": "Private nonprofit",
+        "bit": 2
+      },
+      {
+        "value": "private_forprofit",
+        "label": "Private for-profit",
+        "bit": 4
+      },
+      {
+        "value": "local_government",
+        "label": "Local/county government",
+        "bit": 8
+      },
+      {
+        "value": "state_government",
+        "label": "State government",
+        "bit": 16
+      },
+      {
+        "value": "tribal_government",
+        "label": "Tribal government",
+        "bit": 32
+      },
+      {
+        "value": "federal_dod",
+        "label": "Federal: Department of Defense",
+        "bit": 64
+      },
+      {
+        "value": "federal_ihs",
+        "label": "Federal: Indian Health Service",
+        "bit": 128
+      },
+      {
+        "value": "federal_va",
+        "label": "Federal: Veterans Affairs",
+        "bit": 256
+      }
+    ],
+    "center_type": [
+      {
+        "value": "substance_use",
+        "label": "Substance use treatment",
+        "bit": 1
+      },
+      {
+        "value": "detoxification",
+        "label": "Detoxification",
+        "bit": 2
+      },
+      {
+        "value": "transitional_housing",
+        "label": "Transitional housing/halfway house",
+        "bit": 4
+      },
+      {
+        "value": "mental_health",
+        "label": "Mental health treatment",
+        "bit": 8
+      },
+      {
+        "value": "cooccurring",
+        "label": "Co-occurring mental health and substance use",
+        "bit": 16
+      }
+    ],
+    "setting": [
+      {
+        "value": "outpatient",
+        "label": "Outpatient",
+        "bit": 1
+      },
+      {
+        "value": "residential",
+        "label": "Residential",
+        "bit": 2
+      },
+      {
+        "value": "hospital_inpatient",
+        "label": "Hospital inpatient",
+        "bit": 4
+      }
+    ],
+    "payment": [
+      {
+        "value": "medicare",
+        "label": "Medicare",
+        "bit": 1
+      },
+      {
+        "value": "medicaid",
+        "label": "Medicaid",
+        "bit": 2
+      },
+      {
+        "value": "military_insurance",
+        "label": "Military insurance",
+        "bit": 4
+      },
+      {
+        "value": "private_insurance",
+        "label": "Private health insurance",
+        "bit": 8
+      },
+      {
+        "value": "self_pay",
+        "label": "Cash or self-payment",
+        "bit": 16
+      },
+      {
+        "value": "state_financed",
+        "label": "State-financed insurance",
+        "bit": 32
+      },
+      {
+        "value": "payment_assistance",
+        "label": "Payment assistance",
+        "bit": 64
+      },
+      {
+        "value": "sliding_fee",
+        "label": "Sliding fee scale",
+        "bit": 128
+      }
+    ],
+    "service_family": [
+      {
+        "value": "substance_use_treatment",
+        "label": "Substance use treatment",
+        "bit": 1
+      },
+      {
+        "value": "detoxification",
+        "label": "Detoxification",
+        "bit": 2
+      },
+      {
+        "value": "transitional_housing",
+        "label": "Transitional housing/halfway house",
+        "bit": 4
+      },
+      {
+        "value": "cooccurring",
+        "label": "Co-occurring mental health and substance use treatment",
+        "bit": 8
+      },
+      {
+        "value": "outpatient_treatment",
+        "label": "Outpatient treatment",
+        "bit": 16
+      },
+      {
+        "value": "residential_treatment",
+        "label": "Residential treatment",
+        "bit": 32
+      },
+      {
+        "value": "hospital_inpatient",
+        "label": "Hospital inpatient treatment",
+        "bit": 64
+      },
+      {
+        "value": "opioid_treatment_program",
+        "label": "SAMHSA-certified opioid treatment program",
+        "bit": 128
+      },
+      {
+        "value": "methadone",
+        "label": "Methadone services",
+        "bit": 256
+      },
+      {
+        "value": "buprenorphine",
+        "label": "Buprenorphine services",
+        "bit": 512
+      },
+      {
+        "value": "naltrexone",
+        "label": "Naltrexone services",
+        "bit": 1024
+      },
+      {
+        "value": "telehealth",
+        "label": "Telehealth/telemedicine",
+        "bit": 2048
+      }
+    ]
+  },
+  "comparability_warnings": [
+    "Counts are preliminary parser outputs and may change during year-level QA.",
+    "N-SSATS and N-SUMHSS are not directly trend-comparable across the 2020/2021 survey transition.",
+    "A gap means a selected characteristic was not asked or cannot be harmonized for that year.",
+    "Historical listings are not a current treatment locator."
+  ],
+  "population_sources": [
+    {
+      "key": "1998",
+      "url": "https://www2.census.gov/programs-surveys/popest/tables/1990-2000/intercensal/st-co/stch-icen1998.txt"
+    },
+    {
+      "key": "1999",
+      "url": "https://www2.census.gov/programs-surveys/popest/tables/1990-2000/intercensal/st-co/stch-icen1999.txt"
+    },
+    {
+      "key": "2000_2010",
+      "url": "https://www2.census.gov/programs-surveys/popest/datasets/2000-2010/intercensal/state/st-est00int-alldata.csv"
+    },
+    {
+      "key": "2010_2020",
+      "url": "https://www2.census.gov/programs-surveys/popest/datasets/2010-2020/state/totals/nst-est2020.csv"
+    }
+  ]
+}

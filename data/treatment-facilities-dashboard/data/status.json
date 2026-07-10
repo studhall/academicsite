@@ -1,0 +1,17 @@
+{
+  "release_ready": false,
+  "visualization_ready": true,
+  "version": "preliminary-2026-06-13",
+  "built_on": "2026-06-13",
+  "parsed_years": 22,
+  "reviewed_listings": 30,
+  "reviewed_1998": 30,
+  "target_1998": 100,
+  "run_id": "run-20260612-full-v0.1.0",
+  "limitations": [
+    "Counts are preliminary parser outputs and may change during year-level QA.",
+    "N-SSATS and N-SUMHSS are not directly trend-comparable across the 2020/2021 survey transition.",
+    "A gap means a selected characteristic was not asked or cannot be harmonized for that year.",
+    "Historical listings are not a current treatment locator."
+  ]
+}
