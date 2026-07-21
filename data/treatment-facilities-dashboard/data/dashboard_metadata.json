@@ -1,7 +1,13 @@
 {
-  "version": "preliminary-2026-06-13",
-  "built_on": "2026-06-13",
+  "version": "v1.0.0-preliminary.1",
+  "built_on": "2026-07-21",
   "run_id": "run-20260612-full-v0.1.0",
+  "release_status": "preliminary",
+  "release_label": "Version 1 Preview",
+  "downloads": {
+    "repository": "https://github.com/studhall/samhsa-treatment-facility-directories",
+    "release_base": "https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1"
+  },
   "years": [
     {
       "directory_year": 1998,
