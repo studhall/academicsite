@@ -1,20 +1,35 @@
 ---
+title: "Blog"
 title-block: false
 listing:
-  contents:
-    - "posts/*/index.qmd"          # regular blog post bundles
-    - "series/*/*/index.qmd"       # series entries (e.g., series/TC_Ownership/post1/index.qmd)
-  feed: true
-  sort: "date desc"
-  categories: true
-  fields: [title, date, categories, summary]
-  max-items: 10
+  - id: latest-posts
+    contents:
+      - "posts/*/index.qmd"
+    feed: true
+    sort: "date desc"
+    categories: true
+    fields: [title, date, categories, description]
+    max-items: 10
+  - id: series-list
+    contents:
+      - "series/*/index.qmd"
+    sort: "title asc"
+    fields: [title, description]
+    max-items: 50
 ---
 
-# Blog
+Recent posts and ongoing series.
 
-Welcome! Here you’ll find a mix of one-off posts and ongoing series.
+## Latest Posts
 
-------------------------------------------------------------------------
+::: {#latest-posts}
+:::
 
-## 🔥 Latest Posts
+## Series {#series}
+
+Longer sequences of notes and replications live here when a single post is not enough room.
+
+::: {.series-compact}
+::: {#series-list}
+:::
+:::

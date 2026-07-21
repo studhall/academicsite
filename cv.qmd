@@ -2,13 +2,15 @@
 title: "Curriculum Vitae"
 format:
   html:
-    toc: true
+    toc: false
 ---
 
-# Curriculum Vitae
+::: {.cv-actions}
+<a class="btn btn-primary btn-lg" href="cv/Hall_CV_Current.pdf?v=20260708214639" download="Hall_CV_Current.pdf">Download CV as PDF</a>
+:::
 
-[📄 Download PDF Version](cv/Hall_CV_Current.pdf)
+::: {.pdf-frame .cv-frame}
+<iframe src="cv/Hall_CV_Current.pdf?v=20260708214639" title="David Hall curriculum vitae PDF"></iframe>
+:::
 
-------------------------------------------------------------------------
-
-## Under Construction
+If the embedded PDF does not load in your browser, use the download button above.

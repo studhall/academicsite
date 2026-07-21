@@ -5,10 +5,19 @@ format:
     toc: true
 ---
 
-# Teaching
+## EC 320: Introduction To Econometrics
 
-Teaching EC320 in Fall, updates to this page will be made soon.
+::: {.document-card}
+::: {.document-card-text}
+**University of Oregon**  
+Fall 2025
 
-------------------------------------------------------------------------
+[Download syllabus](teaching/ec320_syllabus_f25_uoregon_hall.pdf){.btn .btn-primary}
+:::
+:::
 
-## 
+::: {.pdf-frame}
+<iframe src="teaching/ec320_syllabus_f25_uoregon_hall.pdf" title="EC 320 syllabus PDF"></iframe>
+:::
+
+If the syllabus does not load in your browser, use the download button above.

@@ -1,0 +1,453 @@
+---
+title: "MOUD Medicaid Dashboard"
+format:
+  html:
+    toc: false
+    code-fold: false
+    code-tools: false
+execute:
+  echo: false
+page-layout: full
+---
+
+Explore state-level and national Medicaid MOUD utilization across time.
+
+## State Choropleth
+
+::: {.grid}
+::: {.g-col-12 .g-col-lg-8}
+```{ojs}
+viewof mapChartOut = {
+  const node = mapChart
+  return node ? node.cloneNode(true) : document.createElement("div")
+}
+```
+:::
+
+::: {.g-col-12 .g-col-lg-4}
+::: {.dashboard-card .control-panel-dark}
+### Map Controls
+
+```{ojs}
+viewof mapYearMinSelect = Inputs.select(yearOptions, {label: "Year Min", value: minYear, format: (d) => `${d}`})
+```
+
+```{ojs}
+viewof mapYearMaxSelect = Inputs.select(yearOptions, {label: "Year Max", value: maxYear, format: (d) => `${d}`})
+```
+
+```{ojs}
+viewof mapUtilizationType = Inputs.select(["All", ...utilizationOptions], {label: "Utilization Type", value: "All"})
+```
+
+```{ojs}
+viewof mapScaleMode = Inputs.radio(["Raw", "Per 100k"], {label: "Scale", value: "Raw"})
+```
+
+```{ojs}
+viewof mapMetricLabel = Inputs.select(metricLabelOptions, {label: "Metric", value: "Prescriptions"})
+```
+
+```{ojs}
+viewof mapSelectedGenerics = Inputs.checkbox(genericOptions, {label: "Generic Drug", value: genericOptions})
+```
+:::
+
+```{ojs}
+viewof mapSummaryOut = {
+  const node = mapSummary
+  return node ? node.cloneNode(true) : document.createElement("div")
+}
+```
+:::
+:::
+
+## Time Series by State and Generic
+
+::: {.dashboard-card .control-panel-dark}
+### Time-Series Controls
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-6 .g-col-lg-3}
+```{ojs}
+viewof tsYearMinSelect = Inputs.select(yearOptions, {label: "Year Min", value: minYear, format: (d) => `${d}`})
+```
+:::
+::: {.g-col-12 .g-col-md-6 .g-col-lg-3}
+```{ojs}
+viewof tsYearMaxSelect = Inputs.select(yearOptions, {label: "Year Max", value: maxYear, format: (d) => `${d}`})
+```
+:::
+::: {.g-col-12 .g-col-md-6 .g-col-lg-3}
+```{ojs}
+viewof tsUtilizationType = Inputs.select(["All", ...utilizationOptions], {label: "Utilization Type", value: "All"})
+```
+:::
+::: {.g-col-12 .g-col-md-6 .g-col-lg-3}
+```{ojs}
+viewof tsScaleMode = Inputs.radio(["Raw", "Per 100k"], {label: "Scale", value: "Raw"})
+```
+:::
+::: {.g-col-12 .g-col-md-6 .g-col-lg-4}
+```{ojs}
+viewof tsMetricLabel = Inputs.select(metricLabelOptions, {label: "Metric", value: "Prescriptions"})
+```
+:::
+::: {.g-col-12 .g-col-md-6 .g-col-lg-4}
+```{ojs}
+viewof tsSelectedGenerics = Inputs.checkbox(genericOptions, {label: "Generic Drug", value: genericOptions})
+```
+:::
+::: {.g-col-12 .g-col-lg-4}
+```{ojs}
+viewof tsSelectedStates = Inputs.select(["US", ...stateOptions], {label: "State(s)", value: ["US"], multiple: true, size: 6})
+```
+:::
+:::
+:::
+
+```{ojs}
+viewof tsChartOut = {
+  const node = tsChart
+  return node ? node.cloneNode(true) : document.createElement("div")
+}
+```
+
+## NDC Table
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-4}
+```{ojs}
+viewof ndcSearch = Inputs.text({label: "Search NDC", placeholder: "Type NDC..."})
+```
+:::
+::: {.g-col-12 .g-col-md-3}
+```{ojs}
+viewof ndcSortLabel = Inputs.select(ndcSortLabelOptions, {label: "Sort By", value: "Prescriptions"})
+```
+:::
+::: {.g-col-12 .g-col-md-3}
+```{ojs}
+viewof ndcSortDir = Inputs.radio(["Descending", "Ascending"], {label: "Sort Direction", value: "Descending"})
+```
+:::
+::: {.g-col-12 .g-col-md-2}
+```{ojs}
+viewof ndcRowLimit = Inputs.select([50, 100, 250, 500], {label: "Rows", value: 50})
+```
+:::
+:::
+
+```{ojs}
+viewof ndcTableSummaryOut = {
+  const node = ndcTableSummary
+  return node ? node.cloneNode(true) : document.createElement("div")
+}
+```
+
+```{ojs}
+viewof ndcDownloadLinkOut = {
+  const node = ndcDownloadLink
+  return node ? node.cloneNode(true) : document.createElement("div")
+}
+```
+
+```{ojs}
+viewof ndcTableOut = {
+  const node = ndcTable
+  return node ? node.cloneNode(true) : document.createElement("div")
+}
+```
+
+::: {.callout-note}
+## Notes / Methods
+
+- Metrics: Prescriptions, Total Reimbursed, Medicaid Reimbursed, and Non-Medicaid Reimbursed.
+- Per-100k values are computed as selected metric totals divided by deduplicated population totals times 100,000.
+- Generic mapping uses the values in the source data: Buprenorphine, Methadone, Naltrexone.
+- Population denominator uses embedded `pop` and dedupes by state-year-quarter for selected filters.
+- 2024 population values follow the population series embedded in your prepared aggregates; incomplete 2025 rows are excluded until a full-year file is available.
+:::
+
+```{ojs}
+//| output: false
+d3 = await import("https://cdn.jsdelivr.net/npm/d3@7/+esm")
+Plot = await import("https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm")
+topojson = await import("https://cdn.jsdelivr.net/npm/topojson-client@3/+esm")
+```
+
+```{ojs}
+//| output: false
+STATE_ABBR_TO_FIPS = JSON.parse("{\"AL\":\"01\",\"AK\":\"02\",\"AZ\":\"04\",\"AR\":\"05\",\"CA\":\"06\",\"CO\":\"08\",\"CT\":\"09\",\"DE\":\"10\",\"DC\":\"11\",\"FL\":\"12\",\"GA\":\"13\",\"HI\":\"15\",\"ID\":\"16\",\"IL\":\"17\",\"IN\":\"18\",\"IA\":\"19\",\"KS\":\"20\",\"KY\":\"21\",\"LA\":\"22\",\"ME\":\"23\",\"MD\":\"24\",\"MA\":\"25\",\"MI\":\"26\",\"MN\":\"27\",\"MS\":\"28\",\"MO\":\"29\",\"MT\":\"30\",\"NE\":\"31\",\"NV\":\"32\",\"NH\":\"33\",\"NJ\":\"34\",\"NM\":\"35\",\"NY\":\"36\",\"NC\":\"37\",\"ND\":\"38\",\"OH\":\"39\",\"OK\":\"40\",\"OR\":\"41\",\"PA\":\"42\",\"RI\":\"44\",\"SC\":\"45\",\"SD\":\"46\",\"TN\":\"47\",\"TX\":\"48\",\"UT\":\"49\",\"VT\":\"50\",\"VA\":\"51\",\"WA\":\"53\",\"WV\":\"54\",\"WI\":\"55\",\"WY\":\"56\",\"PR\":\"72\"}")
+STATE_ABBR_TO_NAME = JSON.parse("{\"AL\":\"Alabama\",\"AK\":\"Alaska\",\"AZ\":\"Arizona\",\"AR\":\"Arkansas\",\"CA\":\"California\",\"CO\":\"Colorado\",\"CT\":\"Connecticut\",\"DE\":\"Delaware\",\"DC\":\"District of Columbia\",\"FL\":\"Florida\",\"GA\":\"Georgia\",\"HI\":\"Hawaii\",\"ID\":\"Idaho\",\"IL\":\"Illinois\",\"IN\":\"Indiana\",\"IA\":\"Iowa\",\"KS\":\"Kansas\",\"KY\":\"Kentucky\",\"LA\":\"Louisiana\",\"ME\":\"Maine\",\"MD\":\"Maryland\",\"MA\":\"Massachusetts\",\"MI\":\"Michigan\",\"MN\":\"Minnesota\",\"MS\":\"Mississippi\",\"MO\":\"Missouri\",\"MT\":\"Montana\",\"NE\":\"Nebraska\",\"NV\":\"Nevada\",\"NH\":\"New Hampshire\",\"NJ\":\"New Jersey\",\"NM\":\"New Mexico\",\"NY\":\"New York\",\"NC\":\"North Carolina\",\"ND\":\"North Dakota\",\"OH\":\"Ohio\",\"OK\":\"Oklahoma\",\"OR\":\"Oregon\",\"PA\":\"Pennsylvania\",\"RI\":\"Rhode Island\",\"SC\":\"South Carolina\",\"SD\":\"South Dakota\",\"TN\":\"Tennessee\",\"TX\":\"Texas\",\"UT\":\"Utah\",\"VT\":\"Vermont\",\"VA\":\"Virginia\",\"WA\":\"Washington\",\"WV\":\"West Virginia\",\"WI\":\"Wisconsin\",\"WY\":\"Wyoming\",\"PR\":\"Puerto Rico\"}")
+FIPS_TO_STATE_ABBR = Object.fromEntries(Object.entries(STATE_ABBR_TO_FIPS).map(([abbr, fips]) => [fips, abbr]))
+METRICS = JSON.parse("{\"prescriptions\":{\"label\":\"Prescriptions\",\"rawCol\":\"number_of_prescriptions\",\"ndcCol\":\"scripts\"},\"total_reimbursed\":{\"label\":\"Total Reimbursed\",\"rawCol\":\"total_amount_reimbursed\",\"ndcCol\":\"total_reimb\"},\"medicaid_reimbursed\":{\"label\":\"Medicaid Reimbursed\",\"rawCol\":\"medicaid_amount_reimbursed\",\"ndcCol\":\"medicaid_reimb\"},\"non_medicaid_reimbursed\":{\"label\":\"Non-Medicaid Reimbursed\",\"rawCol\":\"non_medicaid_amount_reimbursed\",\"ndcCol\":\"nonmedicaid_reimb\"}}")
+```
+
+```{ojs}
+//| output: false
+fmtInt = (value) => new Intl.NumberFormat("en-US", {maximumFractionDigits: 0}).format(value ?? 0)
+fmtMoney = (value) => new Intl.NumberFormat("en-US", {style: "currency", currency: "USD", maximumFractionDigits: 0}).format(value ?? 0)
+fmtNumber = (value, per100k = false) => {
+  if (value == null || Number.isNaN(value)) return "NA"
+  if (per100k) return new Intl.NumberFormat("en-US", {maximumFractionDigits: 1}).format(value)
+  return new Intl.NumberFormat("en-US", {maximumFractionDigits: 0}).format(value)
+}
+dedupPopulation = (rows, keyFn) => {
+  const popMap = new Map()
+  for (const row of rows) {
+    const key = keyFn(row)
+    if (!popMap.has(key)) popMap.set(key, Number.isFinite(+row.pop) ? +row.pop : 0)
+  }
+  let total = 0
+  for (const value of popMap.values()) total += value
+  return total
+}
+normalizeMulti = (value) => Array.isArray(value) ? value : (value == null ? [] : [value])
+```
+
+```{ojs}
+//| output: false
+validDashboardYear = (d) => Number.isFinite(+d.year) && +d.year > 0 && +d.year < 2025
+// Exclude invalid years and incomplete 2025 extracts until a full-year dashboard file is available.
+mapDataRaw = (await FileAttachment("data/site_map_df_year.csv").csv({typed: true})).filter(validDashboardYear)
+tsDataRaw = (await FileAttachment("data/site_ts_df_year.csv").csv({typed: true})).filter(validDashboardYear)
+ndcDataRaw = (await FileAttachment("data/site_ndc_df_year.csv").csv()).filter(validDashboardYear)
+ndcData = ndcDataRaw.map((d) => ({
+  ...d,
+  year: +d.year,
+  quarter: +d.quarter,
+  scripts: +d.scripts || 0,
+  total_reimb: +d.total_reimb || 0,
+  medicaid_reimb: +d.medicaid_reimb || 0,
+  nonmedicaid_reimb: +d.nonmedicaid_reimb || 0,
+  ndc: String(d.ndc)
+}))
+topo = await d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json")
+stateFeatures = topojson.feature(topo, topo.objects.states).features
+```
+
+```{ojs}
+//| output: false
+minYear = d3.min(mapDataRaw, (d) => d.year)
+maxYear = d3.max(mapDataRaw, (d) => d.year)
+yearOptions = d3.range(minYear, maxYear + 1)
+utilizationOptions = Array.from(new Set(mapDataRaw.map((d) => d.utilization_type))).sort()
+genericOptions = Array.from(new Set(mapDataRaw.map((d) => d.moud_generic))).sort()
+stateOptions = Array.from(new Set(tsDataRaw.map((d) => d.state_abbr))).sort()
+metricLabelOptions = Object.values(METRICS).map((d) => d.label)
+metricKeyByLabel = new Map(Object.entries(METRICS).map(([k, v]) => [v.label, k]))
+ndcSortLabelToCol = new Map([
+  ["NDC", "ndc"],
+  ["Prescriptions", "scripts"],
+  ["Total Reimbursed", "total_reimb"],
+  ["Medicaid Reimbursed", "medicaid_reimb"],
+  ["Non-Medicaid Reimbursed", "nonmedicaid_reimb"]
+])
+ndcSortLabelOptions = Array.from(ndcSortLabelToCol.keys())
+```
+
+```{ojs}
+//| output: false
+mapYearLo = Math.min(mapYearMinSelect, mapYearMaxSelect)
+mapYearHi = Math.max(mapYearMinSelect, mapYearMaxSelect)
+mapPer100k = mapScaleMode === "Per 100k"
+mapMetricKey = metricKeyByLabel.get(mapMetricLabel) || "prescriptions"
+mapMetricCfg = METRICS[mapMetricKey]
+mapGenericsChosen = normalizeMulti(mapSelectedGenerics)
+mapChosenGenerics = mapGenericsChosen.length ? mapGenericsChosen : genericOptions
+
+mapPassesCommon = (d) => (
+  d.year >= mapYearLo &&
+  d.year <= mapYearHi &&
+  mapChosenGenerics.includes(d.moud_generic) &&
+  (mapUtilizationType === "All" || d.utilization_type === mapUtilizationType)
+)
+
+mapRows = mapDataRaw.filter(mapPassesCommon)
+mapAgg = Array.from(
+  d3.group(mapRows, (d) => d.state_abbr),
+  ([state_abbr, rows]) => {
+    const metricRaw = d3.sum(rows, (r) => +r[mapMetricCfg.rawCol] || 0)
+    const popTotal = dedupPopulation(rows, (r) => `${r.state_abbr}|${r.year}|${r.quarter}`)
+    const value = mapPer100k ? (popTotal > 0 ? (metricRaw / popTotal) * 100000 : NaN) : metricRaw
+    return {state_abbr, metricRaw, popTotal, value}
+  }
+)
+mapByFips = new Map(
+  mapAgg
+    .filter((d) => STATE_ABBR_TO_FIPS[d.state_abbr])
+    .map((d) => [STATE_ABBR_TO_FIPS[d.state_abbr], d])
+)
+
+mapChart = Plot.plot({
+  width: 860,
+  height: 520,
+  marginLeft: 40,
+  marginRight: 20,
+  projection: "albers-usa",
+  color: {
+    scheme: "blues",
+    label: `${mapMetricCfg.label}${mapPer100k ? " (per 100k)" : ""}`,
+    legend: true
+  },
+  marks: [
+    Plot.geo(stateFeatures, {
+      fill: (d) => mapByFips.get(String(d.id).padStart(2, "0"))?.value,
+      stroke: "#ffffff",
+      strokeWidth: 0.8,
+      title: (d) => {
+        const fips = String(d.id).padStart(2, "0")
+        const abbr = FIPS_TO_STATE_ABBR[fips]
+        const st = abbr ? (STATE_ABBR_TO_NAME[abbr] || abbr) : `FIPS ${fips}`
+        const val = mapByFips.get(fips)?.value
+        return `${st}\n${mapMetricCfg.label}: ${fmtNumber(val, mapPer100k)}${mapPer100k ? " per 100k" : ""}`
+      }
+    })
+  ]
+})
+
+mapSummary = {
+  const totalRaw = d3.sum(mapAgg, (d) => d.metricRaw)
+  const totalPop = d3.sum(mapAgg, (d) => d.popTotal)
+  const totalPer100k = totalPop > 0 ? (totalRaw / totalPop) * 100000 : NaN
+  const totalDisplay = mapPer100k ? `${fmtNumber(totalPer100k, true)} per 100k` : fmtNumber(totalRaw, false)
+  return html`<div class="dashboard-card compact">
+    <h3>Map Selection Summary</h3>
+    <p><strong>Years:</strong> ${mapYearLo} to ${mapYearHi}</p>
+    <p><strong>Utilization:</strong> ${mapUtilizationType}</p>
+    <p><strong>Generics:</strong> ${mapChosenGenerics.join(", ")}</p>
+    <p><strong>Metric:</strong> ${mapMetricCfg.label}</p>
+    <p><strong>Total:</strong> ${totalDisplay}</p>
+    <p class="muted">Hover states for exact values.</p>
+  </div>`
+}
+```
+
+```{ojs}
+//| output: false
+tsYearLo = Math.min(tsYearMinSelect, tsYearMaxSelect)
+tsYearHi = Math.max(tsYearMinSelect, tsYearMaxSelect)
+tsPer100k = tsScaleMode === "Per 100k"
+tsMetricKey = metricKeyByLabel.get(tsMetricLabel) || "prescriptions"
+tsMetricCfg = METRICS[tsMetricKey]
+tsGenericsChosen = normalizeMulti(tsSelectedGenerics)
+tsChosenGenerics = tsGenericsChosen.length ? tsGenericsChosen : genericOptions
+tsStatesChosen = normalizeMulti(tsSelectedStates)
+tsChosenStates = tsStatesChosen.length ? tsStatesChosen : ["US"]
+
+tsPassesCommon = (d) => (
+  d.year >= tsYearLo &&
+  d.year <= tsYearHi &&
+  tsChosenGenerics.includes(d.moud_generic) &&
+  (tsUtilizationType === "All" || d.utilization_type === tsUtilizationType)
+)
+
+tsRows = tsDataRaw.filter(tsPassesCommon)
+tsSeriesRows = tsChosenStates.flatMap((stateKey) => {
+  const scoped = stateKey === "US" ? tsRows : tsRows.filter((r) => r.state_abbr === stateKey)
+  return Array.from(d3.group(scoped, (d) => d.year), ([year, rows]) => {
+    const metricRaw = d3.sum(rows, (r) => +r[tsMetricCfg.rawCol] || 0)
+    const popTotal = dedupPopulation(rows, (r) => `${r.state_abbr}|${r.year}|${r.quarter}`)
+    const value = tsPer100k ? (popTotal > 0 ? (metricRaw / popTotal) * 100000 : NaN) : metricRaw
+    return {state: stateKey, year: +year, value}
+  })
+}).sort((a, b) => d3.ascending(a.state, b.state) || d3.ascending(a.year, b.year))
+
+lineYLabel = `${tsMetricCfg.label}${tsPer100k ? " per 100k" : ""}`
+tsChart = Plot.plot({
+  width: 860,
+  height: 420,
+  marginLeft: 95,
+  marginRight: 25,
+  x: {label: "Year", tickFormat: d3.format("d")},
+  y: {label: lineYLabel, grid: true},
+  color: {legend: true},
+  marks: [
+    Plot.ruleY([0], {stroke: "#cbd5e1"}),
+    Plot.line(tsSeriesRows, {x: "year", y: "value", stroke: "state", curve: "linear"}),
+    Plot.dot(tsSeriesRows, {
+      x: "year",
+      y: "value",
+      stroke: "state",
+      r: 2.5,
+      title: (d) => `${d.state}\nYear: ${d.year}\n${lineYLabel}: ${fmtNumber(d.value, tsPer100k)}`
+    })
+  ]
+})
+```
+
+```{ojs}
+//| output: false
+ndcSortCol = ndcSortLabelToCol.get(ndcSortLabel) || "scripts"
+
+tableStates = (() => {
+  const nonUS = tsChosenStates.filter((d) => d !== "US")
+  if (nonUS.length > 0) return new Set(nonUS)
+  return null
+})()
+
+ndcRowsFiltered = ndcData.filter((d) => {
+  const common = (
+    d.year >= tsYearLo &&
+    d.year <= tsYearHi &&
+    tsChosenGenerics.includes(d.moud_generic) &&
+    (tsUtilizationType === "All" || d.utilization_type === tsUtilizationType)
+  )
+  if (!common) return false
+  if (!tableStates) return true
+  return tableStates.has(d.state_abbr)
+})
+
+ndcAgg = Array.from(d3.group(ndcRowsFiltered, (d) => d.ndc), ([ndc, rows]) => ({
+  ndc,
+  scripts: d3.sum(rows, (r) => r.scripts),
+  total_reimb: d3.sum(rows, (r) => r.total_reimb),
+  medicaid_reimb: d3.sum(rows, (r) => r.medicaid_reimb),
+  nonmedicaid_reimb: d3.sum(rows, (r) => r.nonmedicaid_reimb)
+}))
+
+searchText = (ndcSearch || "").toLowerCase().trim()
+ndcSearched = searchText ? ndcAgg.filter((d) => d.ndc.toLowerCase().includes(searchText)) : ndcAgg
+sortMult = ndcSortDir === "Ascending" ? 1 : -1
+ndcSorted = ndcSearched.slice().sort((a, b) => {
+  const av = a[ndcSortCol]
+  const bv = b[ndcSortCol]
+  if (ndcSortCol === "ndc") return sortMult * String(av).localeCompare(String(bv))
+  return sortMult * ((av || 0) - (bv || 0))
+})
+
+ndcVisible = ndcSorted.slice(0, ndcRowLimit)
+
+ndcTableSummary = html`<div class="dashboard-card compact">
+  <strong>${fmtInt(ndcSearched.length)}</strong> filtered NDC rows (${fmtInt(ndcAgg.length)} total in selection)
+  <p class="muted">Table filters follow the time-series control panel.</p>
+</div>`
+
+ndcTable = Inputs.table(ndcVisible, {
+  columns: ["ndc", "scripts", "total_reimb", "medicaid_reimb", "nonmedicaid_reimb"],
+  header: {
+    ndc: "NDC",
+    scripts: "Prescriptions",
+    total_reimb: "Total Reimbursed",
+    medicaid_reimb: "Medicaid Reimbursed",
+    nonmedicaid_reimb: "Non-Medicaid Reimbursed"
+  },
+  format: {
+    scripts: (v) => fmtInt(v),
+    total_reimb: (v) => fmtMoney(v),
+    medicaid_reimb: (v) => fmtMoney(v),
+    nonmedicaid_reimb: (v) => fmtMoney(v)
+  },
+  rows: ndcRowLimit
+})
+
+ndcDownloadLink = {
+  const csv = d3.csvFormat(ndcSorted)
+  const blob = new Blob([csv], {type: "text/csv;charset=utf-8"})
+  const href = URL.createObjectURL(blob)
+  return html`<a class="btn btn-primary" href="${href}" download="moud_ndc_filtered.csv">Download Filtered NDC CSV</a>`
+}
+```
+
+

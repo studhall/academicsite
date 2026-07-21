@@ -1,0 +1,744 @@
+---
+title: "Historical Treatment Facility Dashboard"
+description: "Historical SAMHSA treatment facility geography and characteristics."
+format:
+  html:
+    toc: false
+execute:
+  echo: false
+page-layout: full
+---
+
+```{ojs}
+//| output: false
+d3 = await import("https://cdn.jsdelivr.net/npm/d3@7/+esm")
+Plot = await import("https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm")
+topojson = await import("https://cdn.jsdelivr.net/npm/topojson-client@3/+esm")
+
+status = await FileAttachment("data/status.json").json()
+metadata = await FileAttachment("data/dashboard_metadata.json").json()
+annual = await FileAttachment("data/annual_counts.csv").csv({typed: true})
+stateCounts = await FileAttachment("data/state_counts.csv").csv({typed: true})
+population = await FileAttachment("data/state_population.csv").csv({typed: true})
+availability = await FileAttachment("data/attribute_availability.csv").csv({typed: true})
+filterCube = await FileAttachment("data/facility_filter_cube.csv").csv({typed: true})
+characteristics = await FileAttachment("data/national_characteristic_counts.csv").csv({typed: true})
+countyStatus = await FileAttachment("data/county_assignment_status.csv").csv({typed: true})
+
+usStatesTopo = await d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json")
+usCountiesTopo = await d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json")
+stateFeatures = topojson.feature(usStatesTopo, usStatesTopo.objects.states).features
+countyFeatures = topojson.feature(usCountiesTopo, usCountiesTopo.objects.counties).features
+```
+
+```{ojs}
+//| output: false
+fmtInt = (value) => Number.isFinite(+value)
+  ? new Intl.NumberFormat("en-US", {maximumFractionDigits: 0}).format(+value)
+  : "Not available"
+fmtRate = (value) => Number.isFinite(+value)
+  ? new Intl.NumberFormat("en-US", {maximumFractionDigits: 1}).format(+value)
+  : "Not available"
+normalizeMulti = (value) => value == null ? [] : Array.isArray(value) ? value : [value]
+splitValues = (value) => new Set(String(value || "").split("|").filter(Boolean))
+surveyYears = metadata.years.map((d) => d.survey_year).sort((a, b) => a - b)
+yearMetadata = new Map(metadata.years.map((d) => [d.survey_year, d]))
+yearLabels = new Map(metadata.years.map((d) => [
+  d.survey_year,
+  `${d.survey_year} survey (${d.directory_year} directory)`
+]))
+populationByYearState = new Map(population.map((d) => [`${d.survey_year}|${d.state}`, d]))
+availabilityByKey = new Map(availability.map((d) => [
+  `${d.survey_year}|${d.characteristic}|${d.value}`,
+  d.asked === true || String(d.asked).toLowerCase() === "true"
+]))
+stateNameByFips = new Map(stateFeatures.map((d) => [
+  String(d.id).padStart(2, "0"),
+  d.properties.name
+]))
+stateAbbrByFips = new Map(Object.entries(metadata.state_fips).map(([abbr, fips]) => [fips, abbr]))
+stateOptions = Object.keys(metadata.state_fips).sort()
+regionOptions = ["Northeast", "Midwest", "South", "West"]
+groupOptions = (group) => metadata.filter_groups[group].map((d) => d.value)
+groupLabel = (group, value) => metadata.filter_groups[group].find((d) => d.value === value)?.label ?? value
+groupBit = (group, value) => metadata.filter_groups[group].find((d) => d.value === value)?.bit ?? 0
+```
+
+<div class="preview-status">
+  <strong>Version 1 Preview</strong>
+  <span>QA underway</span>
+  <span>Historical data, not a current treatment locator</span>
+</div>
+
+::: {.treatment-toolbar}
+```{ojs}
+viewof selectedSurveyYear = Inputs.select(surveyYears, {
+  label: "Survey year",
+  value: d3.max(surveyYears),
+  format: (d) => yearLabels.get(d)
+})
+```
+```{ojs}
+viewof scaleMode = Inputs.radio(["Facility count", "Facilities per 100,000"], {
+  label: "State map scale",
+  value: "Facility count"
+})
+```
+:::
+
+```{ojs}
+//| output: false
+rawCodeOptions = availability
+  .filter((d) => d.survey_year === selectedSurveyYear && d.characteristic === "original_code" && d.asked)
+  .sort((a, b) => String(a.value).localeCompare(String(b.value)))
+rawCodeLabels = new Map(rawCodeOptions.map((d) => [d.value, `${d.value}: ${d.label}`]))
+```
+
+<details class="dashboard-filters">
+<summary>Filter facilities</summary>
+
+<div class="filter-menu-grid">
+
+<details class="filter-menu">
+<summary>Ownership</summary>
+
+```{ojs}
+viewof selectedOwnership = Inputs.checkbox(groupOptions("ownership"), {format: (d) => groupLabel("ownership", d)})
+```
+
+</details>
+
+<details class="filter-menu">
+<summary>Center type</summary>
+
+```{ojs}
+viewof selectedCenterTypes = Inputs.checkbox(groupOptions("center_type"), {format: (d) => groupLabel("center_type", d)})
+```
+
+</details>
+
+<details class="filter-menu">
+<summary>Care setting</summary>
+
+```{ojs}
+viewof selectedSettings = Inputs.checkbox(groupOptions("setting"), {format: (d) => groupLabel("setting", d)})
+```
+
+</details>
+
+<details class="filter-menu">
+<summary>Payment</summary>
+
+```{ojs}
+viewof selectedPayments = Inputs.checkbox(groupOptions("payment"), {format: (d) => groupLabel("payment", d)})
+```
+
+</details>
+
+<details class="filter-menu">
+<summary>Services</summary>
+
+```{ojs}
+viewof selectedServiceFamilies = Inputs.checkbox(groupOptions("service_family"), {format: (d) => groupLabel("service_family", d)})
+```
+
+</details>
+
+<details class="filter-menu">
+<summary>Original SAMHSA codes</summary>
+
+```{ojs}
+viewof selectedRawCodes = Inputs.checkbox(rawCodeOptions.map((d) => d.value), {format: (d) => rawCodeLabels.get(d) ?? d})
+```
+
+</details>
+
+</div>
+
+```{ojs}
+viewof serviceMatchMode = Inputs.radio(["All selected", "Any selected"], {
+  label: "Multiple services",
+  value: "All selected"
+})
+```
+
+```{ojs}
+viewof resetFilterControl = Inputs.button("Reset filters", {
+  reduce: () => {
+    document.querySelectorAll(".filter-menu input[type=checkbox]:checked")
+      .forEach((input) => input.click())
+    return Date.now()
+  }
+})
+```
+
+</details>
+
+```{ojs}
+//| output: false
+ownershipSelection = normalizeMulti(selectedOwnership)
+centerSelection = normalizeMulti(selectedCenterTypes)
+settingSelection = normalizeMulti(selectedSettings)
+paymentSelection = normalizeMulti(selectedPayments)
+serviceSelection = normalizeMulti(selectedServiceFamilies)
+rawCodeSelection = normalizeMulti(selectedRawCodes)
+perCapita = scaleMode === "Facilities per 100,000"
+
+selections = ({
+  ownership: ownershipSelection,
+  center_type: centerSelection,
+  setting: settingSelection,
+  payment: paymentSelection,
+  service_family: serviceSelection,
+  original_code: rawCodeSelection
+})
+selectionAvailable = (year) => Object.entries(selections).every(([group, values]) =>
+  values.every((value) => availabilityByKey.get(`${year}|${group}|${value}`) === true)
+)
+selectedMask = (group, values) => values.reduce((mask, value) => mask | groupBit(group, value), 0)
+masks = ({
+  ownership: selectedMask("ownership", ownershipSelection),
+  center_type: selectedMask("center_type", centerSelection),
+  setting: selectedMask("setting", settingSelection),
+  payment: selectedMask("payment", paymentSelection),
+  service_family: selectedMask("service_family", serviceSelection)
+})
+maskPasses = (row, group, values, matchAll = false) => {
+  if (!values.length) return true
+  const rowMask = +row[`${group}_mask`] || 0
+  const wanted = masks[group]
+  return matchAll ? (rowMask & wanted) === wanted : (rowMask & wanted) !== 0
+}
+rowPassesHarmonized = (row) => (
+  maskPasses(row, "ownership", ownershipSelection) &&
+  maskPasses(row, "center_type", centerSelection) &&
+  maskPasses(row, "setting", settingSelection) &&
+  maskPasses(row, "payment", paymentSelection) &&
+  maskPasses(row, "service_family", serviceSelection, serviceMatchMode === "All selected")
+)
+rowPassesRawCodes = (row) => {
+  if (!rawCodeSelection.length) return true
+  const codes = splitValues(row.service_codes)
+  return serviceMatchMode === "All selected"
+    ? rawCodeSelection.every((code) => codes.has(code))
+    : rawCodeSelection.some((code) => codes.has(code))
+}
+rowPassesShard = (row) => rowPassesHarmonized(row) && rowPassesRawCodes(row)
+activeFilterParts = Object.entries(selections)
+  .filter(([, values]) => values.length)
+  .map(([group, values]) => {
+    const labels = group === "original_code"
+      ? values
+      : values.map((value) => groupLabel(group, value))
+    return `${group.replaceAll("_", " ")}: ${labels.join(", ")}`
+  })
+activeFilterSummary = activeFilterParts.length ? activeFilterParts.join("; ") : "All facilities"
+```
+
+```{ojs}
+md`**Active filters:** ${activeFilterSummary}`
+```
+
+::: {.panel-tabset}
+
+## Overview
+
+```{ojs}
+//| output: false
+selectedYearMeta = yearMetadata.get(selectedSurveyYear)
+selectedCharacteristics = characteristics.filter((d) => d.survey_year === selectedSurveyYear)
+characteristicValue = (metric, series) => {
+  const row = selectedCharacteristics.find((d) => d.metric === metric && d.series === series)
+  return row?.available ? row.facility_count : NaN
+}
+selectedTotal = characteristicValue("total", "total")
+selectedOtp = characteristicValue("otp_status", "otp")
+selectedNonOtp = characteristicValue("otp_status", "non_otp")
+selectedNonprofit = characteristicValue("ownership", "private_nonprofit")
+selectedForprofit = characteristicValue("ownership", "private_forprofit")
+selectedGovernment = characteristicValue("ownership", "government")
+summaryTile = (label, value) => html`<div class="metric-tile">
+  <span>${label}</span>
+  <strong>${fmtInt(value)}</strong>
+</div>`
+```
+
+<div class="overview-heading-row">
+
+```{ojs}
+html`<div>
+  <strong>${yearLabels.get(selectedSurveyYear)}</strong>
+  <span class="qa-badge">${selectedYearMeta.qa_status}: ${selectedYearMeta.reviewed_listings}/${selectedYearMeta.gold_target} reviewed</span>
+</div>`
+```
+
+</div>
+
+```{ojs}
+html`<div class="metric-tile-grid">
+  ${summaryTile("Total facilities", selectedTotal)}
+  ${summaryTile("OTP", selectedOtp)}
+  ${summaryTile("Non-OTP", selectedNonOtp)}
+  ${summaryTile("Nonprofit", selectedNonprofit)}
+  ${summaryTile("For-profit", selectedForprofit)}
+  ${summaryTile("Government", selectedGovernment)}
+</div>`
+```
+
+```{ojs}
+viewof overviewMetric = Inputs.select(
+  ["total", "otp_status", "ownership", "setting"],
+  {
+    label: "National trend",
+    value: "total",
+    format: (value) => ({
+      total: "All facilities",
+      otp_status: "OTP status",
+      ownership: "Ownership",
+      setting: "Care setting"
+    })[value]
+  }
+)
+```
+
+```{ojs}
+overviewRows = characteristics.filter((d) => d.metric === overviewMetric && d.available)
+Plot.plot({
+  width: 980,
+  height: 390,
+  marginLeft: 75,
+  x: {label: "Survey year", tickFormat: d3.format("d")},
+  y: {label: "Directory listings", grid: true},
+  color: {legend: overviewMetric !== "total"},
+  marks: [
+    Plot.ruleY([0], {stroke: "#d8d1d4"}),
+    Plot.ruleX([2020], {stroke: "#5b1f2e", strokeDasharray: "5,4"}),
+    Plot.line(overviewRows, {
+      x: "survey_year",
+      y: "facility_count",
+      stroke: "label",
+      strokeWidth: 2.5
+    }),
+    Plot.dot(overviewRows, {
+      x: "survey_year",
+      y: "facility_count",
+      stroke: "label",
+      r: 3,
+      title: (d) => `${d.label}\n${yearLabels.get(d.survey_year)}\n${fmtInt(d.facility_count)} facilities`
+    })
+  ]
+})
+```
+
+## State Explorer
+
+```{ojs}
+viewof selectedState = Inputs.select(stateOptions, {
+  label: "State detail",
+  value: "OR",
+  format: (abbr) => stateNameByFips.get(metadata.state_fips[abbr]) ?? abbr
+})
+```
+
+```{ojs}
+//| output: false
+mapYearRows = await d3.csv(`data/facility_dashboard_${selectedSurveyYear}.csv`, d3.autoType)
+mapIsAvailable = selectionAvailable(selectedSurveyYear)
+mapFilteredRows = mapIsAvailable ? mapYearRows.filter(rowPassesShard) : []
+mapCounts = d3.rollup(mapFilteredRows, (rows) => rows.length, (d) => d.state)
+mapPopulationRows = population.filter((d) => d.survey_year === selectedSurveyYear)
+mapStateRows = mapPopulationRows.map((pop) => {
+  const count = mapCounts.get(pop.state) ?? 0
+  const rate = pop.population > 0 ? count / pop.population * 100000 : NaN
+  return {...pop, count, rate, value: perCapita ? rate : count}
+})
+mapByFips = new Map(mapStateRows.map((d) => [String(d.state_fips).padStart(2, "0"), d]))
+selectedStateRows = mapFilteredRows.filter((d) => d.state === selectedState)
+stateOtpAvailable = availabilityByKey.get(`${selectedSurveyYear}|service_family|opioid_treatment_program`) === true
+stateOwnershipAvailable = ["private_nonprofit", "private_forprofit"].every(
+  (value) => availabilityByKey.get(`${selectedSurveyYear}|ownership|${value}`) === true
+)
+otpBit = groupBit("service_family", "opioid_treatment_program")
+governmentBits = ["local_government", "state_government", "tribal_government", "federal_dod", "federal_ihs", "federal_va"]
+  .reduce((mask, value) => mask | groupBit("ownership", value), 0)
+stateOtp = stateOtpAvailable ? selectedStateRows.filter((d) => (+d.service_family_mask & otpBit) !== 0).length : NaN
+stateNonprofit = stateOwnershipAvailable ? selectedStateRows.filter((d) => (+d.ownership_mask & groupBit("ownership", "private_nonprofit")) !== 0).length : NaN
+stateForprofit = stateOwnershipAvailable ? selectedStateRows.filter((d) => (+d.ownership_mask & groupBit("ownership", "private_forprofit")) !== 0).length : NaN
+stateGovernment = stateOwnershipAvailable ? selectedStateRows.filter((d) => (+d.ownership_mask & governmentBits) !== 0).length : NaN
+```
+
+```{ojs}
+mapIsAvailable
+  ? Plot.plot({
+      width: 980,
+      height: 540,
+      projection: "albers-usa",
+      color: {
+        scheme: "purples",
+        label: perCapita ? "Facilities per 100,000" : "Facility count",
+        legend: true
+      },
+      marks: [
+        Plot.geo(stateFeatures, {
+          fill: (feature) => mapByFips.get(String(feature.id).padStart(2, "0"))?.value ?? 0,
+          stroke: "#ffffff",
+          strokeWidth: 0.8,
+          title: (feature) => {
+            const row = mapByFips.get(String(feature.id).padStart(2, "0"))
+            return `${feature.properties.name}\nFacilities: ${fmtInt(row?.count)}\nRate: ${fmtRate(row?.rate)} per 100,000\nFilters: ${activeFilterSummary}`
+          }
+        }),
+        Plot.geo(stateFeatures.filter((feature) => String(feature.id).padStart(2, "0") === metadata.state_fips[selectedState]), {
+          fill: "none",
+          stroke: "#5b1f2e",
+          strokeWidth: 2.4
+        })
+      ]
+    })
+  : html`<div class="data-unavailable">A selected characteristic is not available for ${yearLabels.get(selectedSurveyYear)}.</div>`
+```
+
+```{ojs}
+html`<div class="metric-tile-grid state-detail-grid">
+  ${summaryTile(`${selectedState} facilities`, selectedStateRows.length)}
+  ${summaryTile("OTP", stateOtp)}
+  ${summaryTile("Non-OTP", stateOtpAvailable ? selectedStateRows.length - stateOtp : NaN)}
+  ${summaryTile("Nonprofit", stateNonprofit)}
+  ${summaryTile("For-profit", stateForprofit)}
+  ${summaryTile("Government", stateGovernment)}
+</div>`
+```
+
+## County Explorer
+
+<div class="county-heading">
+  <span class="qa-badge">Preliminary geography</span>
+  <span>County assignments may change as address matching improves.</span>
+</div>
+
+```{ojs}
+viewof countyState = Inputs.select(stateOptions, {
+  label: "State",
+  value: selectedState,
+  format: (abbr) => stateNameByFips.get(metadata.state_fips[abbr]) ?? abbr
+})
+```
+
+```{ojs}
+//| output: false
+countyStateFips = metadata.state_fips[countyState]
+countyStateRows = mapFilteredRows.filter((d) => d.state === countyState)
+countyAssignedRows = countyStateRows.filter((d) => String(d.county_fips || "").length === 5)
+countyUnassigned = countyStateRows.length - countyAssignedRows.length
+countyHigh = countyAssignedRows.filter((d) => d.geocode_confidence === "high").length
+countyFallback = countyAssignedRows.filter((d) => d.geocode_method === "zip_crosswalk").length
+countyCounts = d3.rollup(countyAssignedRows, (rows) => rows.length, (d) => String(d.county_fips))
+stateCountyFeatures = countyFeatures.filter((feature) => String(feature.id).padStart(5, "0").startsWith(countyStateFips))
+stateCountyCollection = ({type: "FeatureCollection", features: stateCountyFeatures})
+```
+
+```{ojs}
+html`<div class="metric-tile-grid county-metric-grid">
+  ${summaryTile("State facilities", countyStateRows.length)}
+  ${summaryTile("County assigned", countyAssignedRows.length)}
+  ${summaryTile("High confidence", countyHigh)}
+  ${summaryTile("ZIP fallback", countyFallback)}
+  ${summaryTile("Unassigned", countyUnassigned)}
+</div>`
+```
+
+```{ojs}
+mapIsAvailable && countyAssignedRows.length
+  ? Plot.plot({
+      width: 980,
+      height: 600,
+      projection: {type: "mercator", domain: stateCountyCollection, inset: 12},
+      color: {scheme: "purples", label: "Facility count", legend: true},
+      marks: [
+        Plot.geo(stateCountyFeatures, {
+          fill: (feature) => countyCounts.get(String(feature.id).padStart(5, "0")) ?? 0,
+          stroke: "#ffffff",
+          strokeWidth: 0.7,
+          title: (feature) => `${feature.properties.name}\nFacilities: ${fmtInt(countyCounts.get(String(feature.id).padStart(5, "0")) ?? 0)}\n${yearLabels.get(selectedSurveyYear)}\nFilters: ${activeFilterSummary}`
+        })
+      ]
+    })
+  : html`<div class="data-unavailable">No county-assigned facilities are available for this state, year, and filter selection.</div>`
+```
+
+## Trends
+
+::: {.trend-control-grid}
+
+```{ojs}
+viewof comparisonStartYear = Inputs.select(surveyYears, {
+  label: "Start year",
+  value: d3.min(surveyYears),
+  format: (d) => yearLabels.get(d)
+})
+```
+
+```{ojs}
+viewof comparisonEndYear = Inputs.select(surveyYears, {
+  label: "End year",
+  value: d3.max(surveyYears),
+  format: (d) => yearLabels.get(d)
+})
+```
+
+```{ojs}
+trendMetrics = [
+  "filtered", "otp", "nonprofit", "forprofit", "government",
+  "outpatient", "residential", "hospital"
+]
+viewof trendMetric = Inputs.select(trendMetrics, {
+  label: "Metric",
+  value: "filtered",
+  format: (value) => ({
+    filtered: "Facilities matching filters",
+    otp: "OTP",
+    nonprofit: "Nonprofit",
+    forprofit: "For-profit",
+    government: "Government",
+    outpatient: "Outpatient",
+    residential: "Residential",
+    hospital: "Hospital inpatient"
+  })[value]
+})
+```
+
+```{ojs}
+overlayOptions = [
+  "US",
+  ...regionOptions.map((d) => `Region:${d}`),
+  ...stateOptions.map((d) => `State:${d}`)
+]
+overlayLabel = (value) => {
+  if (value === "US") return "United States"
+  const [kind, name] = value.split(":")
+  return kind === "Region" ? `${name} region` : (stateNameByFips.get(metadata.state_fips[name]) ?? name)
+}
+viewof selectedOverlays = Inputs.select(overlayOptions, {
+  label: "Geographies (maximum three)",
+  value: ["US"],
+  multiple: true,
+  size: 5,
+  format: overlayLabel
+})
+```
+
+:::
+
+```{ojs}
+//| output: false
+comparisonYearLo = Math.min(comparisonStartYear, comparisonEndYear)
+comparisonYearHi = Math.max(comparisonStartYear, comparisonEndYear)
+comparisonYears = surveyYears.filter((year) => year >= comparisonYearLo && year <= comparisonYearHi)
+overlaySelection = normalizeMulti(selectedOverlays).slice(0, 3)
+comparisonUsesRaw = rawCodeSelection.length > 0
+comparisonRows = comparisonUsesRaw
+  ? (await Promise.all(comparisonYears.map((year) => d3.csv(`data/facility_dashboard_${year}.csv`, d3.autoType)))).flat()
+  : filterCube.filter((d) => d.survey_year >= comparisonYearLo && d.survey_year <= comparisonYearHi)
+rowWeight = (row) => comparisonUsesRaw ? 1 : (+row.facility_count || 0)
+metricDefinition = ({
+  otp: ["service_family", ["opioid_treatment_program"]],
+  nonprofit: ["ownership", ["private_nonprofit"]],
+  forprofit: ["ownership", ["private_forprofit"]],
+  government: ["ownership", ["local_government", "state_government", "tribal_government", "federal_dod", "federal_ihs", "federal_va"]],
+  outpatient: ["setting", ["outpatient"]],
+  residential: ["setting", ["residential"]],
+  hospital: ["setting", ["hospital_inpatient"]]
+})[trendMetric]
+trendMetricAvailable = (year) => {
+  if (!metricDefinition) return true
+  const [group, values] = metricDefinition
+  return values.some((value) => availabilityByKey.get(`${year}|${group}|${value}`) === true)
+}
+trendMetricPasses = (row) => {
+  if (!metricDefinition) return true
+  const [group, values] = metricDefinition
+  const wanted = values.reduce((mask, value) => mask | groupBit(group, value), 0)
+  return ((+row[`${group}_mask`] || 0) & wanted) !== 0
+}
+comparisonPasses = (row) => (
+  (comparisonUsesRaw ? rowPassesShard(row) : rowPassesHarmonized(row)) &&
+  trendMetricPasses(row)
+)
+geographyRows = (rows, geography) => {
+  if (geography === "US") return rows
+  const [kind, value] = geography.split(":")
+  return kind === "Region"
+    ? rows.filter((d) => d.census_region === value)
+    : rows.filter((d) => d.state === value)
+}
+geographyPopulation = (year, geography) => {
+  const rows = population.filter((d) => d.survey_year === year)
+  if (geography === "US") return d3.sum(rows, (d) => d.population)
+  const [kind, value] = geography.split(":")
+  if (kind === "State") return populationByYearState.get(`${year}|${value}`)?.population ?? NaN
+  const statesInRegion = new Set(
+    stateCounts.filter((d) => d.survey_year === year && d.census_region === value).map((d) => d.state)
+  )
+  return d3.sum(rows.filter((d) => statesInRegion.has(d.state)), (d) => d.population)
+}
+trendRows = comparisonYears.flatMap((year) => {
+  const available = selectionAvailable(year) && trendMetricAvailable(year)
+  const yearRows = available
+    ? comparisonRows.filter((d) => d.survey_year === year && comparisonPasses(d))
+    : []
+  return overlaySelection.map((geography) => {
+    const count = available ? d3.sum(geographyRows(yearRows, geography), rowWeight) : NaN
+    const denominator = geographyPopulation(year, geography)
+    const rate = available && denominator > 0 ? count / denominator * 100000 : NaN
+    return {
+      survey_year: year,
+      geography_label: overlayLabel(geography),
+      count,
+      population: denominator,
+      rate,
+      value: perCapita ? rate : count,
+      available,
+      qa_status: yearMetadata.get(year)?.qa_status ?? "Not reviewed"
+    }
+  })
+})
+trendYLabel = perCapita ? "Facilities per 100,000 residents" : "Facility count"
+trendChart = Plot.plot({
+  width: 980,
+  height: 455,
+  marginLeft: 85,
+  x: {label: "Survey year", tickFormat: d3.format("d")},
+  y: {label: trendYLabel, grid: true},
+  color: {legend: true},
+  marks: [
+    Plot.ruleY([0], {stroke: "#d8d1d4"}),
+    Plot.ruleX([2020], {stroke: "#5b1f2e", strokeDasharray: "5,4"}),
+    Plot.line(trendRows, {x: "survey_year", y: "value", stroke: "geography_label", strokeWidth: 2.5}),
+    Plot.dot(trendRows, {
+      x: "survey_year",
+      y: "value",
+      stroke: "geography_label",
+      r: 3,
+      title: (d) => `${d.geography_label}\n${yearLabels.get(d.survey_year)}\n${trendYLabel}: ${perCapita ? fmtRate(d.value) : fmtInt(d.value)}\nQA: ${d.qa_status}`
+    })
+  ]
+})
+```
+
+```{ojs}
+md`${normalizeMulti(selectedOverlays).length > 3 ? "**Only the first three selected geographies are displayed.**" : ""}`
+```
+
+```{ojs}
+viewof trendChartView = {
+  const node = trendChart
+  return node ? node.cloneNode(true) : document.createElement("div")
+}
+```
+
+```{ojs}
+//| output: false
+safeFilename = (value) => String(value).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
+wrapCanvasText = (context, text, x, y, maxWidth, lineHeight, maxLines = 3) => {
+  const words = text.split(/\s+/)
+  const lines = []
+  let line = ""
+  for (const word of words) {
+    const test = line ? `${line} ${word}` : word
+    if (context.measureText(test).width > maxWidth && line) {
+      lines.push(line)
+      line = word
+    } else {
+      line = test
+    }
+  }
+  if (line) lines.push(line)
+  lines.slice(0, maxLines).forEach((value, index) => context.fillText(value, x, y + index * lineHeight))
+}
+trendDownloadPng = {
+  const button = html`<button class="btn btn-primary" type="button">Download PNG</button>`
+  button.onclick = async () => {
+    const canvas = document.createElement("canvas")
+    canvas.width = 1600
+    canvas.height = 900
+    const context = canvas.getContext("2d")
+    context.fillStyle = "#ffffff"
+    context.fillRect(0, 0, canvas.width, canvas.height)
+    context.fillStyle = "#35101b"
+    context.font = "bold 36px Arial, sans-serif"
+    context.fillText("Historical SAMHSA Treatment Facility Listings", 70, 62)
+    context.font = "22px Arial, sans-serif"
+    context.fillText(`${comparisonYearLo}-${comparisonYearHi} survey years | ${trendYLabel}`, 70, 100)
+    context.fillStyle = "#4f4650"
+    context.font = "17px Arial, sans-serif"
+    wrapCanvasText(context, `Filters: ${activeFilterSummary}`, 70, 132, 1460, 22, 2)
+    const clone = trendChart.cloneNode(true)
+    clone.setAttribute("xmlns", "http://www.w3.org/2000/svg")
+    const svgBlob = new Blob([new XMLSerializer().serializeToString(clone)], {type: "image/svg+xml;charset=utf-8"})
+    const svgUrl = URL.createObjectURL(svgBlob)
+    const image = new Image()
+    await new Promise((resolve, reject) => {
+      image.onload = resolve
+      image.onerror = reject
+      image.src = svgUrl
+    })
+    context.drawImage(image, 70, 185, 1460, 610)
+    URL.revokeObjectURL(svgUrl)
+    context.fillStyle = "#5b1f2e"
+    context.font = "bold 16px Arial, sans-serif"
+    context.fillText("VERSION 1 PREVIEW: manual validation is incomplete.", 70, 830)
+    context.fillStyle = "#6b5f67"
+    context.font = "14px Arial, sans-serif"
+    context.fillText("Source: SAMHSA historical directories and Census population estimates.", 70, 856)
+    context.fillText(`Generated ${new Date().toISOString().slice(0, 10)} | econdavidhall.com`, 70, 878)
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"))
+    const href = URL.createObjectURL(blob)
+    const link = document.createElement("a")
+    link.href = href
+    link.download = `samhsa-facility-trend-${comparisonYearLo}-${comparisonYearHi}-${safeFilename(trendMetric)}.png`
+    link.click()
+    setTimeout(() => URL.revokeObjectURL(href), 1000)
+  }
+  return button
+}
+trendDownloadCsv = {
+  const csv = d3.csvFormat(trendRows.map((d) => ({
+    survey_year: d.survey_year,
+    directory_year: yearMetadata.get(d.survey_year)?.directory_year,
+    geography: d.geography_label,
+    metric: trendMetric,
+    facility_count: Number.isFinite(d.count) ? d.count : "",
+    population: Number.isFinite(d.population) ? d.population : "",
+    facilities_per_100000: Number.isFinite(d.rate) ? d.rate : "",
+    available: d.available,
+    qa_status: d.qa_status
+  })))
+  const blob = new Blob([csv], {type: "text/csv;charset=utf-8"})
+  const href = URL.createObjectURL(blob)
+  return html`<a class="btn btn-outline-primary" href="${href}" download="samhsa-facility-trend-${comparisonYearLo}-${comparisonYearHi}.csv">Download plotted CSV</a>`
+}
+```
+
+```{ojs}
+html`<div class="dashboard-download-row">${trendDownloadPng}${trendDownloadCsv}</div>`
+```
+
+:::
+
+<details class="dashboard-notes">
+<summary>About these data</summary>
+
+The analytical year is the survey year; the directory year is retained in labels and downloads. Counts represent directory listings rather than linked cross-year organizations. The 2020 rule marks the N-SSATS/N-SUMHSS transition.
+
+Multiple selections within ownership, center type, setting, and payment use OR logic. Filter groups combine with AND logic. Multiple services use the All/Any selection shown above.
+
+</details>
+
+<details class="dashboard-notes">
+<summary>Limitations and downloads</summary>
+
+These are preliminary parser outputs and may change during manual review. A gap means that a characteristic was not asked or cannot be harmonized for that year. County assignments include confidence and method fields.
+
+[Download the data, source PDFs, code, and citation](../treatment-facilities/index.qmd)
+
+</details>

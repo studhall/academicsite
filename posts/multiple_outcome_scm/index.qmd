@@ -1,0 +1,326 @@
+---
+title: "Synthetic Control With One Outcome and Many Outcomes"
+date: 2026-05-01
+tags:
+  - econometrics
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+---
+
+## Synthetic Control with Multiple Outcomes
+
+### Can it be useful for you?
+
+I recently presented a paper using the synthetic control method to understand the impact of a California policy. I received a lot of great feedback--even if the feedback made me understand how far I have to go as a presenter, as an economist, and with this paper in particular--and one of the comments was that my synthetic controls had somewhat poor pre-period fits. This is actually quite rare for synthetic controls; in fact, the issue most people point out is that (especially when we have long pre-periods), SCM has a tendency to overfit. Regardless, we got into a discussion of how to alleviate any concerns folks would have over my method. I have multiple *related* outputs (i.e. a factor model might find some strong common factors across the outcomes), and we discussed what would happen if we used a multiple-outcome synthetic control.
+
+As I learn more about this method, I thought it would be best to write about it. This helps me, selfishly, because I have to feel somewhat confident before putting this on my website. I also thought it might be good to get an overview from someone less statistically nuanced. I might end up putting together a presentation on this for my graduate group brown bag and, if so, will post that here.
+
+This post is meant to be a setup note on the difference between the standard synthetic control method in [Abadie, Diamond, and Hainmueller (2010)](https://economics.mit.edu/sites/default/files/publications/Synthetic%20Control%20Methods.pdf) and the newer multi-outcome extensions in [Tian, Lee, and Panchenko (2026)](https://doi.org/10.1093/ectj/utag005) and [Sun, Ben-Michael, and Feller (2025)](https://arxiv.org/abs/2311.16260). The goal is not to cover every identification result, but to write down what changes in the implementation. It would be good, prior to presenting this, to briefly go over the proofs in the texts to understand any changes made to our typical assumptions, though they do not change *all that* much. 
+
+## Setup and Notation
+
+Suppose we observe $J+1$ units over $T$ periods. Unit $i=1$ is WOLG, the treated unit. The donor units are indexed by $j=2,\dots,J+1$. Treatment begins after period $T_0$, so there are $T_0$ pre-treatment periods and $T_1 = T - T_0$ post-treatment periods.
+
+Let $Y_{it}(0)$ denote the untreated potential outcome for unit $i$ at time $t$, and let $Y_{it}(1)$ denote the treated potential outcome. For the treated unit, we observe
+
+$$
+Y_{1t}
+=
+\begin{cases}
+Y_{1t}(0), & t \leq T_0, \\
+Y_{1t}(1), & t > T_0.
+\end{cases}
+$$
+
+For donor units, which are never treated, we observe $Y_{jt}=Y_{jt}(0)$ for all $t$. The missing object is the post-treatment untreated path for the treated unit:
+
+$$
+Y_{1t}(0)
+\qquad
+\text{for } t = T_0+1,\dots,T.
+$$
+
+Synthetic control estimates this missing path using a weighted average of donor units:
+
+$$
+\hat{Y}_{1t}(0)
+=
+\sum_{j=2}^{J+1}
+\hat{w}_j Y_{jt}.
+$$
+
+The weights live on the simplex
+
+$$
+\Delta_J
+=
+\left\{
+w \in \mathbb{R}^J:
+w_j \geq 0,\ 
+\sum_{j=2}^{J+1} w_j = 1
+\right\}.
+$$
+
+The intuition: we are just choosing the best weights to match the pre-treatment outcome while restricting the weights to be non-negative and sum to one. So if you are tired of reading up on difference-in-differences and worrying about negative weights, fear not. 
+
+## Standard Synthetic Control
+
+If we match only on the pre-treatment outcome path (something worth being careful about; check out this [cherry-picking article](https://doi.org/10.1002/pam.22206)), the standard synthetic control problem chooses donor weights that make the pre-treatment treated outcome look as close as possible to the weighted donor outcome path:
+
+$$
+\hat{w}
+=
+\arg\min_{w\in\Delta_J}
+\sum_{t=1}^{T_0}
+\left(
+Y_{1t}
+-
+\sum_{j=2}^{J+1} w_j Y_{jt}
+\right)^2.
+$$
+
+In matrix form, define
+
+$$
+Y_{1,\text{pre}}
+=
+\begin{bmatrix}
+Y_{11}\\
+\vdots\\
+Y_{1T_0}
+\end{bmatrix},
+\qquad
+Y_{0,\text{pre}}
+=
+\begin{bmatrix}
+Y_{21} & \cdots & Y_{J+1,1}\\
+\vdots & \ddots & \vdots\\
+Y_{2T_0} & \cdots & Y_{J+1,T_0}
+\end{bmatrix}.
+$$
+
+Then the same problem is
+
+$$
+\hat{w}
+=
+\arg\min_{w\in\Delta_J}
+\left\|
+Y_{1,\text{pre}}
+-
+Y_{0,\text{pre}}w
+\right\|^2.
+$$
+
+With the dimensions written underneath, something I tend to do since my econometrics class with George Evans who always paid particular attention to this, the implementation object is
+
+$$
+\hat{w}
+=
+\arg\min_{w\in\Delta_J}
+\left\|
+\underset{T_0\times 1}{Y_{1,\text{pre}}}
+-
+\underset{T_0\times J}{Y_{0,\text{pre}}}
+\underset{J\times 1}{w}
+\right\|^2.
+$$
+
+Once we have $\hat{w}$, the period-specific treatment effect estimate is
+
+$$
+\hat{\tau}_{1t}
+=
+Y_{1t}
+-
+\sum_{j=2}^{J+1}
+\hat{w}_jY_{jt},
+\qquad
+t=T_0+1,\dots,T.
+$$
+
+The average post-treatment effect is
+
+$$
+\hat{\tau}
+=
+\frac{1}{T_1}
+\sum_{t=T_0+1}^{T}
+\hat{\tau}_{1t}.
+$$
+
+Then you can get into placebo inference, or there is some work on [t-statistics for SCM](https://arxiv.org/pdf/1812.10820v6) I haven't quite read up on too much.
+
+## Why Multiple Outcomes Help
+
+Standard synthetic control can fit the pre-treatment path very tightly, especially when there are many donor units relative to the number of pre-treatment periods. That can be useful, but it also creates an overfitting concern: the weights can match noise in one outcome rather than the common structure that generates the untreated path. One of the first things we discuss in econometrics courses is that errors exist--we will never be able to model everything. Synthetic control sometimes tries to be an overzealous student in that regard.
+
+The multiple-outcome idea is to use related outcomes to discipline the weight-selection problem. Instead of finding weights that only match one outcome, we estimate a common set of weights that performs well across several outcome series. In the language of the newer papers, this can help focus the fit on shared factors rather than outcome-specific noise. 
+
+## Multi-Outcome SCM: Two Implementations
+
+Now suppose there are $m$ outcomes. Let
+
+$$
+Y_{itk}
+$$
+
+denote outcome $k$ for unit $i$ in period $t$, where $k=1,\dots,m$. The main implementation change is that we still want one donor weight vector $w$, but we use multiple outcomes to choose it.
+
+There are two main ways that we can do this. The first is probably what you were initially considering when you found out people did multiple-outcome synthetic control: find the weights that minimize the distance of a whole host of outcomes. The second is an averaging method that, frankly, sounded odd to me at first but has some perks that I will go over.
+
+### Way 1: Concatenation
+
+The concatenation approach stacks the pre-treatment outcome paths on top of one another. For the treated unit,
+
+$$
+Y^C_{1,\text{pre}}
+=
+\begin{bmatrix}
+Y_{1,\text{pre},1}\\
+\vdots\\
+Y_{1,\text{pre},m}
+\end{bmatrix},
+$$
+
+and for the donor units,
+
+$$
+Y^C_{0,\text{pre}}
+=
+\begin{bmatrix}
+Y_{0,\text{pre},1}\\
+\vdots\\
+Y_{0,\text{pre},m}
+\end{bmatrix}.
+$$
+
+The minimization problem becomes
+
+$$
+\hat{w}^{C}
+=
+\arg\min_{w\in\Delta_J}
+\left\|
+Y^C_{1,\text{pre}}
+-
+Y^C_{0,\text{pre}}w
+\right\|^2.
+$$
+
+With dimensions, the same object is
+
+$$
+\hat{w}^{C}
+=
+\arg\min_{w\in\Delta_J}
+\left\|
+\underset{mT_0\times 1}{Y^C_{1,\text{pre}}}
+-
+\underset{mT_0\times J}{Y^C_{0,\text{pre}}}
+\underset{J\times 1}{w}
+\right\|^2.
+$$
+
+The practical meaning is simple: instead of asking the donor weights to match one $T_0$-length path, we ask them to match one longer $mT_0$-length object that contains all the pre-treatment outcome paths.
+
+What's the issue with this? Well, suppose I had a really noisy outcome or two. The weights can end up chasing that noise rather than the underlying structure of the model. At the same time, I think this method is quite intuitive, so if you do not have to worry about that, then this is maybe the safer route.
+
+### Way 2: Average or Index
+
+The second approach first combines the outcomes into an average or index, then runs the usual synthetic control problem on that constructed outcome. Let $\widetilde{Y}_{itk}$ be the normalized version of outcome $k$. Define
+
+$$
+\overline{Y}_{it}
+=
+\frac{1}{m}
+\sum_{k=1}^{m}
+\widetilde{Y}_{itk}.
+$$
+
+Then construct $\overline{Y}_{1,\text{pre}}$ and $\overline{Y}_{0,\text{pre}}$ exactly as in the standard SCM setup, but using the averaged outcome:
+
+$$
+\hat{w}^{A}
+=
+\arg\min_{w\in\Delta_J}
+\left\|
+\overline{Y}_{1,\text{pre}}
+-
+\overline{Y}_{0,\text{pre}}w
+\right\|^2.
+$$
+
+With dimensions, this is
+
+$$
+\hat{w}^{A}
+=
+\arg\min_{w\in\Delta_J}
+\left\|
+\underset{T_0\times 1}{\overline{Y}_{1,\text{pre}}}
+-
+\underset{T_0\times J}{\overline{Y}_{0,\text{pre}}}
+\underset{J\times 1}{w}
+\right\|^2.
+$$
+
+The practical meaning is that the multiple outcomes enter before the SCM step. Once the average or index is built, the weight-selection problem looks like the original one-outcome SCM problem.
+
+What I imagine will be the big hang-up for this method is the index or average used. You may have to defend it or show some robustness to other non-mean-based indices.
+
+## Normalization
+
+One last thing that matters more than I initially wanted it to: the outcomes need to be put on comparable footing. Otherwise, stable level differences across units or outcomes can end up doing a lot of work in the optimization problem. The math is not being mean; it is just doing exactly what we asked it to do.
+
+The normalization used in these papers is pretty simple. They use demeaned outcomes, where each unit-outcome series is centered by its own pre-treatment mean:
+
+$$
+\dot{Y}_{itk}
+=
+Y_{itk}
+-
+\frac{1}{T_0}
+\sum_{s=1}^{T_0}
+Y_{isk}.
+$$
+
+So rather than matching on the raw level of each outcome, we are matching on movement relative to that unit's own pre-period average. This is also why it is sometimes described as an intercept-shifted synthetic control. We let units differ by a stable level difference, but still ask the synthetic control to track the treated unit's dynamics.
+
+In practice, this means the concatenation or averaging step above is done with $\dot{Y}_{itk}$ instead of $Y_{itk}$. Then, when we construct the counterfactual for a specific outcome, we can add the treated unit's pre-treatment mean back in:
+
+$$
+\hat{Y}_{1tk}(0)
+=
+\bar{Y}_{1\cdot k}
++
+\sum_{j=2}^{J+1}
+\hat{w}_j\dot{Y}_{jtk},
+\qquad
+\bar{Y}_{1\cdot k}
+=
+\frac{1}{T_0}
+\sum_{s=1}^{T_0}
+Y_{1sk}.
+$$
+
+The short version: before estimating the weights, subtract each unit's pre-treatment average for each outcome. This is not a separate research design choice so much as a practical step that keeps the multiple outcomes from turning into a contest of levels.
+
+## Matrix Size Comparison
+
+So all in all, if you understand the base SCM well, it is a fairly simple jump to the multi-outcome methods described here. 
+
+TL;DR:
+
+| Method | Outcomes Used For Weights | Treated Pre Matrix | Donor Pre Matrix | Weight Vector | Main Idea |
+|---|---:|---:|---:|---:|---|
+| Standard SCM | $1$ | $T_0\times 1$ | $T_0\times J$ | $J\times 1$ | Match one treated outcome path |
+| Multi-outcome concatenation | $m$ | $mT_0\times 1$ | $mT_0\times J$ | $J\times 1$ | Match all outcome paths jointly |
+| Multi-outcome average/index | $m$ | $T_0\times 1$ | $T_0\times J$ | $J\times 1$ | Match an averaged/indexed outcome path |
+
+## Conclusion
+
+When I have a working paper version of what I'm doing right now, after I implement the feedback I got before, I'll post it and you can see the results for yourself. For the most part, my results are stable to whether I run many separate single-outcome SCMs or the two different types of multi-outcome SCMs.

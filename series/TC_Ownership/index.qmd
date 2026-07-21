@@ -1,15 +1,19 @@
 ---
-title: "TC Ownership Series"
+title: "Tracking TC Ownership Series"
+description: "A running set of posts on ownership structure, payment acceptance, and service mix in US substance use treatment centers."
 listing:
+  id: tc-series-posts
   contents:
-    - "/series/TC_Ownership/./index.qmd"
-    - "series/TC_Ownership/**/index.qmd"
+    - "post*/index.qmd"
   sort: "date asc"
-  fields: [title, description]
+  categories: true
+  fields: [title, date, categories, description]
+  max-items: 50
 ---
 
-# TC Ownership Series
+This series tracks ownership trends in US treatment centers and follows how payment acceptance and service mix differ by ownership type.
 
-This series explores the ownership structure of substance use disorder treatment centers across the United States, from 2021–2023.
+## Series Posts
 
-Pick a post below to dive in:
+::: {#tc-series-posts}
+:::

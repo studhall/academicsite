@@ -2,15 +2,19 @@
 .Rhistory
 .RData
 .Ruserdata
+.RDataTmp*
 
 # Quarto build cache
 /.quarto/
 
-# Quarto rendered site (don’t track HTML, JSON, etc.)
+# Quarto rendered site
 /_site/
 
-# Quarto cache
+# Quarto cache and freeze outputs
 .qmd-cache/
+/_freeze/
+.quarto-preview-*.log
+.vscode/
 
 # Local outputs (plots, etc.)
 **/output/
@@ -21,3 +25,8 @@
 # OS/system junk
 .DS_Store
 Thumbs.db
+
+# Generated dashboard caches
+**/__pycache__/
+*.py[cod]
+data/treatment-facilities-dashboard/.population-cache/

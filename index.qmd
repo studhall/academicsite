@@ -1,40 +1,45 @@
-::: home-banner
-:::
-
 ---
 format:
   html:
     toc: false
     title-block: false
     title-block-banner: false
-    author: false
 ---
 
-# 👋 Welcome
+::: {.home-hero}
+::: {.site-hero-text}
+<div class="hero-name">David Hall</div>
 
-I'm a PhD Candidate in Economics at the University of Oregon, with a research focus on substance use disorder (SUD) treatment, health policy, and applied econometrics.
+I'm a PhD Candidate in Economics at the University of Oregon studying health policy, substance use disorder treatment, Medicaid, and treatment access. My work uses applied econometrics, especially difference-in-differences and synthetic control methods, to understand how policy and provider markets shape care and mortality.
 
-This site serves as a hub for my research, blog posts, data visualizations, and teaching materials.
+I also serve on the [Oregon Health Authority Opioid Settlement Prevention, Treatment, and Recovery Board](https://www.oregon.gov/oha/HSD/AMH/Pages/OAC.aspx).
+:::
 
-------------------------------------------------------------------------
+::: {.site-hero-image}
+<img src="images/headshot_2.16.2026.jpg" class="home-headshot" alt="David Hall headshot" />
+:::
+:::
 
-## 🔍 Research Focus
+## Research
 
--   Health Economics
--   Substance Use Disorder Treatment Policy
--   Econometrics
--   Public Economics & Medicaid
+::: {.research-stack}
+::: {.research-card}
+### Health Economics
 
-------------------------------------------------------------------------
+Substance use treatment, Medicaid, decriminalization, treatment access, and barriers to care.
+:::
 
-## 📄 Latest Posts
+::: {.research-card}
+### Public Economics
 
-Check out the [Blog](posts.qmd) for recent analyses, visualizations, and project updates.
+Public insurance, policy design, provider markets, and access to public programs.
+:::
 
-------------------------------------------------------------------------
+::: {.research-card}
+### Causal Inference
 
-## 📬 Contact
+Difference-in-differences, synthetic controls, and empirical tools for policy evaluation.
+:::
+:::
 
--   Email: `dhall7@uoregon.edu`
--   GitHub: [\@studhall](https://github.com/studhall)
--   X/Twitter: [\@studhall](https://x.com/studhall)
+

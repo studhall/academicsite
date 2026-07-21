@@ -1,0 +1,19 @@
+---
+title: "BLP HH EHBI Replication Series"
+description: "Posts on replicating household demand for employer-based health insurance and related premium subsidy questions."
+listing:
+  id: blp-series-posts
+  contents:
+    - "*/index.qmd"
+  sort: "date asc"
+  categories: true
+  fields: [title, date, categories, description]
+  max-items: 50
+---
+
+This series documents replication work on employer-based health insurance demand and related policy questions.
+
+## Series Posts
+
+::: {#blp-series-posts}
+:::

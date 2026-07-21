@@ -5,37 +5,187 @@ format:
     toc: true
 ---
 
-# About Me
+::: {.about-hero}
+::: {.about-copy}
+I'm a PhD Candidate in Economics at the University of Oregon. My research focuses on how health policy, public insurance, and treatment markets affect access to care for substance use disorder and related behavioral health needs.
 
-I’m a PhD Candidate in Economics at the University of Oregon. My research focuses on substance use disorder treatment, health policy, and applied econometrics. I use quasi-experimental and structural methods to study how access to care affects overdose risk, treatment utilization, and health equity.
+A lot of my work sits at the intersection of health economics, public economics, and empirical policy evaluation. I am especially interested in places where administrative systems, provider markets, and public programs shape whether care is practically reachable.
+:::
 
-------------------------------------------------------------------------
+::: {.about-image}
+<img src="images/headshot_2.16.2026.jpg" class="home-headshot about-headshot" alt="David Hall headshot" />
+:::
+:::
 
 ## Research Interests
 
--   Health economics and addiction policy
--   Medicaid, insurance coverage, and low-barrier treatment
--   Difference-in-differences and rational addiction models
+- Health economics
+  - Decriminalization
+  - Substance use policy
+  - Barriers to health access
+  - Rational addiction
+- Public economics
+- Causal inference
+  - Difference-in-differences
+  - Synthetic controls
 
-------------------------------------------------------------------------
+## Hobbies
 
-## Curriculum Vitae
+Golf, Pokemon, and cooking.
 
-[View my CV (PDF)](cv/Hall_CV_Current.pdf)
+## Favorite Shows
 
-------------------------------------------------------------------------
+::: {#favorite-shows .carousel .slide .media-carousel data-bs-ride="carousel" data-bs-interval="3600"}
+::: {.carousel-inner}
+::: {.carousel-item .active}
+::: {.carousel-card}
+<img src="images/about/himym.jpg" alt="How I Met Your Mother poster" />
+<h3>How I Met Your Mother</h3>
+:::
+:::
+::: {.carousel-item}
+::: {.carousel-card}
+<img src="images/about/naruto.jpg" alt="Naruto Shippuden poster" />
+<h3>Naruto Shippuden</h3>
+:::
+:::
+::: {.carousel-item}
+::: {.carousel-card}
+<img src="images/about/avatar.jpg" alt="Avatar: The Last Airbender poster" />
+<h3>Avatar: The Last Airbender</h3>
+:::
+:::
+::: {.carousel-item}
+::: {.carousel-card}
+<img src="images/about/moneyheist.jpg" alt="Money Heist poster" />
+<h3>Money Heist</h3>
+:::
+:::
+::: {.carousel-item}
+::: {.carousel-card}
+<img src="images/about/modernfam.jpg" alt="Modern Family poster" />
+<h3>Modern Family</h3>
+:::
+:::
+::: {.carousel-item}
+::: {.carousel-card}
+<img src="images/about/parksandrec.jpg" alt="Parks and Recreation poster" />
+<h3>Parks and Rec</h3>
+:::
+:::
+::: {.carousel-item}
+::: {.carousel-card}
+<img src="images/about/tedlasso.jpg" alt="Ted Lasso poster" />
+<h3>Ted Lasso</h3>
+:::
+:::
+::: {.carousel-item}
+::: {.carousel-card}
+<img src="images/about/house.jpg" alt="House poster" />
+<h3>House</h3>
+:::
+:::
+:::
+<button class="carousel-control-prev" type="button" data-bs-target="#favorite-shows" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></button>
+<button class="carousel-control-next" type="button" data-bs-target="#favorite-shows" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span></button>
+:::
 
-## Education
+## Substance Use And Drug-Related Shows
 
--   PhD in Economics, University of Oregon (expected 2027)
+::: {#drug-shows .carousel .slide .media-carousel data-bs-ride="carousel" data-bs-interval="3900"}
+::: {.carousel-inner}
+::: {.carousel-item .active}
+::: {.carousel-card}
+<img src="images/about/narcos.jpg" alt="Narcos poster" />
+<h3>Narcos</h3>
+:::
+:::
+::: {.carousel-item}
+::: {.carousel-card}
+<img src="images/about/breakingbad.jpg" alt="Breaking Bad poster" />
+<h3>Breaking Bad</h3>
+:::
+:::
+::: {.carousel-item}
+::: {.carousel-card}
+<img src="images/about/dopesick.jpg" alt="Dopesick poster" />
+<h3>Dopesick</h3>
+:::
+:::
+::: {.carousel-item}
+::: {.carousel-card}
+<img src="images/about/painkiller.jpg" alt="Painkiller poster" />
+<h3>Painkiller</h3>
+:::
+:::
+:::
+<button class="carousel-control-prev" type="button" data-bs-target="#drug-shows" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></button>
+<button class="carousel-control-next" type="button" data-bs-target="#drug-shows" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span></button>
+:::
 
--   M.S. Quantitative Economics, California Lutheran University 2022\
+## Favorite Book Series
 
--   Bachelor's in Economics and Mathematics, California Lutheran University, 2021
+::: {#book-series .carousel .slide .media-carousel data-bs-ride="carousel" data-bs-interval="4200"}
+::: {.carousel-inner}
+::: {.carousel-item .active}
+::: {.carousel-card}
+<img src="images/about/willwightcradle.jpg" alt="Cradle series cover" />
+<h3>Cradle</h3>
+:::
+:::
+::: {.carousel-item}
+::: {.carousel-card}
+<img src="images/about/dungeoncrawlercarl.jpg" alt="Dungeon Crawler Carl cover" />
+<h3>Dungeon Crawler Carl</h3>
+:::
+:::
+::: {.carousel-item}
+::: {.carousel-card}
+<img src="images/about/hungergames.jpg" alt="Hunger Games cover" />
+<h3>Hunger Games</h3>
+:::
+:::
+::: {.carousel-item}
+::: {.carousel-card}
+<img src="images/about/swhighrepublic.jpg" alt="Star Wars High Republic cover" />
+<h3>Star Wars High Republic</h3>
+:::
+:::
+:::
+<button class="carousel-control-prev" type="button" data-bs-target="#book-series" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></button>
+<button class="carousel-control-next" type="button" data-bs-target="#book-series" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span></button>
+:::
 
-------------------------------------------------------------------------
+## Books On Drugs And Policy
 
-## Contact
+::: {#drug-books .carousel .slide .media-carousel data-bs-ride="carousel" data-bs-interval="4500"}
+::: {.carousel-inner}
+::: {.carousel-item .active}
+::: {.carousel-card}
+<img src="images/about/empireofpain.png" alt="Empire of Pain cover" />
+<h3>Empire of Pain</h3>
+:::
+:::
+::: {.carousel-item}
+::: {.carousel-card}
+<img src="images/about/fentanyl%20inc.jpg" alt="Fentanyl Inc. cover" />
+<h3>Fentanyl Inc.</h3>
+:::
+:::
+::: {.carousel-item}
+::: {.carousel-card}
+<img src="images/about/freakonomics.jpg" alt="Freakonomics cover" />
+<h3>Freakonomics</h3>
+:::
+:::
+::: {.carousel-item}
+::: {.carousel-card}
+<img src="images/about/chasingthescream.jpg" alt="Chasing the Scream cover" />
+<h3>Chasing the Scream</h3>
+:::
+:::
+:::
+<button class="carousel-control-prev" type="button" data-bs-target="#drug-books" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></button>
+<button class="carousel-control-next" type="button" data-bs-target="#drug-books" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span></button>
+:::
 
--   Email: dhall7\@uoregon.edu\
--   GitHub: [\@studhall](https://github.com/studhall)\
