@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Address-level historical treatment facility listings reconstructed from SAMHSA directory PDFs.">
+<meta name="description" content="Address-level historical treatment facility listings reconstructed from SAMHSA directories.">
 
 <title>Historical SAMHSA Treatment Facility Data – David Hall</title>
 <style>
@@ -138,6 +138,11 @@ ul.task-list li input[type="checkbox"] {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
+    <a class="nav-link" href="https://scholar.google.com/citations?user=5H5WI0AAAAAJ&amp;hl=en" target="_blank"> <i class="bi bi-mortarboard" role="img" aria-label="Google Scholar">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
     <a class="nav-link" href="../../posts.xml"> <i class="bi bi-rss" role="img">
 </i> 
 <span class="menu-text"></span></a>
@@ -169,7 +174,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    Address-level historical treatment facility listings reconstructed from SAMHSA directory PDFs.
+    Address-level historical treatment facility listings reconstructed from SAMHSA directories.
   </div>
 </div>
 
@@ -186,84 +191,90 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This project reconstructs address-level treatment facility listings from 22 SAMHSA directories: 1998, 2000, 2001, and 2003-2021. It preserves both the directory year and the survey year represented by the directory.</p>
-<div class="data-release-status">
-<p><strong>Version 1 Preview</strong> <span>Quality assurance in progress</span> <span>22 directories</span></p>
-</div>
-<div class="download-actions">
-<p><a href="../../data/treatment-facilities-dashboard/index.html" class="btn btn-primary">Explore dashboard</a></p>
-<p><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/facilities.csv.gz" class="btn btn-outline-primary">CSV.gz</a></p>
-<p><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/facilities.parquet" class="btn btn-outline-primary">Parquet</a></p>
-<p><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/facilities.rds" class="btn btn-outline-primary">RDS</a></p>
-<p><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/samhsa_directory_pdfs.zip" class="btn btn-outline-primary">Source PDFs</a></p>
-<p><a href="https://github.com/studhall/samhsa-treatment-facility-directories" class="btn btn-outline-primary">GitHub</a></p>
-</div>
-<p>These are historical records, not a current treatment locator. Counts, addresses, and service classifications may change as manual review continues. Historical phone numbers are included in the research files but may be stale.</p>
+<p>This project reconstructs address-level treatment facility listings from 26 SAMHSA directories: 1998, 2000, 2001, and 2003-2025. PDF directories through 2021 are converted to a common format aligned with SAMHSA’s 2022-2025 workbooks. Directory and survey years are retained.</p>
+<p><strong>Version 1.1</strong></p>
+<p><a href="../../data/treatment-facilities-dashboard/index.html" class="btn btn-primary">Explore dashboard</a> <a href="https://github.com/studhall/samhsa-treatment-facility-directories" class="btn btn-outline-primary">GitHub repository</a></p>
+<section id="download" class="level2">
+<h2 class="anchored" data-anchor-id="download">Download</h2>
+<p>The combined files contain all 26 directories through 2025, representing survey years through 2024. Smaller files organized by survey year are available on the release page.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Facility-year data</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CSV.gz</td>
+<td><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/facilities.csv.gz">Download</a></td>
+</tr>
+<tr class="even">
+<td>Parquet</td>
+<td><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/facilities.parquet">Download</a></td>
+</tr>
+<tr class="odd">
+<td>RDS</td>
+<td><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/facilities.rds">Download</a></td>
+</tr>
+<tr class="even">
+<td>Stata (.dta)</td>
+<td><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/facilities.dta">Download</a></td>
+</tr>
+<tr class="odd">
+<td>Files by survey year</td>
+<td><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/tag/v1.1.0">View release</a></td>
+</tr>
+</tbody>
+</table>
+<p>These are historical records, not a current treatment locator. Historical phone numbers are included in research downloads and may be stale.</p>
 <details class="data-details">
 <summary>
-Supporting tables
+Source directories
 </summary>
 <ul>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/facility_services.csv.gz">Facility-service records (CSV.gz)</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/facility_services.parquet">Facility-service records (Parquet)</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/facility_services.rds">Facility-service records (RDS)</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/service_availability.csv">Year-specific service availability</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/harmonization_crosswalk.csv">Harmonization crosswalk</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/source_manifest.csv">Source manifest</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/qa_by_year.csv">Year-level QA status</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/data_dictionary.csv">Data dictionary</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/checksums.sha256">SHA-256 checksums</a></li>
+<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/samhsa_directory_pdfs.zip">PDF archive, 1998-2021</a></li>
+<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/samhsa_directory_xlsx_2022_2025.zip">Spreadsheet archive, 2022-2025</a></li>
+<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/source_manifest.csv">Source manifest</a></li>
+<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/checksums.sha256">SHA-256 checksums</a></li>
 </ul>
 </details>
 <details class="data-details">
 <summary>
-Individual source directories
+Services, CBP comparison, and supporting files
 </summary>
 <ul>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_1998.pdf">1998 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2000.pdf">2000 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2001.pdf">2001 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2003.pdf">2003 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2004.pdf">2004 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2005.pdf">2005 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2006.pdf">2006 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2007.pdf">2007 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2008.pdf">2008 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2009.pdf">2009 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2010.pdf">2010 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2011.pdf">2011 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2012.pdf">2012 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2013.pdf">2013 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2014.pdf">2014 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2015.pdf">2015 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2016.pdf">2016 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2017.pdf">2017 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2018.pdf">2018 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2019.pdf">2019 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2020.pdf">2020 directory</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/National_Directory_SA_facilities_2021.pdf">2021 directory</a></li>
+<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/facility_services.csv.gz">Facility-service records: CSV.gz</a></li>
+<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/facility_services.parquet">Facility-service records: Parquet</a></li>
+<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/facility_services.rds">Facility-service records: RDS</a></li>
+<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/service_availability.csv">Service availability</a></li>
+<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/harmonization_crosswalk.csv">Harmonization crosswalk</a></li>
+<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/cbp_comparison.csv">County Business Patterns comparison</a></li>
+<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/qa_by_year.csv">Year-level QA status</a></li>
+<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/data_dictionary.csv">Data dictionary</a></li>
 </ul>
 </details>
 <details class="data-details">
 <summary>
 Limitations
 </summary>
-<p>Manual gold-sample review is incomplete. County geography is preliminary and includes assignment method and confidence. A missing characteristic means it was not asked or cannot be harmonized for that year, not that no facility offered it. Pre-2021 N-SSATS and post-2020 N-SUMHSS data are not directly trend-comparable.</p>
+<p>Quality assurance is ongoing. Manual gold-sample review of the PDF years is incomplete. The 2022-2025 spreadsheet directories have passed checksum and structural checks but have not received the same record-level review. In the official 2025 workbook, 556 U.S. listings omit a street address while retaining city, state, and ZIP; these records remain included and flagged. County geography is preliminary; most assignments currently use a ZIP-to-county fallback. Missing characteristics mean that a question was not asked or cannot be harmonized, not that no facility offered the service. Pre-2021 N-SSATS and post-2020 N-SUMHSS data are not directly trend-comparable.</p>
 </details>
 <details class="data-details">
 <summary>
 Code and citation
 </summary>
-<p>Parser code is licensed under MIT. The source directories retain SAMHSA provenance and public-domain terms; this source-rights documentation is not legal advice.</p>
-<p>Hall, David. 2026. <em>SAMHSA Treatment Facility Directories: Historical Address-Level Data</em>. Version 1 Preview.</p>
+<p>Hall, David. 2026. <em>SAMHSA Treatment Facility Directories: Historical Address-Level Data</em>. Version 1.1.</p>
+<p>Parser code is licensed under MIT. Source directories retain SAMHSA provenance and public-domain terms. The source-rights review is documentation, not legal advice.</p>
 <ul>
 <li><a href="https://github.com/studhall/samhsa-treatment-facility-directories">Parser repository</a></li>
-<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1/source_rights_audit.json">Source-rights audit</a></li>
+<li><a href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/source_rights_audit.json">Source-rights audit</a></li>
 <li><a href="https://www.samhsa.gov/data/data-we-collect/n-sumhss-national-substance-use-and-mental-health-services-survey/datafiles">SAMHSA data files</a></li>
 </ul>
 </details>
 
 
+</section>
 
 </main> <!-- /main -->
 <div class="followit--follow-form-container" attr-a="" attr-b="" attr-c="" attr-d="" attr-e="" attr-f="">
@@ -712,7 +723,7 @@ Code and citation
 <p><a href="mailto:dhall7@uoregon.edu">dhall7@uoregon.edu</a></p>
 </div>
     <div class="nav-footer-right">
-<p><a href="https://github.com/studhall">GitHub</a> | <a href="https://x.com/studhall">X/Twitter</a> | Built with <a href="https://quarto.org">Quarto</a></p>
+<p><a href="https://scholar.google.com/citations?user=5H5WI0AAAAAJ&amp;hl=en">Google Scholar</a> | <a href="https://github.com/studhall">GitHub</a> | <a href="https://x.com/studhall">X/Twitter</a> | Built with <a href="https://quarto.org">Quarto</a></p>
 </div>
   </div>
 </footer>
