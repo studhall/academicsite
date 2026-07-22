@@ -4789,3 +4789,1047 @@ directory_year,survey_year,characteristic,value,label,asked,comparable,notes
 2021,2020,original_code,WO,WO,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
 2021,2020,original_code,XA,XA,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
 2021,2020,original_code,YAD,Young adults,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,ownership,private_unspecified,Private (type unspecified),False,False,Earlier directories do not consistently separate private ownership type.
+2022,2021,ownership,private_nonprofit,Private nonprofit,True,True,
+2022,2021,ownership,private_forprofit,Private for-profit,True,True,
+2022,2021,ownership,local_government,Local/county government,True,True,
+2022,2021,ownership,state_government,State government,True,True,
+2022,2021,ownership,tribal_government,Tribal government,True,True,
+2022,2021,ownership,federal_dod,Federal: Department of Defense,True,True,
+2022,2021,ownership,federal_ihs,Federal: Indian Health Service,True,True,
+2022,2021,ownership,federal_va,Federal: Veterans Affairs,True,True,
+2022,2021,center_type,substance_use,Substance use treatment,True,True,
+2022,2021,center_type,detoxification,Detoxification,True,True,
+2022,2021,center_type,transitional_housing,Transitional housing/halfway house,True,True,
+2022,2021,center_type,mental_health,Mental health treatment,False,True,
+2022,2021,center_type,cooccurring,Co-occurring mental health and substance use,True,True,
+2022,2021,setting,outpatient,Outpatient,True,True,
+2022,2021,setting,residential,Residential,True,True,
+2022,2021,setting,hospital_inpatient,Hospital inpatient,True,True,
+2022,2021,payment,medicare,Medicare,True,True,
+2022,2021,payment,medicaid,Medicaid,True,True,
+2022,2021,payment,military_insurance,Military insurance,True,True,
+2022,2021,payment,private_insurance,Private health insurance,True,True,
+2022,2021,payment,self_pay,Cash or self-payment,True,True,
+2022,2021,payment,state_financed,State-financed insurance,True,True,
+2022,2021,payment,payment_assistance,Payment assistance,True,True,
+2022,2021,payment,sliding_fee,Sliding fee scale,True,True,
+2022,2021,service_family,substance_use_treatment,Substance use treatment,True,True,
+2022,2021,service_family,detoxification,Detoxification,True,True,
+2022,2021,service_family,transitional_housing,Transitional housing/halfway house,True,True,
+2022,2021,service_family,cooccurring,Co-occurring mental health and substance use treatment,True,True,
+2022,2021,service_family,outpatient_treatment,Outpatient treatment,True,True,
+2022,2021,service_family,residential_treatment,Residential treatment,True,True,
+2022,2021,service_family,hospital_inpatient,Hospital inpatient treatment,True,True,
+2022,2021,service_family,opioid_treatment_program,SAMHSA-certified opioid treatment program,True,True,
+2022,2021,service_family,methadone,Methadone services,True,True,
+2022,2021,service_family,buprenorphine,Buprenorphine services,True,True,
+2022,2021,service_family,naltrexone,Naltrexone services,True,True,
+2022,2021,service_family,telehealth,Telehealth/telemedicine,True,True,
+2022,2021,original_code,ACC,Aftercare/continuing care,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,ACM,Acamprosate (Campral®),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,ACMA,Accepts clients using medication assisted treatment for alcohol use disorder but prescribed elsewhere,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,ACU,Acupuncture,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,AD,Adolescents,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,ADLT,Adults,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,ADM,Active duty military,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,ADTX,Alcohol Detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,AH,Sign language services for the deaf and hard of hearing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,ANG,Anger management,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,AOSS,Assistance with obtaining social services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,AUDO,Alcohol use disorder clients only,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,AUINPE,In-network prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,AUPC,No formal relationship with prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,AURPE,Other contracted prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,BABA,Breathalyzer or blood alcohol testing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,BC,Residential beds for clients' children,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,BDTX,Benzodiazepines Detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,BERI,"Buprenorphine (extended-release, injectable)",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,BIA,Brief intervention,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,BMW,Buprenorphine maintenance for predetermined time,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,BSDM,Buprenorphine sub-dermal implant,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,BU,Buprenorphine used in Treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,BUM,Buprenorphine maintenance,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,BWN,Buprenorphine with naloxone,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,BWON,Buprenorphine without naloxone,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,CARF,Commission on Accreditation of Rehabilitation Facilities (CARF),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,CBT,Cognitive behavioral therapy,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,CCC,Child care for clients' children,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,CDTX,Cocaine Detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,CHLD,Children/adolescents,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,CJ,Criminal justice (other than DUI/DWI)/Forensic clients,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,CLND,Clonidine,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,CM,Case management service,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,CMHA,Comprehensive mental health assessment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,CMI,Contingency management/motivational incentives,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,CO,Clients with co-occurring mental and substance use disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,COA,Council on Accreditation (COA),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,COPSU,Clients with co-occurring pain and substance use disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,CRV,Community reinforcement plus vouchers,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,CSAA,Comprehensive substance use assessment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,DAOF,Drug and alcohol oral fluid testing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,DAUT,Drug or alcohol urine screening,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,DB,Buprenorphine detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,DDF,Department of Defense,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,DEA,Drug Enforcement Agency (DEA),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,DM,Methadone detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,DP,Discharge Planning,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,DSF,Disulfiram,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,DT,Detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,DU,Specially designed program for DUI/DWI clients,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,DUO,Serves only DUI/DWI clients,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,DV,"Clients who have experienced intimate partner violence, domestic violence",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,DVFP,"Domestic violence services, including family or partner",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,EIH,Early intervention for HIV,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,EMP,Employment counseling or training,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,F17,Any Chinese Language,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,F19,Creole,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,F25,Farsi,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,F28,French,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,F30,German,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,F31,Greek,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,F35,Hebrew,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,F36,Hindi,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,F37,Hmong,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,F4,Arabic,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,F42,Italian,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,F43,Japanese,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,F47,Korean,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,F66,Polish,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,F67,Portuguese,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,F70,Russian,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,F81,Tagalog,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,F92,Vietnamese,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,FCO,Family counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,FED,Federal Government,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,FEM,Female,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,FQHC,Federally Qualified Health Center,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,FSA,"Federal, or any government funding for substance use treatment programs",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,FX,Other languages (excluding Spanish),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,GCO,Group counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,GH,General Hospital (including VA hospital),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,GL,"Lesbian, gay, bisexual, transgender, or queer/questioning (LGBTQ)",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,HAEC,"HIV or AIDS education, counseling, or support",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,HAV,Hepatitis A (HAV) vaccination,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,HBT,Testing for Hepatitis B (HBV),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,HBV,Hepatitis B (HBV) vaccination,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,HCT,Testing for Hepatitis C (HCV),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,HEOH,Health education services other than HIV/AIDS or hepatitis,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,HFAP,Healthcare Facilities Accreditation Program (HFAP),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,HH,"Transitional housing, halfway house, or sober home",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,HI,Hospital inpatient/24-hour hospital inpatient,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,HID,Hospital inpatient detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,HIT,Hospital inpatient treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,HIVT,HIV testing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,HLA,Hospital licensing authority,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,HS,Housing services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,HV,Clients with HIV or AIDS,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,ICO,Individual counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,IH,Indian Health Services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,INPE,In-network prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,IPC,Integrated primary care services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,ISC,Interim services for clients,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,ITU,IHS/Tribal/Urban (ITU) funds,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,JC,The Joint Commission,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,LCCG,"Local, county, or community government",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,LFXD,Lofexidine,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MALE,Male,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MC,Medicare,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MCO,Marital/couples counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MD,Medicaid,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MDET,Medication routinely used during detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MDTX,Methamphetamines detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,METH,Methadone,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MF,Members of military families,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MHCV,Medications for Hepatitis C treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MHIV,Medications for HIV treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MHPA,Complete medical history/physical exam,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MHS,Mental health services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MI,"Federal military insurance (e.g., TRICARE)",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MM,Methadone maintenance,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MMD,Medication for mental disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MMW,Methadone maintenance for predetermined time,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MN,Adult men,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MOA,Accepts clients using MAT but prescribed elsewhere,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MOTI,Motivational interviewing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MPEP,Medications for pre-exposure to prophylaxis,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MST,Metabolic syndrome monitoring,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MU,Methadone used in Treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,MXM,Matrix Model,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,N24,Ojibwa,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,N40,Yupik,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,NAUT,Does not treat alcohol use disorder,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,NCQA,National Committee for Quality Assurance (NCQA),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,NMAUT,Does not use medication assisted treatment for alcohol use disorder,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,NMOA,Does not use MAT for opioid use disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,NOE,Naloxone and overdose education,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,NOOP,Does not treat opioid use disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,NP,No payment accepted,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,NRT,Nicotine replacement,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,NSC,Non-nicotine smoking/tobacco cessation,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,NU,Naltrexone used in Treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,NX,American Indian or Alaska Native languages,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,NXN,Naltrexone (oral),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,OD,Outpatient detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,ODT,Outpatient day treatment or partial hospitalization,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,ODTX,Opioids detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,OFD,Outcome follow-up after discharge,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,OIT,Intensive outpatient treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,OMB,Outpatient methadone/buprenorphine or naltrexone treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,OP,Outpatient,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,OPC,Outreach to persons in the community,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,ORT,Regular outpatient treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,OTP,Federally-certified Opioid Treatment Program,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,OUDO,Opioid use disorder clients only,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,PA,Payment assistance (check with facility for details),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,PAIN,Use methadone/buprenorphine for pain management or emergency dosing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,PC,No formal relationship with prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,PEER,Mentoring/peer support,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,PI,Private health insurance,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,PIEC,Professional interventionist/educational consultant,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,PMAT,This facility administers/prescribes medication for alcohol use disorder,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,PSYH,Psychiatric hospital,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,PVTN,Private non-profit organization,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,PVTP,Private for-profit organization,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,PW,Pregnant/postpartum women,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,RC,Recovery coach,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,RD,Residential detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,RELP,Relapse prevention,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,RES,Residential/24-hour residential,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,RL,Long-term residential,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,RPE,Other contracted prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,RPN,Relapse prevention with naltrexone,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,RS,Short-term residential,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,SA,Substance use treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,SACA,Substance use disorder counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,SAE,Substance use disorder education,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,SAMF,SAMHSA funding/block grants,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,SE,Seniors or older adults,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,SF,Cash or self-payment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,SHG,Self-help groups,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,SI,State-financed health insurance plan other than Medicaid,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,SMHD,Screening for mental disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,SMON,Smoking not permitted,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,SMOP,Smoking permitted without restriction,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,SMPD,Smoking permitted in designated area,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,SNR,Seniors,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,SOTP,SAMHSA certification for opioid treatment program (OTP),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,SP,Spanish,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,SPS,Suicide prevention services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,SS,Sliding fee scale (fee is based on income and other factors),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,SSA,Screening for substance use,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,SSD,Social skills development,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,STAG,State Substance use treatment agency,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,STDH,State department of health,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,STDT,STD testing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,STG,State government,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,STMH,State mental health department,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,STU,Screening for tobacco use,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,SUMH,SUMH,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,TA,Transportation assistance,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,TAEC,"Hepatitis education, counseling, or support",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,TAY,Young adults,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,TBG,Tribal government,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,TBS,TB screening,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,TCC,Smoking/vaping/tobacco cessation counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,TELE,Telemedicine/telehealth therapy,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,TGD,Treatment for gambling disorder,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,TOD,Treatment for other addiction disorder,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,TRC,Trauma-related counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,TRMA,Clients who have experienced trauma,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,TWFA,12-step facilitation,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,UB,Prescribes buprenorphine,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,ULC,Lofexidine/clonidine detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,UN,Prescribes naltrexone,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,VAMC,U.S. Department of Veterans Affairs,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,VAPN,Vaping not permitted,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,VAPP,Vaping permitted without restriction,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,VET,Veterans,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,VOC,"Vocational training or educational support (for example, high school coursework, GED preparation, etc.)",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,VPPD,Vaping permitted in designated area,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,VTRL,"Naltrexone (extended-release, injectable)",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,WN,Adult women,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,XA,Clients who have experienced sexual abuse,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2022,2021,original_code,YAD,Young adults,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,ownership,private_unspecified,Private (type unspecified),False,False,Earlier directories do not consistently separate private ownership type.
+2023,2022,ownership,private_nonprofit,Private nonprofit,True,True,
+2023,2022,ownership,private_forprofit,Private for-profit,True,True,
+2023,2022,ownership,local_government,Local/county government,True,True,
+2023,2022,ownership,state_government,State government,True,True,
+2023,2022,ownership,tribal_government,Tribal government,True,True,
+2023,2022,ownership,federal_dod,Federal: Department of Defense,True,True,
+2023,2022,ownership,federal_ihs,Federal: Indian Health Service,True,True,
+2023,2022,ownership,federal_va,Federal: Veterans Affairs,True,True,
+2023,2022,center_type,substance_use,Substance use treatment,True,True,
+2023,2022,center_type,detoxification,Detoxification,True,True,
+2023,2022,center_type,transitional_housing,Transitional housing/halfway house,True,True,
+2023,2022,center_type,mental_health,Mental health treatment,False,True,
+2023,2022,center_type,cooccurring,Co-occurring mental health and substance use,True,True,
+2023,2022,setting,outpatient,Outpatient,True,True,
+2023,2022,setting,residential,Residential,True,True,
+2023,2022,setting,hospital_inpatient,Hospital inpatient,True,True,
+2023,2022,payment,medicare,Medicare,True,True,
+2023,2022,payment,medicaid,Medicaid,True,True,
+2023,2022,payment,military_insurance,Military insurance,True,True,
+2023,2022,payment,private_insurance,Private health insurance,True,True,
+2023,2022,payment,self_pay,Cash or self-payment,True,True,
+2023,2022,payment,state_financed,State-financed insurance,True,True,
+2023,2022,payment,payment_assistance,Payment assistance,True,True,
+2023,2022,payment,sliding_fee,Sliding fee scale,True,True,
+2023,2022,service_family,substance_use_treatment,Substance use treatment,True,True,
+2023,2022,service_family,detoxification,Detoxification,True,True,
+2023,2022,service_family,transitional_housing,Transitional housing/halfway house,True,True,
+2023,2022,service_family,cooccurring,Co-occurring mental health and substance use treatment,True,True,
+2023,2022,service_family,outpatient_treatment,Outpatient treatment,True,True,
+2023,2022,service_family,residential_treatment,Residential treatment,True,True,
+2023,2022,service_family,hospital_inpatient,Hospital inpatient treatment,True,True,
+2023,2022,service_family,opioid_treatment_program,SAMHSA-certified opioid treatment program,True,True,
+2023,2022,service_family,methadone,Methadone services,True,True,
+2023,2022,service_family,buprenorphine,Buprenorphine services,True,True,
+2023,2022,service_family,naltrexone,Naltrexone services,True,True,
+2023,2022,service_family,telehealth,Telehealth/telemedicine,True,True,
+2023,2022,original_code,ACC,Aftercare/continuing care,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,ACM,Acamprosate (Campral®),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,ACMA,Accepts clients using medication assisted treatment for alcohol use disorder but prescribed elsewhere,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,ACU,Acupuncture,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,AD,Adolescents,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,ADLT,Adults,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,ADM,Active duty military,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,ADTX,Alcohol Detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,AH,Sign language services for the deaf and hard of hearing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,ANG,Anger management,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,AOSS,Assistance with obtaining social services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,AUDO,Alcohol use disorder clients only,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,AUINPE,In-network prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,AUPC,No formal relationship with prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,AURPE,Other contracted prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,BABA,Breathalyzer or blood alcohol testing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,BC,Residential beds for clients' children,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,BDTX,Benzodiazepines Detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,BERI,"Buprenorphine (extended-release, injectable)",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,BIA,Brief intervention,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,BSDM,Buprenorphine sub-dermal implant,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,BU,Buprenorphine used in Treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,BUM,Buprenorphine maintenance,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,BWN,Buprenorphine with naloxone,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,BWON,Buprenorphine without naloxone,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,CARF,Commission on Accreditation of Rehabilitation Facilities (CARF),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,CBT,Cognitive behavioral therapy,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,CCC,Child care for clients' children,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,CDTX,Cocaine Detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,CHLD,Children/Adolescents,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,CJ,Criminal justice (other than DUI/DWI)/Forensic clients,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,CLND,Clonidine,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,CM,Case management service,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,CMHA,Comprehensive mental health assessment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,CMI,Contingency management/motivational incentives,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,CO,Clients with co-occurring mental and substance use disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,COA,Council on Accreditation (COA),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,COPSU,Clients with co-occurring pain and substance use disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,CRV,Community reinforcement plus vouchers,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,CSAA,Comprehensive substance use assessment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,DAOF,Drug and alcohol oral fluid testing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,DAUT,Drug or alcohol urine screening,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,DB,Buprenorphine detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,DDF,Department of Defense,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,DEA,Drug Enforcement Agency (DEA),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,DLC,Lofexidine or Clonidine detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,DM,Methadone detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,DP,Discharge Planning,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,DSF,Disulfiram,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,DT,Detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,DU,Specially designed program for DUI/DWI clients,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,DUO,Serves only DUI/DWI clients,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,DV,"Clients who have experienced intimate partner violence, domestic violence",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,DVFP,"Domestic violence services, including family or partner",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,EIH,Early intervention for HIV,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,EMP,Employment counseling or training,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,F17,Any Chinese Language,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,F19,Creole,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,F25,Farsi,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,F28,French,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,F30,German,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,F31,Greek,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,F35,Hebrew,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,F36,Hindi,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,F37,Hmong,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,F4,Arabic,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,F42,Italian,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,F43,Japanese,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,F47,Korean,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,F66,Polish,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,F67,Portuguese,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,F70,Russian,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,F81,Tagalog,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,F92,Vietnamese,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,FCO,Family counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,FED,Federal Government,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,FEM,Female,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,FQHC,Federally Qualified Health Center,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,FSA,"Federal, or any government funding for substance use treatment programs",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,FX,Other languages (excluding Spanish),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,GCO,Group counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,GH,General Hospital (including VA hospital),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,GL,"Lesbian, gay, bisexual, transgender, or queer/questioning (LGBTQ)",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,HAEC,"HIV or AIDS education, counseling, or support",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,HAV,Hepatitis A (HAV) vaccination,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,HBT,Testing for Hepatitis B (HBV),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,HBV,Hepatitis B (HBV) vaccination,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,HCT,Testing for Hepatitis C (HCV),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,HEOH,Health education services other than HIV/AIDS or hepatitis,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,HFAP,Healthcare Facilities Accreditation Program (HFAP),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,HH,"Transitional housing, halfway house, or sober home",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,HI,Hospital inpatient/24-hour hospital inpatient,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,HID,Hospital inpatient detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,HIT,Hospital inpatient treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,HIVT,HIV testing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,HLA,Hospital licensing authority,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,HS,Housing services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,HV,Clients with HIV or AIDS,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,ICO,Individual counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,IH,Indian Health Services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,INPE,In-network prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,IPC,Integrated primary care services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,ISC,Interim services for clients,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,ITU,IHS/Tribal/Urban (ITU) funds,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,JC,The Joint Commission,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,LCCG,"Local, county, or community government",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,LFXD,Lofexidine,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MALE,Male,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MC,Medicare,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MCO,Marital/couples counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MD,Medicaid,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MDET,Medication routinely used during detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MDTX,Methamphetamines detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,METH,Methadone,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MF,Members of military families,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MHCV,Medications for Hepatitis C treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MHIV,Medications for HIV treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MHPA,Complete medical history/physical exam,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MHS,Mental health services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MI,"Federal military insurance (e.g., TRICARE)",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MM,Methadone maintenance,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MMD,Medication for mental disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MN,Adult men,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MOA,Accepts clients using MAT but prescribed elsewhere,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MOTI,Motivational interviewing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MPEP,Medications for pre-exposure to prophylaxis,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MST,Metabolic syndrome monitoring,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MU,Methadone used in Treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MWS,Maintenance service with medically supervised withdrawal after stabilization,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,MXM,Matrix Model,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,N24,Ojibwa,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,N40,Yupik,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,NAUT,Does not treat alcohol use disorder,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,NCQA,National Committee for Quality Assurance (NCQA),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,NMAUT,Does not use medication assisted treatment for alcohol use disorder,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,NMOA,Does not use MAT for opioid use disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,NOE,Naloxone and overdose education,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,NOOP,Does not treat opioid use disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,NP,No payment accepted,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,NRT,Nicotine replacement,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,NSC,Non-nicotine smoking/tobacco cessation,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,NU,Naltrexone used in Treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,NX,American Indian or Alaska Native languages,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,NXN,Naltrexone (oral),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,OD,Outpatient detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,ODT,Outpatient day treatment or partial hospitalization,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,ODTX,Opioids detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,OFD,Outcome follow-up after discharge,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,OIT,Intensive outpatient treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,OMB,Outpatient methadone/buprenorphine or naltrexone treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,OP,Outpatient,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,OPC,Outreach to persons in the community,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,ORT,Regular outpatient treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,OTP,Federally-certified Opioid Treatment Program,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,OUDO,Opioid use disorder clients only,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,PA,Payment assistance (check with facility for details),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,PAIN,Use methadone/buprenorphine for pain management or emergency dosing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,PC,No formal relationship with prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,PEER,Mentoring/peer support,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,PI,Private health insurance,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,PIEC,Professional interventionist/educational consultant,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,PMAT,This facility administers/prescribes medication for alcohol use disorder,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,PSYH,Psychiatric hospital,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,PVTN,Private non-profit organization,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,PVTP,Private for-profit organization,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,PW,Pregnant/postpartum women,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,RC,Recovery coach,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,RD,Residential detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,RELP,Relapse prevention,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,RES,Residential/24-hour residential,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,RL,Long-term residential,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,RPE,Other contracted prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,RPN,Relapse prevention with naltrexone,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,RS,Short-term residential,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,SA,Substance use treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,SACA,Substance use disorder counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,SAE,Substance use disorder education,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,SAMF,SAMHSA funding/block grants,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,SE,Seniors or older adults,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,SF,Cash or self-payment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,SHG,Self-help groups,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,SI,State-financed health insurance plan other than Medicaid,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,SMHD,Screening for mental disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,SMON,Smoking not permitted,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,SMOP,Smoking permitted without restriction,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,SMPD,Smoking permitted in designated area,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,SNR,Seniors,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,SOTP,SAMHSA certification for opioid treatment program (OTP),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,SP,Spanish,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,SPS,Suicide prevention services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,SS,Sliding fee scale (fee is based on income and other factors),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,SSA,Screening for substance use,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,SSD,Social skills development,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,STAG,State substance use treatment agency,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,STDH,State department of health,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,STDT,STD testing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,STG,State government,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,STMH,State mental health department,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,STU,Screening for tobacco use,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,SUMH,SUMH,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,TA,Transportation assistance,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,TAEC,"Hepatitis education, counseling, or support",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,TAY,Young adults,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,TBG,Tribal government,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,TBS,TB screening,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,TCC,Smoking/vaping/tobacco cessation counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,TELE,Telemedicine/telehealth therapy,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,TGD,Treatment for gambling disorder,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,TOD,Treatment for other addiction disorder,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,TRC,Trauma-related counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,TRMA,Clients who have experienced trauma,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,TWFA,12-step facilitation,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,UB,Prescribes buprenorphine,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,UN,Prescribes naltrexone,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,VAMC,U.S. Department of Veterans Affairs,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,VAPN,Vaping not permitted,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,VAPP,Vaping permitted without restriction,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,VET,Veterans,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,VOC,"Vocational training or educational support (for example, high school coursework, GED preparation, etc.)",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,VPPD,Vaping permitted in designated area,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,VTRL,"Naltrexone (extended-release, injectable)",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,WN,Adult women,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,XA,Clients who have experienced sexual abuse,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2023,2022,original_code,YAD,Young Adults,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,ownership,private_unspecified,Private (type unspecified),False,False,Earlier directories do not consistently separate private ownership type.
+2024,2023,ownership,private_nonprofit,Private nonprofit,True,True,
+2024,2023,ownership,private_forprofit,Private for-profit,True,True,
+2024,2023,ownership,local_government,Local/county government,True,True,
+2024,2023,ownership,state_government,State government,True,True,
+2024,2023,ownership,tribal_government,Tribal government,True,True,
+2024,2023,ownership,federal_dod,Federal: Department of Defense,True,True,
+2024,2023,ownership,federal_ihs,Federal: Indian Health Service,True,True,
+2024,2023,ownership,federal_va,Federal: Veterans Affairs,True,True,
+2024,2023,center_type,substance_use,Substance use treatment,True,True,
+2024,2023,center_type,detoxification,Detoxification,True,True,
+2024,2023,center_type,transitional_housing,Transitional housing/halfway house,True,True,
+2024,2023,center_type,mental_health,Mental health treatment,False,True,
+2024,2023,center_type,cooccurring,Co-occurring mental health and substance use,True,True,
+2024,2023,setting,outpatient,Outpatient,True,True,
+2024,2023,setting,residential,Residential,True,True,
+2024,2023,setting,hospital_inpatient,Hospital inpatient,True,True,
+2024,2023,payment,medicare,Medicare,True,True,
+2024,2023,payment,medicaid,Medicaid,True,True,
+2024,2023,payment,military_insurance,Military insurance,True,True,
+2024,2023,payment,private_insurance,Private health insurance,True,True,
+2024,2023,payment,self_pay,Cash or self-payment,True,True,
+2024,2023,payment,state_financed,State-financed insurance,True,True,
+2024,2023,payment,payment_assistance,Payment assistance,True,True,
+2024,2023,payment,sliding_fee,Sliding fee scale,True,True,
+2024,2023,service_family,substance_use_treatment,Substance use treatment,True,True,
+2024,2023,service_family,detoxification,Detoxification,True,True,
+2024,2023,service_family,transitional_housing,Transitional housing/halfway house,True,True,
+2024,2023,service_family,cooccurring,Co-occurring mental health and substance use treatment,True,True,
+2024,2023,service_family,outpatient_treatment,Outpatient treatment,True,True,
+2024,2023,service_family,residential_treatment,Residential treatment,True,True,
+2024,2023,service_family,hospital_inpatient,Hospital inpatient treatment,True,True,
+2024,2023,service_family,opioid_treatment_program,SAMHSA-certified opioid treatment program,True,True,
+2024,2023,service_family,methadone,Methadone services,True,True,
+2024,2023,service_family,buprenorphine,Buprenorphine services,True,True,
+2024,2023,service_family,naltrexone,Naltrexone services,True,True,
+2024,2023,service_family,telehealth,Telehealth/telemedicine,True,True,
+2024,2023,original_code,ACC,Aftercare/continuing care,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,ACM,Acamprosate (Campral®),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,ACMA,Accepts clients using medication assisted treatment for alcohol use disorder but prescribed elsewhere,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,ACU,Acupuncture,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,AD,Adolescents,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,ADLT,Adults,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,ADM,Active duty military,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,ADTX,Alcohol Detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,AH,Sign language services for the deaf and hard of hearing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,ANG,Anger management,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,AOSS,Assistance with obtaining social services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,AUDO,Alcohol use disorder clients only,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,AUINPE,In-network prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,AUPC,No formal relationship with prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,AURPE,Other contracted prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,BABA,Breathalyzer or blood alcohol testing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,BC,Residential beds for clients' children,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,BDTX,Benzodiazepines Detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,BERI,"Buprenorphine (extended-release, injectable)",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,BIA,Brief intervention,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,BSDM,Buprenorphine sub-dermal implant,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,BU,Buprenorphine used in Treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,BUM,Buprenorphine maintenance,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,BWN,Buprenorphine with naloxone,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,BWON,Buprenorphine without naloxone,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,CARF,Commission on Accreditation of Rehabilitation Facilities (CARF),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,CBT,Cognitive behavioral therapy,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,CCC,Child care for clients' children,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,CDTX,Cocaine Detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,CHLD,Children/Adolescents,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,CJ,Criminal justice (other than DUI/DWI)/Forensic clients,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,CLND,Clonidine,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,CM,Case management service,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,CMHA,Comprehensive mental health assessment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,CMI,Contingency management/motivational incentives,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,CO,Clients with co-occurring mental and substance use disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,COA,Council on Accreditation (COA),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,COPSU,Clients with co-occurring pain and substance use disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,CRV,Community reinforcement plus vouchers,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,CSAA,Comprehensive substance use assessment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,DAOF,Drug and alcohol oral fluid testing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,DAUT,Drug or alcohol urine screening,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,DB,Buprenorphine detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,DDF,Department of Defense,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,DEA,Drug Enforcement Agency (DEA),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,DLC,Lofexidine or Clonidine detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,DM,Methadone detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,DP,Discharge Planning,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,DSF,Disulfiram,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,DT,Detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,DU,Specially designed program for DUI/DWI clients,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,DUO,Serves only DUI/DWI clients,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,DV,"Clients who have experienced intimate partner violence, domestic violence",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,DVFP,"Domestic violence services, including family or partner",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,EIH,Early intervention for HIV,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,EMP,Employment counseling or training,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,F17,Any Chinese Language,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,F19,Creole,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,F25,Farsi,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,F28,French,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,F30,German,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,F31,Greek,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,F35,Hebrew,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,F36,Hindi,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,F37,Hmong,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,F4,Arabic,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,F42,Italian,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,F43,Japanese,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,F47,Korean,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,F66,Polish,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,F67,Portuguese,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,F70,Russian,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,F81,Tagalog,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,F92,Vietnamese,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,FCO,Family counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,FED,Federal Government,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,FEM,Female,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,FQHC,Federally Qualified Health Center,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,FSA,"Federal, or any government funding for substance use treatment programs",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,FX,Other languages (excluding Spanish),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,GCO,Group counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,GH,General Hospital (including VA hospital),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,GL,"Lesbian, gay, bisexual, transgender, or queer/questioning (LGBTQ)",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,HAEC,"HIV or AIDS education, counseling, or support",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,HAV,Hepatitis A (HAV) vaccination,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,HBT,Testing for Hepatitis B (HBV),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,HBV,Hepatitis B (HBV) vaccination,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,HCT,Testing for Hepatitis C (HCV),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,HEOH,Health education services other than HIV/AIDS or hepatitis,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,HFAP,Healthcare Facilities Accreditation Program (HFAP),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,HH,"Transitional housing, halfway house, or sober home",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,HI,Hospital inpatient/24-hour hospital inpatient,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,HID,Hospital inpatient detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,HIT,Hospital inpatient treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,HIVT,HIV testing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,HLA,Hospital licensing authority,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,HS,Housing services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,HV,Clients with HIV or AIDS,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,ICO,Individual counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,IH,Indian Health Services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,INPE,In-network prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,IPC,Integrated primary care services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,ISC,Interim services for clients,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,ITU,IHS/Tribal/Urban (ITU) funds,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,JC,The Joint Commission,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,LCCG,"Local, county, or community government",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,LFXD,Lofexidine,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MALE,Male,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MC,Medicare,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MCO,Marital/couples counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MD,Medicaid,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MDET,Medication routinely used during detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MDTX,Methamphetamines detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,METH,Methadone,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MF,Members of military families,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MHCV,Medications for Hepatitis C treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MHIV,Medications for HIV treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MHPA,Complete medical history/physical exam,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MHS,Mental health services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MI,"Federal military insurance (e.g., TRICARE)",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MM,Methadone maintenance,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MMD,Medication for mental disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MN,Adult men,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MOA,Accepts clients using MAT but prescribed elsewhere,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MOTI,Motivational interviewing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MPEP,Medications for pre-exposure to prophylaxis,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MST,Metabolic syndrome monitoring,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MU,Methadone used in Treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MWS,Maintenance service with medically supervised withdrawal after stabilization,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,MXM,Matrix Model,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,N24,Ojibwa,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,N40,Yupik,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,NAUT,Does not treat alcohol use disorder,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,NCQA,National Committee for Quality Assurance (NCQA),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,NMAUT,Does not use medication assisted treatment for alcohol use disorder,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,NMOA,Does not use MAT for opioid use disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,NOE,Naloxone and overdose education,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,NOOP,Does not treat opioid use disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,NP,No payment accepted,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,NRT,Nicotine replacement,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,NSC,Non-nicotine smoking/tobacco cessation,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,NU,Naltrexone used in Treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,NX,American Indian or Alaska Native languages,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,NXN,Naltrexone (oral),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,OD,Outpatient detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,ODT,Outpatient day treatment or partial hospitalization,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,ODTX,Opioids detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,OFD,Outcome follow-up after discharge,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,OIT,Intensive outpatient treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,OMB,Outpatient methadone/buprenorphine or naltrexone treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,OP,Outpatient,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,OPC,Outreach to persons in the community,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,ORT,Regular outpatient treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,OTP,Federally-certified Opioid Treatment Program,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,OUDO,Opioid use disorder clients only,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,PA,Payment assistance (check with facility for details),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,PAIN,Use methadone/buprenorphine for pain management or emergency dosing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,PC,No formal relationship with prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,PEER,Mentoring/peer support,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,PI,Private health insurance,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,PIEC,Professional interventionist/educational consultant,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,PMAT,This facility administers/prescribes medication for alcohol use disorder,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,PSYH,Psychiatric hospital,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,PVTN,Private non-profit organization,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,PVTP,Private for-profit organization,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,PW,Pregnant/postpartum women,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,RC,Recovery coach,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,RD,Residential detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,RELP,Relapse prevention,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,RES,Residential/24-hour residential,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,RL,Long-term residential,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,RPE,Other contracted prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,RPN,Relapse prevention with naltrexone,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,RS,Short-term residential,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,SA,Substance use treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,SACA,Substance use disorder counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,SAE,Substance use disorder education,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,SAMF,SAMHSA funding/block grants,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,SE,Seniors or older adults,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,SF,Cash or self-payment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,SHG,Self-help groups,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,SI,State-financed health insurance plan other than Medicaid,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,SMHD,Screening for mental disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,SMON,Smoking not permitted,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,SMOP,Smoking permitted without restriction,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,SMPD,Smoking permitted in designated area,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,SNR,Seniors,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,SOTP,SAMHSA certification for opioid treatment program (OTP),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,SP,Spanish,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,SPS,Suicide prevention services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,SS,Sliding fee scale (fee is based on income and other factors),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,SSA,Screening for substance use,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,SSD,Social skills development,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,STAG,State Substance use treatment agency,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,STDH,State department of health,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,STDT,STD testing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,STG,State government,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,STMH,State mental health department,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,STU,Screening for tobacco use,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,SUMH,SUMH,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,TA,Transportation assistance,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,TAEC,"Hepatitis education, counseling, or support",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,TAY,Young adults,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,TBG,Tribal government,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,TBS,TB screening,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,TCC,Smoking/vaping/tobacco cessation counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,TELE,Telemedicine/telehealth therapy,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,TGD,Treatment for gambling disorder,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,TOD,Treatment for other addiction disorder,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,TRC,Trauma-related counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,TRMA,Clients who have experienced trauma,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,TWFA,12-step facilitation,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,UB,Prescribes buprenorphine,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,UN,Prescribes naltrexone,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,VAMC,U.S. Department of Veterans Affairs,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,VAPN,Vaping not permitted,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,VAPP,Vaping permitted without restriction,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,VET,Veterans,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,VOC,"Vocational training or educational support (for example, high school coursework, GED preparation, etc.)",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,VPPD,Vaping permitted in designated area,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,VTRL,"Naltrexone (extended-release, injectable)",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,WN,Adult women,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,XA,Clients who have experienced sexual abuse,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2024,2023,original_code,YAD,Young Adults,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,ownership,private_unspecified,Private (type unspecified),False,False,Earlier directories do not consistently separate private ownership type.
+2025,2024,ownership,private_nonprofit,Private nonprofit,True,True,
+2025,2024,ownership,private_forprofit,Private for-profit,True,True,
+2025,2024,ownership,local_government,Local/county government,True,True,
+2025,2024,ownership,state_government,State government,True,True,
+2025,2024,ownership,tribal_government,Tribal government,True,True,
+2025,2024,ownership,federal_dod,Federal: Department of Defense,False,True,
+2025,2024,ownership,federal_ihs,Federal: Indian Health Service,True,True,
+2025,2024,ownership,federal_va,Federal: Veterans Affairs,True,True,
+2025,2024,center_type,substance_use,Substance use treatment,True,True,
+2025,2024,center_type,detoxification,Detoxification,True,True,
+2025,2024,center_type,transitional_housing,Transitional housing/halfway house,True,True,
+2025,2024,center_type,mental_health,Mental health treatment,False,True,
+2025,2024,center_type,cooccurring,Co-occurring mental health and substance use,True,True,
+2025,2024,setting,outpatient,Outpatient,True,True,
+2025,2024,setting,residential,Residential,True,True,
+2025,2024,setting,hospital_inpatient,Hospital inpatient,True,True,
+2025,2024,payment,medicare,Medicare,True,True,
+2025,2024,payment,medicaid,Medicaid,True,True,
+2025,2024,payment,military_insurance,Military insurance,True,True,
+2025,2024,payment,private_insurance,Private health insurance,True,True,
+2025,2024,payment,self_pay,Cash or self-payment,False,True,
+2025,2024,payment,state_financed,State-financed insurance,True,True,
+2025,2024,payment,payment_assistance,Payment assistance,True,True,
+2025,2024,payment,sliding_fee,Sliding fee scale,True,True,
+2025,2024,service_family,substance_use_treatment,Substance use treatment,True,True,
+2025,2024,service_family,detoxification,Detoxification,True,True,
+2025,2024,service_family,transitional_housing,Transitional housing/halfway house,True,True,
+2025,2024,service_family,cooccurring,Co-occurring mental health and substance use treatment,True,True,
+2025,2024,service_family,outpatient_treatment,Outpatient treatment,True,True,
+2025,2024,service_family,residential_treatment,Residential treatment,True,True,
+2025,2024,service_family,hospital_inpatient,Hospital inpatient treatment,True,True,
+2025,2024,service_family,opioid_treatment_program,SAMHSA-certified opioid treatment program,True,True,
+2025,2024,service_family,methadone,Methadone services,True,True,
+2025,2024,service_family,buprenorphine,Buprenorphine services,True,True,
+2025,2024,service_family,naltrexone,Naltrexone services,True,True,
+2025,2024,service_family,telehealth,Telehealth/telemedicine,True,True,
+2025,2024,original_code,ACC,Aftercare/continuing care,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,ACM,Acamprosate (Campral®),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,ACMA,Accepts clients using medication assisted treatment for alcohol use disorder but prescribed elsewhere,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,ACU,Acupuncture,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,ADLT,Adults,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,ADMIL,Active duty military,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,ADOL,Adolescents,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,ADTX,Alcohol Detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,ANG,Anger management,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,AOSS,Assistance with obtaining social services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,ASL,Sign language services for the deaf and hard of hearing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,AUDO,Alcohol use disorder clients only,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,AUINPE,In-network prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,AUPC,No formal relationship with prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,AURPE,Other contracted prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,BABA,Breathalyzer or blood alcohol testing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,BDTX,Benzodiazepines Detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,BEDS,Residential beds for clients' children,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,BERI,"Buprenorphine (extended-release, injectable)",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,BIA,Brief intervention,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,BSDM,Buprenorphine sub-dermal implant,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,BU,Buprenorphine used in Treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,BUM,Buprenorphine maintenance,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,BWN,Buprenorphine with naloxone,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,BWON,Buprenorphine without naloxone,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,CARF,Commission on Accreditation of Rehabilitation Facilities (CARF),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,CASH,Cash or self-payment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,CBT,Cognitive behavioral therapy,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,CCC,Child care for clients' children,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,CDTX,Cocaine Detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,CH/AD,Children/Adolescents,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,CJ,Criminal justice (other than DUI/DWI)/Forensic clients,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,CLND,Clonidine,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,CM,Case management service,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,CMHA,Comprehensive mental health assessment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,CMI,Contingency management/motivational incentives,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,COA,Council on Accreditation (COA),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,COPSU,Clients with co-occurring pain and substance use disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,CRV,Community reinforcement plus vouchers,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,CSAA,Comprehensive substance use assessment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,DAOF,Drug and alcohol oral fluid testing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,DAUT,Drug or alcohol urine screening,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,DB,Buprenorphine detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,DEA,Drug Enforcement Agency (DEA),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,DLC,Lofexidine or Clonidine detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,DM,Methadone detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,DP,Discharge Planning,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,DSF,Disulfiram,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,DT,Detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,DUI,Specially designed program for DUI/DWI clients,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,DUIO,Serves only DUI/DWI clients,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,DV,"Clients who have experienced intimate partner violence, domestic violence",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,DVFP,"Domestic violence services, including family or partner",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,DoD,Department of Defense,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,EIS/HIV,Early intervention for HIV,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,EMP,Employment counseling or training,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,F17,Any Chinese Language,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,F19,Creole,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,F25,Farsi,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,F28,French,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,F30,German,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,F31,Greek,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,F35,Hebrew,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,F36,Hindi,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,F37,Hmong,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,F4,Arabic,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,F42,Italian,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,F43,Japanese,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,F47,Korean,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,F66,Polish,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,F67,Portuguese,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,F70,Russian,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,F81,Tagalog,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,F92,Vietnamese,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,FCO,Family counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,FED,Federal Government,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,FEM,Female,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,FQHC,Federally Qualified Health Center,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,FSA,"Federal, or any government funding for substance use treatment programs",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,GCO,Group counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,GH,General Hospital (including VA hospital),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,HAEC,"HIV or AIDS education, counseling, or support",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,HAV,Hepatitis A (HAV) vaccination,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,HBT,Testing for Hepatitis B (HBV),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,HBV,Hepatitis B (HBV) vaccination,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,HCT,Testing for Hepatitis C (HCV),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,HEOH,Health education services other than HIV/AIDS or hepatitis,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,HFAP,Healthcare Facilities Accreditation Program (HFAP),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,HH,"Transitional housing, halfway house, or sober home",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,HI,Hospital inpatient/24-hour hospital inpatient,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,HID,Hospital inpatient detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,HIT,Hospital inpatient treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,HIV,Clients with HIV or AIDS,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,HIVT,HIV testing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,HLA,Hospital licensing authority,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,HS,Housing services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,ICO,Individual counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,IHS,Indian Health Services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,INPE,In-network prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,IOP,Intensive outpatient treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,IPC,Integrated primary care services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,ISC,Interim services for clients,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,ITU,IHS/Tribal/Urban (ITU) funds,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,JC,The Joint Commission,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,LCCG,"Local, county, or community government",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,LFXD,Lofexidine,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MALE,Male,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MC,Medicare,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MCO,Marital/couples counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MD,Medicaid,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MDET,Medication routinely used during detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MDTX,Methamphetamines detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,METH,Methadone,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MHCV,Medications for Hepatitis C treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MHIV,Medications for HIV treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MHPA,Complete medical history/physical exam,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MHS,Mental health services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MHSU,Clients with co-occurring mental and substance use disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MI,Motivational interviewing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MILF,Members of military families,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MM,Methadone maintenance,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MMD,Medication for mental disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MN,Adult men,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MOA,Accepts clients using MAT but prescribed elsewhere,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MST,Metabolic syndrome monitoring,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MU,Methadone used in Treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MWS,Maintenance service with medically supervised withdrawal after stabilization,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,MXM,Matrix Model,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,N24,Ojibwa,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,N40,Yupik,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,NAUT,Does not treat alcohol use disorder,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,NCQA,National Committee for Quality Assurance (NCQA),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,NMAUT,Does not use medication assisted treatment for alcohol use disorder,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,NMOA,Does not use MAT for opioid use disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,NOE,Naloxone and overdose education,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,NOOP,Does not treat opioid use disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,NP,No payment accepted,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,NRT,Nicotine replacement,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,NSC,Non-nicotine smoking/tobacco cessation,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,NU,Naltrexone used in Treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,NX,American Indian or Alaska Native languages,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,NXN,Naltrexone (oral),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,OD,Outpatient detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,ODT,Outpatient day treatment or partial hospitalization,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,ODTX,Opioids detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,OFD,Outcome follow-up after discharge,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,OMB,Outpatient methadone/buprenorphine or naltrexone treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,OP,Outpatient,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,OPC,Outreach to persons in the community,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,ORT,Regular outpatient treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,OTH,Other languages (excluding Spanish),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,OTP,Federally-certified Opioid Treatment Program,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,OUDO,Opioid use disorder clients only,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,PA,Payment assistance (check with facility for details),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,PAIN,Use methadone/buprenorphine for pain management or emergency dosing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,PC,No formal relationship with prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,PEER,Mentoring/peer support,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,PI,Private health insurance,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,PIEC,Professional interventionist/educational consultant,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,PMAT,This facility administers/prescribes medication for alcohol use disorder,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,PSYH,Psychiatric hospital,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,PVTN,Private non-profit organization,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,PVTP,Private for-profit organization,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,PW,Pregnant/postpartum women,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,RC,Recovery coach,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,RD,Residential detoxification,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,RELP,Relapse prevention,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,RES,Residential/24-hour residential,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,RL,Long-term residential,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,RPE,Other contracted prescribing entity,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,RPN,Relapse prevention with naltrexone,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,RS,Short-term residential,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SA,Substance use treatment,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SACA,Substance use disorder counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SAE,Substance use disorder education,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SAMHSA,SAMHSA funding/block grants,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SEN,Seniors or older adults,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SEXA,Clients who have experienced sexual abuse,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SHG,Self-help groups,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SI,State-financed health insurance plan other than Medicaid,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SMHD,Screening for mental disorders,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SMON,Smoking not permitted,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SMOP,Smoking permitted without restriction,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SMPD,Smoking permitted in designated area,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SNR,Seniors,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SOTP,SAMHSA certification for opioid treatment program (OTP),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SP,Spanish,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SPS,Suicide prevention services,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SS,Sliding fee scale (fee is based on income and other factors),True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SSA,State substance use treatment agency,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SSD,Social skills development,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SSU,Screening for substance use,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,STDH,State department of health,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,STDT,STD testing,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,STG,State government,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,STMH,State mental health department,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,STU,Screening for tobacco use,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,SUMH,SUMH,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,TA,Transportation assistance,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,TAEC,"Hepatitis education, counseling, or support",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,TBG,Tribal government,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,TBS,TB screening,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,TCC,Smoking/vaping/tobacco cessation counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,TELE,Telemedicine/telehealth therapy,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,TGD,Treatment for gambling disorder,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,TOD,Treatment for other addiction disorder,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,TRC,Trauma-related counseling,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,TRICARE,"Federal military insurance (e.g., TRICARE)",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,TRMA,Clients who have experienced trauma,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,TWFA,12-step facilitation,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,UB,Prescribes buprenorphine,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,UN,Prescribes naltrexone,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,VAMC,U.S. Department of Veterans Affairs,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,VAPN,Vaping not permitted,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,VAPP,Vaping permitted without restriction,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,VET,Veterans,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,VOC,"Vocational training or educational support (for example, high school coursework, GED preparation, etc.)",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,VPPD,Vaping permitted in designated area,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,VTRL,"Naltrexone (extended-release, injectable)",True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,WN,Adult women,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,YA,Young adults,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,YAD,Young Adults,True,False,Original SAMHSA directory code; meaning and availability may vary by year.
+2025,2024,original_code,mPREP,Medications for pre-exposure to prophylaxis,True,False,Original SAMHSA directory code; meaning and availability may vary by year.

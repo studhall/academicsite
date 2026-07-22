@@ -5,16 +5,14 @@ format:
     toc: false
 ---
 
-# Data & Visualizations
+# Data
 
-## MOUD Dashboard
+## [Historical SAMHSA Treatment Facility Data](data/treatment-facilities/index.qmd)
+
+Address-level facility listings reconstructed from 26 SAMHSA directories, with services, maps, and downloads.
+
+---
+
+## [Medicaid MOUD Prescriptions](data/moud-dashboard/index.qmd)
 
 State Medicaid prescriptions for medications for opioid use disorder.
-
-[Explore the MOUD dashboard](data/moud-dashboard/index.qmd)
-
-## Historical Treatment Facility Data
-
-Address-level treatment facility listings reconstructed from 22 SAMHSA directories, with interactive state, county, and trend views.
-
-[View the data and dashboard](data/treatment-facilities/index.qmd)

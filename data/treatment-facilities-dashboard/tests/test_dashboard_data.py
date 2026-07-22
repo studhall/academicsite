@@ -34,13 +34,14 @@ class DashboardDataTests(unittest.TestCase):
             (DATA_DIR / "dashboard_metadata.json").read_text(encoding="utf-8")
         )
 
-    def test_all_22_years_have_shards(self) -> None:
+    def test_all_26_years_have_shards(self) -> None:
         years = {row["survey_year"] for row in self.metadata["years"]}
         shards = {
             int(path.stem.removeprefix("facility_dashboard_"))
             for path in DATA_DIR.glob("facility_dashboard_*.csv")
         }
-        self.assertEqual(len(years), 22)
+        self.assertEqual(len(years), 26)
+        self.assertEqual(max(years), 2024)
         self.assertEqual(shards, years)
 
     def test_shards_reproduce_annual_and_state_totals(self) -> None:

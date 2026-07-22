@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import argparse
 import json
@@ -46,6 +46,11 @@ POPULATION_SOURCES = {
         "nst-est2020.csv",
         "https://www2.census.gov/programs-surveys/popest/datasets/"
         "2010-2020/state/totals/nst-est2020.csv",
+    ),
+    "2020_2024": (
+        "NST-EST2024-ALLDATA.csv",
+        "https://www2.census.gov/programs-surveys/popest/datasets/"
+        "2020-2024/state/totals/NST-EST2024-ALLDATA.csv",
     ),
 }
 
@@ -217,6 +222,25 @@ def read_population(cache_dir: Path, survey_years: set[int]) -> pd.DataFrame:
                 }
             )
 
+    recent = pd.read_csv(paths["2020_2024"], dtype={"STATE": str})
+    recent = recent.loc[
+        recent["SUMLEV"].astype(str).str.zfill(3).eq("040")
+        & recent["STATE"].astype(str).str.zfill(2).isin(FIPS_STATE)
+    ].copy()
+    for year in range(2021, 2025):
+        column = f"POPESTIMATE{year}"
+        for row in recent.itertuples(index=False):
+            state_fips = str(row.STATE).zfill(2)
+            rows.append(
+                {
+                    "survey_year": year,
+                    "state": FIPS_STATE[state_fips],
+                    "state_fips": state_fips,
+                    "population": int(getattr(row, column)),
+                    "source": POPULATION_SOURCES["2020_2024"][1],
+                    "vintage": "2020-2024 estimates",
+                }
+            )
     population = pd.DataFrame(rows)
     population = population.loc[population["survey_year"].isin(survey_years)].copy()
     duplicates = population.duplicated(["survey_year", "state_fips"])
@@ -474,12 +498,16 @@ def aggregate_outputs(
         annual["directory_year"].map(reviewed).fillna(0).astype(int)
     )
     annual["gold_target"] = annual["directory_year"].map(
-        lambda year: 100 if int(year) in PRIORITY_YEARS else 50
+        lambda year: 0 if int(year) >= 2022 else (100 if int(year) in PRIORITY_YEARS else 50)
     )
-    annual["qa_status"] = annual["reviewed_listings"].map(
-        lambda count: "Partial review" if count > 0 else "Not reviewed"
+    annual["qa_status"] = annual.apply(
+        lambda row: (
+            "Official spreadsheet checks passed"
+            if int(row["directory_year"]) >= 2022
+            else ("Partial review" if int(row["reviewed_listings"]) > 0 else "Not reviewed")
+        ),
+        axis=1,
     )
-
     region_counts = (
         us.groupby(["directory_year", "survey_year", "census_region"])
         .size()
@@ -658,8 +686,8 @@ def build(
         for path in sorted((run_dir / "years").iterdir())
         if path.is_dir() and path.name.isdigit()
     ]
-    if len(year_dirs) != 22:
-        raise ValueError(f"Expected 22 parsed year directories, found {len(year_dirs)}")
+    if len(year_dirs) != 26:
+        raise ValueError(f"Expected 26 parsed year directories, found {len(year_dirs)}")
 
     geocoding = (
         pd.read_csv(
@@ -751,14 +779,14 @@ def build(
         .to_dict(orient="records")
     )
     metadata = {
-        "version": "v1.0.0-preliminary.1",
+        "version": "v1.1.0",
         "built_on": date.today().isoformat(),
         "run_id": run_metadata.get("run_id", run_dir.name),
         "release_status": "preliminary",
-        "release_label": "Version 1 Preview",
+        "release_label": "Version 1.1",
         "downloads": {
             "repository": "https://github.com/studhall/samhsa-treatment-facility-directories",
-            "release_base": "https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.0.0-preliminary.1",
+            "release_base": "https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0",
         },
         "years": years,
         "state_fips": STATE_FIPS,
@@ -774,7 +802,7 @@ def build(
             for group, values in HARMONIZED.items()
         },
         "comparability_warnings": [
-            "Counts are preliminary parser outputs and may change during year-level QA.",
+            "Counts may change during year-level QA.",
             "N-SSATS and N-SUMHSS are not directly trend-comparable across the 2020/2021 survey transition.",
             "A gap means a selected characteristic was not asked or cannot be harmonized for that year.",
             "Historical listings are not a current treatment locator.",

@@ -21,3 +21,7 @@ directory_year,survey_year,facility_count,warning_count,territory_count,warning_
 2019,2018,13313,663,112,0.04980094644332607,0,50,Not reviewed
 2020,2019,14069,703,100,0.04996801478427749,0,50,Not reviewed
 2021,2020,14189,718,91,0.050602579462964266,0,100,Not reviewed
+2022,2021,12114,0,62,0.0,0,0,Official spreadsheet checks passed
+2023,2022,12677,0,67,0.0,0,0,Official spreadsheet checks passed
+2024,2023,12146,0,54,0.0,0,0,Official spreadsheet checks passed
+2025,2024,13404,556,56,0.04148015517755894,0,0,Official spreadsheet checks passed

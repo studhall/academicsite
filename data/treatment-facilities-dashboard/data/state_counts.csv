@@ -1121,3 +1121,207 @@ directory_year,survey_year,state,census_region,census_division,facility_count,wa
 2021,2020,WI,Midwest,East North Central,257,14,55,0.054474708171206226
 2021,2020,WV,South,South Atlantic,93,3,54,0.03225806451612903
 2021,2020,WY,West,Mountain,57,0,56,0.0
+2022,2021,AK,West,Pacific,81,0,02,0.0
+2022,2021,AL,South,East South Central,111,0,01,0.0
+2022,2021,AR,South,West South Central,120,0,05,0.0
+2022,2021,AZ,West,Mountain,314,0,04,0.0
+2022,2021,CA,West,Pacific,1194,0,06,0.0
+2022,2021,CO,West,Mountain,300,0,08,0.0
+2022,2021,CT,Northeast,New England,161,0,09,0.0
+2022,2021,DC,South,South Atlantic,25,0,11,0.0
+2022,2021,DE,South,South Atlantic,40,0,10,0.0
+2022,2021,FL,South,South Atlantic,502,0,12,0.0
+2022,2021,GA,South,South Atlantic,238,0,13,0.0
+2022,2021,HI,West,Pacific,123,0,15,0.0
+2022,2021,IA,Midwest,West North Central,155,0,19,0.0
+2022,2021,ID,West,Mountain,94,0,16,0.0
+2022,2021,IL,Midwest,East North Central,595,0,17,0.0
+2022,2021,IN,Midwest,East North Central,340,0,18,0.0
+2022,2021,KS,Midwest,West North Central,132,0,20,0.0
+2022,2021,KY,South,East South Central,354,0,21,0.0
+2022,2021,LA,South,West South Central,121,0,22,0.0
+2022,2021,MA,Northeast,New England,371,0,25,0.0
+2022,2021,MD,South,South Atlantic,326,0,24,0.0
+2022,2021,ME,Northeast,New England,134,0,23,0.0
+2022,2021,MI,Midwest,East North Central,352,0,26,0.0
+2022,2021,MN,Midwest,West North Central,337,0,27,0.0
+2022,2021,MO,Midwest,West North Central,239,0,29,0.0
+2022,2021,MS,South,East South Central,76,0,28,0.0
+2022,2021,MT,West,Mountain,110,0,30,0.0
+2022,2021,NC,South,South Atlantic,454,0,37,0.0
+2022,2021,ND,Midwest,West North Central,67,0,38,0.0
+2022,2021,NE,Midwest,West North Central,106,0,31,0.0
+2022,2021,NH,Northeast,New England,67,0,33,0.0
+2022,2021,NJ,Northeast,Middle Atlantic,318,0,34,0.0
+2022,2021,NM,West,Mountain,98,0,35,0.0
+2022,2021,NV,West,Mountain,73,0,32,0.0
+2022,2021,NY,Northeast,Middle Atlantic,710,0,36,0.0
+2022,2021,OH,Midwest,East North Central,439,0,39,0.0
+2022,2021,OK,South,West South Central,144,0,40,0.0
+2022,2021,OR,West,Pacific,174,0,41,0.0
+2022,2021,PA,Northeast,Middle Atlantic,482,0,42,0.0
+2022,2021,RI,Northeast,New England,50,0,44,0.0
+2022,2021,SC,South,South Atlantic,98,0,45,0.0
+2022,2021,SD,Midwest,West North Central,47,0,46,0.0
+2022,2021,TN,South,East South Central,261,0,47,0.0
+2022,2021,TX,South,West South Central,402,0,48,0.0
+2022,2021,UT,West,Mountain,269,0,49,0.0
+2022,2021,VA,South,South Atlantic,169,0,51,0.0
+2022,2021,VT,Northeast,New England,40,0,50,0.0
+2022,2021,WA,West,Pacific,362,0,53,0.0
+2022,2021,WI,Midwest,East North Central,214,0,55,0.0
+2022,2021,WV,South,South Atlantic,74,0,54,0.0
+2022,2021,WY,West,Mountain,51,0,56,0.0
+2023,2022,AK,West,Pacific,71,0,02,0.0
+2023,2022,AL,South,East South Central,128,0,01,0.0
+2023,2022,AR,South,West South Central,111,0,05,0.0
+2023,2022,AZ,West,Mountain,378,0,04,0.0
+2023,2022,CA,West,Pacific,1274,0,06,0.0
+2023,2022,CO,West,Mountain,290,0,08,0.0
+2023,2022,CT,Northeast,New England,169,0,09,0.0
+2023,2022,DC,South,South Atlantic,26,0,11,0.0
+2023,2022,DE,South,South Atlantic,47,0,10,0.0
+2023,2022,FL,South,South Atlantic,545,0,12,0.0
+2023,2022,GA,South,South Atlantic,263,0,13,0.0
+2023,2022,HI,West,Pacific,80,0,15,0.0
+2023,2022,IA,Midwest,West North Central,166,0,19,0.0
+2023,2022,ID,West,Mountain,84,0,16,0.0
+2023,2022,IL,Midwest,East North Central,559,0,17,0.0
+2023,2022,IN,Midwest,East North Central,377,0,18,0.0
+2023,2022,KS,Midwest,West North Central,142,0,20,0.0
+2023,2022,KY,South,East South Central,419,0,21,0.0
+2023,2022,LA,South,West South Central,157,0,22,0.0
+2023,2022,MA,Northeast,New England,398,0,25,0.0
+2023,2022,MD,South,South Atlantic,354,0,24,0.0
+2023,2022,ME,Northeast,New England,136,0,23,0.0
+2023,2022,MI,Midwest,East North Central,397,0,26,0.0
+2023,2022,MN,Midwest,West North Central,347,0,27,0.0
+2023,2022,MO,Midwest,West North Central,254,0,29,0.0
+2023,2022,MS,South,East South Central,84,0,28,0.0
+2023,2022,MT,West,Mountain,99,0,30,0.0
+2023,2022,NC,South,South Atlantic,501,0,37,0.0
+2023,2022,ND,Midwest,West North Central,59,0,38,0.0
+2023,2022,NE,Midwest,West North Central,107,0,31,0.0
+2023,2022,NH,Northeast,New England,100,0,33,0.0
+2023,2022,NJ,Northeast,Middle Atlantic,359,0,34,0.0
+2023,2022,NM,West,Mountain,97,0,35,0.0
+2023,2022,NV,West,Mountain,70,0,32,0.0
+2023,2022,NY,Northeast,Middle Atlantic,656,0,36,0.0
+2023,2022,OH,Midwest,East North Central,465,0,39,0.0
+2023,2022,OK,South,West South Central,159,0,40,0.0
+2023,2022,OR,West,Pacific,174,0,41,0.0
+2023,2022,PA,Northeast,Middle Atlantic,470,0,42,0.0
+2023,2022,RI,Northeast,New England,54,0,44,0.0
+2023,2022,SC,South,South Atlantic,97,0,45,0.0
+2023,2022,SD,Midwest,West North Central,46,0,46,0.0
+2023,2022,TN,South,East South Central,277,0,47,0.0
+2023,2022,TX,South,West South Central,446,0,48,0.0
+2023,2022,UT,West,Mountain,264,0,49,0.0
+2023,2022,VA,South,South Atlantic,197,0,51,0.0
+2023,2022,VT,Northeast,New England,32,0,50,0.0
+2023,2022,WA,West,Pacific,348,0,53,0.0
+2023,2022,WI,Midwest,East North Central,212,0,55,0.0
+2023,2022,WV,South,South Atlantic,84,0,54,0.0
+2023,2022,WY,West,Mountain,48,0,56,0.0
+2024,2023,AK,West,Pacific,79,0,02,0.0
+2024,2023,AL,South,East South Central,125,0,01,0.0
+2024,2023,AR,South,West South Central,100,0,05,0.0
+2024,2023,AZ,West,Mountain,353,0,04,0.0
+2024,2023,CA,West,Pacific,1141,0,06,0.0
+2024,2023,CO,West,Mountain,253,0,08,0.0
+2024,2023,CT,Northeast,New England,158,0,09,0.0
+2024,2023,DC,South,South Atlantic,26,0,11,0.0
+2024,2023,DE,South,South Atlantic,38,0,10,0.0
+2024,2023,FL,South,South Atlantic,477,0,12,0.0
+2024,2023,GA,South,South Atlantic,240,0,13,0.0
+2024,2023,HI,West,Pacific,90,0,15,0.0
+2024,2023,IA,Midwest,West North Central,187,0,19,0.0
+2024,2023,ID,West,Mountain,82,0,16,0.0
+2024,2023,IL,Midwest,East North Central,560,0,17,0.0
+2024,2023,IN,Midwest,East North Central,406,0,18,0.0
+2024,2023,KS,Midwest,West North Central,135,0,20,0.0
+2024,2023,KY,South,East South Central,437,0,21,0.0
+2024,2023,LA,South,West South Central,157,0,22,0.0
+2024,2023,MA,Northeast,New England,343,0,25,0.0
+2024,2023,MD,South,South Atlantic,427,0,24,0.0
+2024,2023,ME,Northeast,New England,117,0,23,0.0
+2024,2023,MI,Midwest,East North Central,366,0,26,0.0
+2024,2023,MN,Midwest,West North Central,332,0,27,0.0
+2024,2023,MO,Midwest,West North Central,227,0,29,0.0
+2024,2023,MS,South,East South Central,82,0,28,0.0
+2024,2023,MT,West,Mountain,68,0,30,0.0
+2024,2023,NC,South,South Atlantic,451,0,37,0.0
+2024,2023,ND,Midwest,West North Central,61,0,38,0.0
+2024,2023,NE,Midwest,West North Central,99,0,31,0.0
+2024,2023,NH,Northeast,New England,88,0,33,0.0
+2024,2023,NJ,Northeast,Middle Atlantic,331,0,34,0.0
+2024,2023,NM,West,Mountain,141,0,35,0.0
+2024,2023,NV,West,Mountain,83,0,32,0.0
+2024,2023,NY,Northeast,Middle Atlantic,629,0,36,0.0
+2024,2023,OH,Midwest,East North Central,474,0,39,0.0
+2024,2023,OK,South,West South Central,139,0,40,0.0
+2024,2023,OR,West,Pacific,187,0,41,0.0
+2024,2023,PA,Northeast,Middle Atlantic,479,0,42,0.0
+2024,2023,RI,Northeast,New England,53,0,44,0.0
+2024,2023,SC,South,South Atlantic,92,0,45,0.0
+2024,2023,SD,Midwest,West North Central,37,0,46,0.0
+2024,2023,TN,South,East South Central,270,0,47,0.0
+2024,2023,TX,South,West South Central,412,0,48,0.0
+2024,2023,UT,West,Mountain,258,0,49,0.0
+2024,2023,VA,South,South Atlantic,181,0,51,0.0
+2024,2023,VT,Northeast,New England,49,0,50,0.0
+2024,2023,WA,West,Pacific,303,0,53,0.0
+2024,2023,WI,Midwest,East North Central,203,0,55,0.0
+2024,2023,WV,South,South Atlantic,74,0,54,0.0
+2024,2023,WY,West,Mountain,46,0,56,0.0
+2025,2024,AK,West,Pacific,78,7,02,0.08974358974358974
+2025,2024,AL,South,East South Central,113,0,01,0.0
+2025,2024,AR,South,West South Central,138,1,05,0.007246376811594203
+2025,2024,AZ,West,Mountain,477,20,04,0.041928721174004195
+2025,2024,CA,West,Pacific,1198,119,06,0.0993322203672788
+2025,2024,CO,West,Mountain,264,8,08,0.030303030303030304
+2025,2024,CT,Northeast,New England,169,4,09,0.023668639053254437
+2025,2024,DC,South,South Atlantic,29,1,11,0.034482758620689655
+2025,2024,DE,South,South Atlantic,44,2,10,0.045454545454545456
+2025,2024,FL,South,South Atlantic,539,24,12,0.04452690166975881
+2025,2024,GA,South,South Atlantic,278,7,13,0.025179856115107913
+2025,2024,HI,West,Pacific,92,4,15,0.043478260869565216
+2025,2024,IA,Midwest,West North Central,213,3,19,0.014084507042253521
+2025,2024,ID,West,Mountain,116,3,16,0.02586206896551724
+2025,2024,IL,Midwest,East North Central,576,15,17,0.026041666666666668
+2025,2024,IN,Midwest,East North Central,436,11,18,0.02522935779816514
+2025,2024,KS,Midwest,West North Central,156,9,20,0.057692307692307696
+2025,2024,KY,South,East South Central,453,18,21,0.039735099337748346
+2025,2024,LA,South,West South Central,185,2,22,0.010810810810810811
+2025,2024,MA,Northeast,New England,372,18,25,0.04838709677419355
+2025,2024,MD,South,South Atlantic,503,38,24,0.07554671968190854
+2025,2024,ME,Northeast,New England,151,4,23,0.026490066225165563
+2025,2024,MI,Midwest,East North Central,407,26,26,0.06388206388206388
+2025,2024,MN,Midwest,West North Central,363,10,27,0.027548209366391185
+2025,2024,MO,Midwest,West North Central,262,8,29,0.030534351145038167
+2025,2024,MS,South,East South Central,98,5,28,0.05102040816326531
+2025,2024,MT,West,Mountain,72,4,30,0.05555555555555555
+2025,2024,NC,South,South Atlantic,481,11,37,0.02286902286902287
+2025,2024,ND,Midwest,West North Central,68,1,38,0.014705882352941176
+2025,2024,NE,Midwest,West North Central,129,3,31,0.023255813953488372
+2025,2024,NH,Northeast,New England,83,3,33,0.03614457831325301
+2025,2024,NJ,Northeast,Middle Atlantic,357,9,34,0.025210084033613446
+2025,2024,NM,West,Mountain,133,4,35,0.03007518796992481
+2025,2024,NV,West,Mountain,97,12,32,0.12371134020618557
+2025,2024,NY,Northeast,Middle Atlantic,644,14,36,0.021739130434782608
+2025,2024,OH,Midwest,East North Central,516,12,39,0.023255813953488372
+2025,2024,OK,South,West South Central,141,1,40,0.0070921985815602835
+2025,2024,OR,West,Pacific,198,4,41,0.020202020202020204
+2025,2024,PA,Northeast,Middle Atlantic,524,9,42,0.01717557251908397
+2025,2024,RI,Northeast,New England,50,4,44,0.08
+2025,2024,SC,South,South Atlantic,97,3,45,0.030927835051546393
+2025,2024,SD,Midwest,West North Central,42,1,46,0.023809523809523808
+2025,2024,TN,South,East South Central,334,16,47,0.04790419161676647
+2025,2024,TX,South,West South Central,453,7,48,0.01545253863134658
+2025,2024,UT,West,Mountain,278,26,49,0.09352517985611511
+2025,2024,VA,South,South Atlantic,283,16,51,0.05653710247349823
+2025,2024,VT,Northeast,New England,52,1,50,0.019230769230769232
+2025,2024,WA,West,Pacific,269,7,53,0.026022304832713755
+2025,2024,WI,Midwest,East North Central,205,8,55,0.03902439024390244
+2025,2024,WV,South,South Atlantic,136,12,54,0.08823529411764706
+2025,2024,WY,West,Mountain,52,1,56,0.019230769230769232

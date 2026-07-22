@@ -39,6 +39,10 @@ website:
       - href: cv.qmd
         text: CV
     right:
+      - icon: mortarboard
+        href: https://scholar.google.com/citations?user=5H5WI0AAAAAJ&hl=en
+        target: _blank
+        aria-label: Google Scholar
       - icon: rss
         href: posts.xml
       - icon: envelope
@@ -47,7 +51,7 @@ website:
   page-footer:
     left: "(c) 2026 David Hall"
     center: "[dhall7@uoregon.edu](mailto:dhall7@uoregon.edu)"
-    right: "[GitHub](https://github.com/studhall) | [X/Twitter](https://x.com/studhall) | Built with [Quarto](https://quarto.org)"
+    right: "[Google Scholar](https://scholar.google.com/citations?user=5H5WI0AAAAAJ&hl=en) | [GitHub](https://github.com/studhall) | [X/Twitter](https://x.com/studhall) | Built with [Quarto](https://quarto.org)"
 
 format:
   html:

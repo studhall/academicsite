@@ -197,3 +197,39 @@ survey_year,metric,series,label,facility_count,available
 2020,setting,outpatient,Outpatient,11701,True
 2020,setting,residential,Residential,3391,True
 2020,setting,hospital_inpatient,Hospital inpatient,748,True
+2021,total,total,All facilities,12114,True
+2021,otp_status,otp,OTP,1495,True
+2021,otp_status,non_otp,Non-OTP,10619,True
+2021,ownership,private_nonprofit,Nonprofit,6195,True
+2021,ownership,private_forprofit,For-profit,4864,True
+2021,ownership,government,Government,1038,True
+2021,setting,outpatient,Outpatient,9928,True
+2021,setting,residential,Residential,2843,True
+2021,setting,hospital_inpatient,Hospital inpatient,635,True
+2022,total,total,All facilities,12677,True
+2022,otp_status,otp,OTP,1565,True
+2022,otp_status,non_otp,Non-OTP,11112,True
+2022,ownership,private_nonprofit,Nonprofit,6241,True
+2022,ownership,private_forprofit,For-profit,5321,True
+2022,ownership,government,Government,1106,True
+2022,setting,outpatient,Outpatient,10469,True
+2022,setting,residential,Residential,3014,True
+2022,setting,hospital_inpatient,Hospital inpatient,809,True
+2023,total,total,All facilities,12146,True
+2023,otp_status,otp,OTP,1459,True
+2023,otp_status,non_otp,Non-OTP,10687,True
+2023,ownership,private_nonprofit,Nonprofit,5955,True
+2023,ownership,private_forprofit,For-profit,5176,True
+2023,ownership,government,Government,979,True
+2023,setting,outpatient,Outpatient,10174,True
+2023,setting,residential,Residential,2887,True
+2023,setting,hospital_inpatient,Hospital inpatient,753,True
+2024,total,total,All facilities,13404,True
+2024,otp_status,otp,OTP,1585,True
+2024,otp_status,non_otp,Non-OTP,11819,True
+2024,ownership,private_nonprofit,Nonprofit,6524,True
+2024,ownership,private_forprofit,For-profit,5687,True
+2024,ownership,government,Government,1162,True
+2024,setting,outpatient,Outpatient,11219,True
+2024,setting,residential,Residential,3149,True
+2024,setting,hospital_inpatient,Hospital inpatient,911,True

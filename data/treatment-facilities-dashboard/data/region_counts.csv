@@ -87,6 +87,22 @@ directory_year,survey_year,census_region,facility_count
 2021,2020,Northeast,2697
 2021,2020,South,4204
 2021,2020,West,3818
+2022,2021,Midwest,3023
+2022,2021,Northeast,2333
+2022,2021,South,3515
+2022,2021,West,3243
+2023,2022,Midwest,3131
+2023,2022,Northeast,2374
+2023,2022,South,3895
+2023,2022,West,3277
+2024,2023,Midwest,3087
+2024,2023,Northeast,2247
+2024,2023,South,3728
+2024,2023,West,3084
+2025,2024,Midwest,3373
+2025,2024,Northeast,2402
+2025,2024,South,4305
+2025,2024,West,3324
 1998,1998,"PNW (WA, OR, ID)",517
 2000,1999,"PNW (WA, OR, ID)",496
 2001,2000,"PNW (WA, OR, ID)",493
@@ -109,3 +125,7 @@ directory_year,survey_year,census_region,facility_count
 2019,2018,"PNW (WA, OR, ID)",762
 2020,2019,"PNW (WA, OR, ID)",744
 2021,2020,"PNW (WA, OR, ID)",737
+2022,2021,"PNW (WA, OR, ID)",630
+2023,2022,"PNW (WA, OR, ID)",606
+2024,2023,"PNW (WA, OR, ID)",572
+2025,2024,"PNW (WA, OR, ID)",583
