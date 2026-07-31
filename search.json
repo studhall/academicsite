@@ -137,7 +137,7 @@
     "href": "index.html",
     "title": "David Hall",
     "section": "",
-    "text": "David Hall\n\n\nI am an economist and data scientist with broad interests in (risky) human behaviour, particularly in the areas of health and crime. I study how access shapes substance use, especially for opioids, alcohol, and tobacco, and how policy can improve treatment and reduce harm. I am particularly interested in the decisions that shape public spending, treatment markets, and care access, and I work on those questions in both research and policy settings. I also serve on Oregon’s BHRN Oversight and Accountability Council, where I help advise on the use of cannabis tax revenue under Measure 110.\n\nView CV\n\n\n\n\nLinkedIn Email"
+    "text": "David Hall\n\n\nI am an economist and data scientist with broad interests in (risky) human behaviour, particularly in the areas of health and crime. I study how access shapes substance use, especially for opioids, alcohol, and tobacco, and how policy can improve treatment and reduce harm. I am particularly interested in the decisions that shape public spending, treatment markets, and care access, and I work on those questions in both research and policy settings. I also serve on Oregon’s BHRN Oversight and Accountability Council, where I help advise on the use of cannabis tax revenue under Measure 110.\n\nDownload CV\n\n\n\n\nLinkedIn Email"
   },
   {
     "objectID": "data/treatment-facilities-dashboard/index.html",
@@ -166,6 +166,13 @@
     "title": "Data",
     "section": "",
     "text": "State Medicaid prescriptions for medications for opioid use disorder."
+  },
+  {
+    "objectID": "cv-viewer.html",
+    "href": "cv-viewer.html",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "Download CV as PDF\n\n\n\n\n\nIf the embedded PDF does not load in your browser, use the download button above."
   },
   {
     "objectID": "about.html",
