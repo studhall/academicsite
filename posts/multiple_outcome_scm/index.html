@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2026-05-01">
+<meta name="description" content="A practical comparison of standard and multi-outcome synthetic control methods.">
 
 <title>Synthetic Control With One Outcome and Many Outcomes – David Hall</title>
 <style>
@@ -122,20 +123,12 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../research.html"> 
 <span class="menu-text">Research</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../posts.html"> 
-<span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../teaching.html"> 
@@ -161,6 +154,10 @@ window.Quarto = {
     </ul>
   </li>
   <li class="nav-item">
+    <a class="nav-link" href="../../posts.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../../cv.html"> 
 <span class="menu-text">CV</span></a>
   </li>  
@@ -173,11 +170,6 @@ window.Quarto = {
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="../../posts.xml"> <i class="bi bi-rss" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://follow.it/david-hall?leanpub" target="_blank"> <i class="bi bi-envelope" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -223,6 +215,11 @@ window.Quarto = {
 <h1 class="title">Synthetic Control With One Outcome and Many Outcomes</h1>
 </div>
 
+<div>
+  <div class="description">
+    A practical comparison of standard and multi-outcome synthetic control methods.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -249,7 +246,7 @@ window.Quarto = {
 <h3 data-number="1.1" class="anchored" data-anchor-id="can-it-be-useful-for-you"><span class="header-section-number">1.1</span> Can it be useful for you?</h3>
 <p>I recently presented a paper using the synthetic control method to understand the impact of a California policy. I received a lot of great feedback–even if the feedback made me understand how far I have to go as a presenter, as an economist, and with this paper in particular–and one of the comments was that my synthetic controls had somewhat poor pre-period fits. This is actually quite rare for synthetic controls; in fact, the issue most people point out is that (especially when we have long pre-periods), SCM has a tendency to overfit. Regardless, we got into a discussion of how to alleviate any concerns folks would have over my method. I have multiple <em>related</em> outputs (i.e.&nbsp;a factor model might find some strong common factors across the outcomes), and we discussed what would happen if we used a multiple-outcome synthetic control.</p>
 <p>As I learn more about this method, I thought it would be best to write about it. This helps me, selfishly, because I have to feel somewhat confident before putting this on my website. I also thought it might be good to get an overview from someone less statistically nuanced. I might end up putting together a presentation on this for my graduate group brown bag and, if so, will post that here.</p>
-<p>This post is meant to be a setup note on the difference between the standard synthetic control method in <a href="https://economics.mit.edu/sites/default/files/publications/Synthetic%20Control%20Methods.pdf">Abadie, Diamond, and Hainmueller (2010)</a> and the newer multi-outcome extensions in <a href="https://doi.org/10.1093/ectj/utag005">Tian, Lee, and Panchenko (2026)</a> and <a href="https://arxiv.org/abs/2311.16260">Sun, Ben-Michael, and Feller (2025)</a>. The goal is not to cover every identification result, but to write down what changes in the implementation. It would be good, prior to presenting this, to briefly go over the proofs in the texts to understand any changes made to our typical assumptions, though they do not change <em>all that</em> much.</p>
+<p>This post is meant to be a setup note on the difference between the standard synthetic control method in <a href="https://economics.mit.edu/sites/default/files/publications/Synthetic%20Control%20Methods.pdf">Abadie, Diamond, and Hainmueller (2010)</a> and the newer multi-outcome extensions in <a href="https://doi.org/10.1093/ectj/utag005">Tian, Lee, and Panchenko (2026)</a> and <a href="https://arxiv.org/abs/2311.16260">Sun, Ben-Michael, and Feller (2025)</a>. The goal is not to cover every identification result, but to write down what changes in the implementation. A complete treatment would also compare the identification assumptions and proofs in these papers; here I focus on the implementation differences.</p>
 </section>
 </section>
 <section id="setup-and-notation" class="level2" data-number="2">
@@ -363,7 +360,7 @@ t=T_0+1,\dots,T.
 \sum_{t=T_0+1}^{T}
 \hat{\tau}_{1t}.
 \]</span></p>
-<p>Then you can get into placebo inference, or there is some work on <a href="https://arxiv.org/pdf/1812.10820v6">t-statistics for SCM</a> I haven’t quite read up on too much.</p>
+<p>From there, one can use placebo inference or related work on <a href="https://arxiv.org/pdf/1812.10820v6">t-statistics for SCM</a>.</p>
 </section>
 <section id="why-multiple-outcomes-help" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="why-multiple-outcomes-help"><span class="header-section-number">4</span> Why Multiple Outcomes Help</h2>
@@ -547,7 +544,7 @@ Y_{1sk}.
 </section>
 <section id="conclusion" class="level2" data-number="8">
 <h2 data-number="8" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">8</span> Conclusion</h2>
-<p>When I have a working paper version of what I’m doing right now, after I implement the feedback I got before, I’ll post it and you can see the results for yourself. For the most part, my results are stable to whether I run many separate single-outcome SCMs or the two different types of multi-outcome SCMs.</p>
+<p>Once this application becomes a working paper, I will post the results here. So far, the substantive conclusions are stable across separate single-outcome SCMs and the two multi-outcome implementations described above.</p>
 
 
 </section>

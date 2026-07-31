@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2026-02-24">
+<meta name="description" content="A worked implementation of placebo inference for synthetic control using synthdid.">
 
 <title>Synthetic Control Placebo Inference in Synthdid – David Hall</title>
 <style>
@@ -157,20 +158,12 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../research.html"> 
 <span class="menu-text">Research</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../posts.html"> 
-<span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../teaching.html"> 
@@ -196,6 +189,10 @@ window.Quarto = {
     </ul>
   </li>
   <li class="nav-item">
+    <a class="nav-link" href="../../posts.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../../cv.html"> 
 <span class="menu-text">CV</span></a>
   </li>  
@@ -208,11 +205,6 @@ window.Quarto = {
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="../../posts.xml"> <i class="bi bi-rss" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://follow.it/david-hall?leanpub" target="_blank"> <i class="bi bi-envelope" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -243,7 +235,7 @@ window.Quarto = {
   <li><a href="#implementing-in-synthdid" id="toc-implementing-in-synthdid" class="nav-link" data-scroll-target="#implementing-in-synthdid"><span class="header-section-number">3</span> Implementing in synthdid</a>
   <ul class="collapse">
   <li><a href="#randomization-inference-abadie-style-in-space-placebos" id="toc-randomization-inference-abadie-style-in-space-placebos" class="nav-link" data-scroll-target="#randomization-inference-abadie-style-in-space-placebos"><span class="header-section-number">3.1</span> Randomization inference (Abadie-style in-space placebos)</a></li>
-  <li><a href="#done-in-synthdid" id="toc-done-in-synthdid" class="nav-link" data-scroll-target="#done-in-synthdid"><span class="header-section-number">3.2</span> Done in synthdid</a></li>
+  <li><a href="#implementation-in-synthdid" id="toc-implementation-in-synthdid" class="nav-link" data-scroll-target="#implementation-in-synthdid"><span class="header-section-number">3.2</span> Implementation in synthdid</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -256,6 +248,11 @@ window.Quarto = {
 <h1 class="title">Synthetic Control Placebo Inference in Synthdid</h1>
 </div>
 
+<div>
+  <div class="description">
+    A worked implementation of placebo inference for synthetic control using synthdid.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -278,8 +275,8 @@ window.Quarto = {
 
 <section id="setup" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="setup"><span class="header-section-number">1</span> Setup</h2>
-<p>The <a href="https://synth-inference.github.io/synthdid/index.html"><em>synthdid</em> package put out by David Hirshberg</a> is my go-to when it comes to running all things synthetic control. I find it very helpful for both synthetic controls (SC) and synthetic difference-in-differences (SDiD), and even comparing to a base TWFE specification. In a recent project I’ve been working on, typical DiD specifications seem not to capture pre-trends well and I’m getting noisy results. Part of the reason for this is that I am expecting some heterogeneity in results by-state. Instead of trying to run state-specific results, I found myself (with some advising by Ed Rubin) running synthetic controls. This has the advantage of a better pre-period match as well as being better able to visualize the trends in treated states.</p>
-<p>As I began to run this, I realized that the synthdid package does not have a built-in way (and I double checked with Kyu Matuzawa) to run inference on syntetic control results. It <em>does</em> have built-in the Arkhangelsky et al.&nbsp;procedure which returns a standard error using the placebo method they derive, but it can only be used for the SDiD specification. See for yourself here:</p>
+<p>The <a href="https://synth-inference.github.io/synthdid/index.html"><em>synthdid</em> package developed by David Hirshberg</a> is my go-to when it comes to running all things synthetic control. I find it very helpful for both synthetic controls (SC) and synthetic difference-in-differences (SDiD), and even comparing to a base TWFE specification. In a recent project I’ve been working on, typical DiD specifications seem not to capture pre-trends well and I’m getting noisy results. Part of the reason for this is that I am expecting some heterogeneity in results by state. Instead of trying to run state-specific results, I found myself (with some advising by Ed Rubin) running synthetic controls. This has the advantage of a better pre-period match as well as being better able to visualize the trends in treated states.</p>
+<p>As I began to run this, I realized that the synthdid package does not have a built-in way (and I double checked with Kyu Matsuzawa) to run inference on synthetic control results. It <em>does</em> implement the Arkhangelsky et al.&nbsp;placebo procedure for standard errors, but that procedure is available only for the SDiD specification. See for yourself here:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(synthdid)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -290,15 +287,15 @@ window.Quarto = {
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>se <span class="ot">=</span> <span class="fu">sqrt</span>(<span class="fu">vcov</span>(tau.sc, <span class="at">method=</span><span class="st">'placebo'</span>))</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>se</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>        [,1]
-[1,] 11.4213</code></pre>
+<pre><code>         [,1]
+[1,] 10.84875</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>t_stat <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(tau.sc) <span class="sc">/</span> se</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p_val  <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(t_stat)))</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>p_val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           [,1]
-[1,] 0.08583067</code></pre>
+[1,] 0.07053294</code></pre>
 </div>
 </div>
 <p>The p-value I obtain here is off from the original estimate using random inference in the original Abadie et al.&nbsp;2010 paper which obtains a p-value of <span class="math inline">\(\frac{1}{39} \sim 0.026\)</span>. The standard error calculated requires a distributional assumption I think many of us are unwilling to make, or maybe that is just me worrying about what the referees would say were I to implement the above exercise. This would probably be a conservative way to obtain p-values anyhow, but still, I wanted to ensure that I can obtain the p-values using the random inference procedure described by <a href="https://economics.mit.edu/sites/default/files/publications/Synthetic%20Control%20Methods.pdf">Abadie Diamond and Hainmueller, 2010</a>.</p>
@@ -388,8 +385,8 @@ Y_{1t}
 \hat{Y}_{1t}^{\text{synth}}
 \right)
 \]</span> ### Inference</p>
-<p>The idea behind the randomized inference procedure is to then assign treatment iteratively over each of the donor units and run the same synthetic control procedure. But, importantly, we do this to obtain not the average treatment effect but the mean-square prediction-error.</p>
-<p>We can think of this as a numerical representation of how far the treated unit (and, in turn, each iterated donor unit when we pretend it is treated) varies from its synthetic control in the pre- and post-treatment periods. We want a nice pre-treatment fit. If the treatment we are estimating is non-random, we would also expect a large deviance from the post-treatment synthetic control. Taking the ratio of these gets us our RMSPE ratio which we then rank. The higher the rank, the more likely it is that our treated unit did not see deviation at random.</p>
+<p>The idea behind the randomized inference procedure is to then assign treatment iteratively over each of the donor units and run the same synthetic control procedure. But, importantly, we do this to obtain not the average treatment effect but the mean squared prediction error.</p>
+<p>We can think of this as a numerical representation of how far the treated unit (and, in turn, each iterated donor unit when we pretend it is treated) varies from its synthetic control in the pre- and post-treatment periods. We want a nice pre-treatment fit. If the treatment we are estimating is non-random, we would also expect a large deviation from the post-treatment synthetic control. Taking the ratio of these gets us our RMSPE ratio which we then rank. The higher the rank, the more likely it is that our treated unit did not see deviation at random.</p>
 <p>Formally, for each unit <span class="math inline">\(i\)</span>, define the synthetic control gap</p>
 <p><span class="math display">\[
 \hat{\tau}_{it}
@@ -456,8 +453,8 @@ p
 <p>To get a p-value, we compute (R_1) for the treated unit, then compute (R_j) for each donor unit (j) when we pretend it was treated. The p-value is just the rank:</p>
 <p>[ p = . ]</p>
 </section>
-<section id="done-in-synthdid" class="level3" data-number="3.2">
-<h3 data-number="3.2" class="anchored" data-anchor-id="done-in-synthdid"><span class="header-section-number">3.2</span> Done in synthdid</h3>
+<section id="implementation-in-synthdid" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="implementation-in-synthdid"><span class="header-section-number">3.2</span> Implementation in synthdid</h3>
 <p>Below is a minimal implementation that assumes you already have a <code>setup</code> object from <code>panel.matrices()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assumes you already have: setup &lt;- panel.matrices(...)</span></span>
@@ -519,28 +516,31 @@ p
 <span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>  ratio_vec <span class="ot">&lt;-</span> <span class="cf">if</span> (stat <span class="sc">==</span> <span class="st">"mspe"</span>) out<span class="sc">$</span>ratio_mspe <span class="cf">else</span> out<span class="sc">$</span>ratio_rmse</span>
 <span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>  treated_unit <span class="ot">&lt;-</span> <span class="fu">rownames</span>(setup<span class="sc">$</span>Y)[setup<span class="sc">$</span>N0 <span class="sc">+</span> <span class="dv">1</span>]</span>
 <span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>  R_treated <span class="ot">&lt;-</span> ratio_vec[out<span class="sc">$</span>unit <span class="sc">==</span> treated_unit]</span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>  R_placebo <span class="ot">&lt;-</span> ratio_vec[out<span class="sc">$</span>unit <span class="sc">!=</span> treated_unit]</span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>  p_val <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">sum</span>(R_placebo <span class="sc">&gt;=</span> R_treated, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span></span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">sum</span>(<span class="fu">is.finite</span>(R_placebo)))</span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>  table_ranked <span class="ot">&lt;-</span> out[<span class="fu">order</span>(ratio_vec, <span class="at">decreasing =</span> <span class="cn">TRUE</span>), ]</span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>  table_ranked<span class="sc">$</span>rank <span class="ot">&lt;-</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(table_ranked))</span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>  rank_treated <span class="ot">&lt;-</span> table_ranked<span class="sc">$</span>rank[table_ranked<span class="sc">$</span>unit <span class="sc">==</span> treated_unit]</span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>    <span class="at">treated_unit =</span> treated_unit,</span>
-<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> stat,</span>
-<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>    <span class="at">R_treated =</span> R_treated,</span>
-<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">rank_treated =</span> rank_treated,</span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_val =</span> p_val,</span>
-<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>    <span class="at">table =</span> table_ranked</span>
-<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a><span class="co"># Example:</span></span>
-<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>setup <span class="ot">&lt;-</span> <span class="fu">panel.matrices</span>(california_prop99)</span>
-<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">sc_placebo_inference</span>(setup, <span class="at">stat =</span> <span class="st">"mspe"</span>)</span>
-<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>res[<span class="fu">c</span>(<span class="st">"treated_unit"</span>, <span class="st">"statistic"</span>, <span class="st">"R_treated"</span>, <span class="st">"rank_treated"</span>, <span class="st">"p_val"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(R_treated) <span class="sc">!=</span> <span class="dv">1</span> <span class="sc">||</span> <span class="sc">!</span><span class="fu">is.finite</span>(R_treated)) {</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"The treated unit must have one finite fit ratio."</span>)</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>  R_placebo <span class="ot">&lt;-</span> ratio_vec[out<span class="sc">$</span>unit <span class="sc">!=</span> treated_unit]</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>  R_placebo <span class="ot">&lt;-</span> R_placebo[<span class="fu">is.finite</span>(R_placebo)]</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>  p_val <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">sum</span>(R_placebo <span class="sc">&gt;=</span> R_treated)) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">length</span>(R_placebo))</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>  table_ranked <span class="ot">&lt;-</span> out[<span class="fu">order</span>(ratio_vec, <span class="at">decreasing =</span> <span class="cn">TRUE</span>), ]</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>  table_ranked<span class="sc">$</span>rank <span class="ot">&lt;-</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(table_ranked))</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>  rank_treated <span class="ot">&lt;-</span> table_ranked<span class="sc">$</span>rank[table_ranked<span class="sc">$</span>unit <span class="sc">==</span> treated_unit]</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">treated_unit =</span> treated_unit,</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> stat,</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>    <span class="at">R_treated =</span> R_treated,</span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>    <span class="at">rank_treated =</span> rank_treated,</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_val =</span> p_val,</span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>    <span class="at">table =</span> table_ranked</span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a><span class="co"># Example:</span></span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>setup <span class="ot">&lt;-</span> <span class="fu">panel.matrices</span>(california_prop99)</span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">sc_placebo_inference</span>(setup, <span class="at">stat =</span> <span class="st">"mspe"</span>)</span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>res[<span class="fu">c</span>(<span class="st">"treated_unit"</span>, <span class="st">"statistic"</span>, <span class="st">"R_treated"</span>, <span class="st">"rank_treated"</span>, <span class="st">"p_val"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$treated_unit
 [1] "California"
@@ -558,9 +558,9 @@ $p_val
 [1] 0.07692308</code></pre>
 </div>
 </div>
-<p>The way the code is written is that the very last row in the panel object corresponds to the treated unit. So all we have to do is iterate the observations to the bottom. In other words, take the first observation, move to the bottom, and so on. Then we can use that to calculate the RMSE as we go along.</p>
-<p>There <em>are</em> a few differences in the synthdid code that resulted in some differences in the ATT and p-value of the estimate I wrote here. Namely, there is something about ridge-type regularization that makes it so the SC doesn’t produce the same exact weights, and also I don’t include controls here which are in the original paper.</p>
-<p>We can confirm this when using the tidysynth package, which has always felt fairly unintuitive to me, but is now making me feel as I look at it that I should’ve used that. Regardless, I feel good about writing a nice little piece on synthetic controls and knowing I can run this manually if computers were ever not a thing.</p>
+<p>In this implementation, the final row of the panel object corresponds to the treated unit. The loop moves each unit to the final row in turn, re-estimates the synthetic control, and calculates its pre- and post-treatment fit ratio.</p>
+<p>There are a few differences in the <em>synthdid</em> implementation that produce differences in the ATT and p-value reported here. The package’s regularization and weight conventions differ from the original implementation, and this example omits predictors used in the original paper.</p>
+<p>A comparison with the <em>tidysynth</em> package provides a useful implementation check. Working through the calculation manually also clarifies how the placebo ranks are constructed.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(tidysynth)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -600,7 +600,7 @@ $p_val
 <span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(smoking_out <span class="sc">%&gt;%</span> <span class="fu">grab_significance</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 8
+<pre><code># A tibble: 6 x 8
   unit_name     type    pre_mspe post_mspe mspe_ratio  rank fishers_exact_pvalue
   &lt;chr&gt;         &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;                &lt;dbl&gt;
 1 West Virginia Donor      13.6      351.        25.8     1               0.0256
@@ -609,10 +609,10 @@ $p_val
 4 Missouri      Donor      23.4      324.        13.8     4               0.103 
 5 Indiana       Donor      34.8      453.        13.0     5               0.128 
 6 South Dakota  Donor       6.92      70.2       10.1     6               0.154 
-# ℹ 1 more variable: z_score &lt;dbl&gt;</code></pre>
+# i 1 more variable: z_score &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<p>If you read this, thanks!</p>
+<p>Thanks for reading.</p>
 
 
 </section>

@@ -9,7 +9,7 @@
 <meta name="dcterms.date" content="2025-08-08">
 <meta name="description" content="Ownership shares by state over time with animated maps.">
 
-<title>Tracking TC Ownership: Descriptive Stats – David Hall</title>
+<title>Tracking TC Ownership: Ownership Trends – David Hall</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -94,20 +94,12 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="../../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../../research.html"> 
 <span class="menu-text">Research</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../posts.html"> 
-<span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../../teaching.html"> 
@@ -133,6 +125,10 @@ ul.task-list li input[type="checkbox"] {
     </ul>
   </li>
   <li class="nav-item">
+    <a class="nav-link" href="../../../posts.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../../../cv.html"> 
 <span class="menu-text">CV</span></a>
   </li>  
@@ -145,11 +141,6 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="../../../posts.xml"> <i class="bi bi-rss" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://follow.it/david-hall?leanpub" target="_blank"> <i class="bi bi-envelope" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -173,7 +164,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#comparing-the-ownership-of-hospitals-and-tcs-nationally" id="toc-comparing-the-ownership-of-hospitals-and-tcs-nationally" class="nav-link" data-scroll-target="#comparing-the-ownership-of-hospitals-and-tcs-nationally">Comparing the Ownership of Hospitals and TCs Nationally</a></li>
   <li><a href="#heterogeneity-by-state" id="toc-heterogeneity-by-state" class="nav-link" data-scroll-target="#heterogeneity-by-state">Heterogeneity by State</a></li>
   <li><a href="#going-forward" id="toc-going-forward" class="nav-link" data-scroll-target="#going-forward">Going Forward</a></li>
-  <li><a href="#contact" id="toc-contact" class="nav-link" data-scroll-target="#contact">📬 Contact</a></li>
   </ul>
 </nav>
     </div>
@@ -182,7 +172,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Tracking TC Ownership: Descriptive Stats</h1>
+<h1 class="title">Tracking TC Ownership: Ownership Trends</h1>
   <div class="quarto-categories">
     <div class="quarto-category">TC Ownership</div>
   </div>
@@ -215,17 +205,17 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>This is the first blog post in a series specifically geared toward exploring the ownership of substance use disorder treatment centers (TCs). I was motivated to start this series when reading Sloan’s chapter (21) in the Handbook of Health Economics which can be found <a href="https://www.sciencedirect.com/science/article/pii/S1574006400800347">here</a>. I have been reading specifically that chapter of the handbook as I finish some work on a project assessing the impact of a supply shock to the treatment system here in Oregon. At first, I viewed this paper as mostly a straight forward supply shock that would result in a change in admissions to treatment, but as I explored the incentives of the TCs a bit more I believe the question not to be as straight forward. While I was viewing TCs through a more altruistic view — that is, assuming funding TCs would lead to increased admissions in particular for those most at risk — I had not yet looked into how the market structure for health care does not necessarily predict the same thing.</p>
-<p>The purpose of today’s post is simply to walk through the motivation for exploring the ownership decision of healthcare firms, and particularly hospitals. I then compare some descriptive statistics for the U.S. and at the state-level of the ownership breakdown of TCs. The eventual idea is to understand if the same problems facing hospitals due to ownership allocation can be applied to TCs.</p>
+<p>This is the first blog post in a series specifically geared toward exploring the ownership of substance use disorder treatment centers (TCs). I was motivated to start this series when reading Sloan’s chapter (21) in the Handbook of Health Economics which can be found <a href="https://www.sciencedirect.com/science/article/pii/S1574006400800347">here</a>. I have been reading specifically that chapter of the handbook as I finish some work on a project assessing the impact of a supply shock to the treatment system here in Oregon. At first, I viewed this paper as mostly a straightforward supply shock that would result in a change in admissions to treatment, but as I explored the incentives of the TCs a bit more I believe the question not to be as straightforward. While I was viewing TCs through a more altruistic lens — that is, assuming funding TCs would lead to increased admissions in particular for those most at risk — I had not yet looked into how the market structure for health care does not necessarily predict the same thing.</p>
+<p>The purpose of today’s post is simply to walk through the motivation for exploring the ownership decision of healthcare firms, and particularly hospitals. I then compare some descriptive statistics for the U.S. and across states, then describe the ownership breakdown of TCs. The eventual idea is to understand if the same problems facing hospitals due to ownership allocation can be applied to TCs.</p>
 <p>What do I even mean by the ownership decision? That is the decision for a hospital to be private non-profit, private for-profit or publicly owned.</p>
 <p>Sloan explains the motivation for exploring ownership in the context of healthcare as follows:</p>
 <ol type="1">
-<li>Under the view of a firm as a nexus of contracts, the ownership decision is a cost minimizing problem — particularly with respect to transaction costs.</li>
+<li>Under the view of a firm as a nexus of contracts, the ownership decision is a cost-minimizing problem — particularly with respect to transaction costs.</li>
 <li>Health care is no exception, <em>except</em>, the contracts are a bit more complex than the typical firm.
 <ol type="a">
-<li>The product purchaser, i.e.&nbsp;the health services consumer (the patient), is often not the full payor (their marginal cost is lower than the true marginal cost).</li>
+<li>The product purchaser, i.e.&nbsp;the health services consumer (the patient), is often not the full payer (their marginal cost is lower than the true marginal cost).</li>
 <li>The product purchaser has less information about the products than the suppliers.</li>
-<li>Since the consumer is not the payor, equilibrium determinations are made by comparing the willingness to pay (WTP) of the true payor and the producer, but the payor (e.g.&nbsp;insurance companies) do not reveal their WTP so easily.</li>
+<li>Since the consumer is not the payer, equilibrium determinations are made by comparing the willingness to pay (WTP) of the true payer and the producer, but the payer (e.g., insurance companies) do not reveal their WTP so easily.</li>
 </ol></li>
 <li>Due to the asymmetric information, hospitals will only provide socially optimal care to the extent they receive direct payment.
 <ol type="a">
@@ -234,7 +224,7 @@ ul.task-list li input[type="checkbox"] {
 </ol></li>
 </ol>
 <p>Social planners know the incentives of hospitals (somewhat) and have created incentives to ensure hospitals provide treatment even to those with low reimbursement rates. One of the most salient examples of this is the provision of charity care by hospitals. Hospitals receive tax breaks for a certain level of charity care provided; property tax at the state level and income tax at the federal level are typical. Note that this doesn’t <em>just</em> apply to hospitals for the most part and extends to any <strong>non-profit</strong>. For-profit hospitals cannot receive this tax break — a clear example of the sort of ownership-as-a-cost-minimization I was discussing at the beginning.</p>
-<p>If you are interested in more of this work, here are three papers I had been reading. I highly recommend reading the one by Chen (2016) for background:</p>
+<p>If you are interested in more of this work, here are two papers I had been reading. I highly recommend reading the one by Chen (2016) for background:</p>
 <ul>
 <li><p>Hospital Competition and Charity Care, Garmon (2006) <a href="https://www.ftc.gov/reports/hospital-competition-charity-care">here</a></p></li>
 <li><p>THE PROVISION OF CHARITY CARE BY NONPROFIT HOSPITALS, Chen <a href="https://repository.upenn.edu/server/api/core/bitstreams/22f3173e-2c7f-4359-bdbb-9f0d3aa41274/content">here</a> - Just a note, this is actually a thesis but I found the background particularly insightful.</p></li>
@@ -244,14 +234,24 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="comparing-the-ownership-of-hospitals-and-tcs-nationally">Comparing the Ownership of Hospitals and TCs Nationally</h2>
 <p>I use data from the AHA Annual Survey from 1999-2023, obtained from <a href="https://www.kff.org/other/state-indicator/hospitals-by-ownership/?dataView=1&amp;activeTab=graph&amp;currentTimeframe=0&amp;startTimeframe=24&amp;selectedDistributions=statelocal-government--non-profit--for-profit&amp;selectedRows=%7B%22wrapups%22:%7B%22united-states%22:%7B%7D%7D,%22states%22:%7B%22all%22:%7B%7D%7D%7D&amp;sortModel=%7B%22colId%22:%22Location%22,%22sort%22:%22asc%22%7D">KFF</a> to create the following charts and .gifs.</p>
 <p>The following is a chart made directly from KFF data on ownership of hospitals:</p>
-<p><img src="../../..\series/TC_Ownership/output/hospitalownership_overtime.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../..\series/TC_Ownership/output/hospitalownership_overtime.png" class="img-fluid figure-img" alt="U.S. hospital ownership shares over time"></p>
+<figcaption>U.S. hospital ownership shares over time</figcaption>
+</figure>
+</div>
 <p>We can then compare to TC ownership using data from the N-SSATS and N-SUMHSS.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<p><img src="../../..\series/TC_Ownership/output/TCs_across_time.png" class="img-fluid"></p>
-<p>We can note that the non-profit model has been much consistently dominant for hospitals maintaining the majority of the share of hospital ownership from 1999-2023. In contrast, non-profit ownership — while still dominant — has seen a steady decrease annually with for-profit firms starting to take over that share.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../..\series/TC_Ownership/output/TCs_across_time.png" class="img-fluid figure-img" alt="U.S. substance use treatment center ownership shares over time"></p>
+<figcaption>U.S. substance use treatment center ownership shares over time</figcaption>
+</figure>
+</div>
+<p>We can note that the non-profit model has remained dominant among hospitals, accounting for the majority of hospital ownership from 1999-2023. In contrast, non-profit ownership — while still dominant — has seen a steady decrease annually with for-profit firms starting to take over that share.</p>
 </section>
 <section id="heterogeneity-by-state" class="level2">
 <h2 class="anchored" data-anchor-id="heterogeneity-by-state">Heterogeneity by State</h2>
-<p>The following maps the by-state heterogeneity across my sample period for TCs on the left and hospitals on the right.</p>
+<p>The following maps state-level heterogeneity across my sample period for TCs on the left and hospitals on the right.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><img src="../../..\series/TC_Ownership/output/np_share_by_state.gif" class="img-fluid" style="width:100.0%" alt="TCs: Non-profit"></p>
@@ -275,11 +275,11 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p><em>Figure. Ownership shares over time by state (left: Treatment Centers, right: Hospitals).</em></p>
 <p>One thing I notice is some regional heterogeneity; specifically in areas of the South. It might be interesting to explore why that is.</p>
-<p>Also, as for some states, they may have very many public hospitals comparatively (e.g.&nbsp;Idaho) but most of their TCs are for-profit.</p>
+<p>Also, as for some states, they may have very many public hospitals comparatively (e.g., Idaho) but most of their TCs are for-profit.</p>
 </section>
 <section id="going-forward" class="level2">
 <h2 class="anchored" data-anchor-id="going-forward">Going Forward</h2>
-<p>Much of the empirical literature on hospitals explains why the non-profit form is so dominant, but I can’t quite say that the non-profit form is so dominant among ownership for TCs. For-profit centers are increasing, therefore future posts will consider the profit incentives of a for-profit firm, where they receive most of their funding and what the source of payment (or what they accept) is for the for-profit firm.</p>
+<p>Much of the empirical literature on hospitals explains why the non-profit form is so dominant, but I can’t quite say that the non-profit form is so dominant among ownership for TCs. For-profit centers are becoming more common; therefore, future posts will consider the profit incentives of a for-profit firm, where they receive most of their funding and what the source of payment (or what they accept) is for the for-profit firm.</p>
 <p>In particular, some questions I’ll be answering:</p>
 <ul>
 <li><p>What is the breakdown of services offered across ownership?</p>
@@ -296,15 +296,7 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 </ul>
 <p>I’m not going to take these figures as absolute fact. There are many reasons a center has to submit data to SAMHSA for the survey, particularly if they receive state/federal funding of any kind. It may be that for-profits have always been fairly present but were not marked in the data across time. If that is the case, I can discuss ways we might think about instrumenting for the true count of for-profit TCs and discerning whether there is a true rise or not.</p>
-<p>Please feel free to DM/email me for comments or questions. The code for this project is available on my Github.</p>
-</section>
-<section id="contact" class="level2">
-<h2 class="anchored" data-anchor-id="contact">📬 Contact</h2>
-<ul>
-<li>Email: <code>dhall7@uoregon.edu</code></li>
-<li>GitHub: <a href="https://github.com/studhall">@studhall</a></li>
-<li>X/Twitter: <a href="https://x.com/studhall">@studhall</a></li>
-</ul>
+<p>The code for this project is available on my GitHub.</p>
 
 
 </section>
@@ -313,7 +305,7 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>Note that typically one should not try to compare across N-SSATS and N-SUMHSS as the N-SUMHSS was developed to combine the N-SATSS and N-MHSS and so is not comparable in many ways. In this case, I did restrict the 2021-2023 N-SUMHSS to only TCs, and ownership is a common variable across all years.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Note that typically one should not try to compare across N-SSATS and N-SUMHSS as the N-SUMHSS was developed to combine the N-SSATS and N-MHSS and so is not comparable in many ways. In this case, I did restrict the 2021-2023 N-SUMHSS to only TCs, and ownership is a common variable across all years.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <div class="followit--follow-form-container" attr-a="" attr-b="" attr-c="" attr-d="" attr-e="" attr-f="">

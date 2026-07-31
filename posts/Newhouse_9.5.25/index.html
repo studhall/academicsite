@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2025-09-05">
+<meta name="description" content="A walkthrough of Newhouse’s nonprofit hospital model and its implications for substance use treatment centers.">
 
 <title>The Newhouse Model of Nonprofit Hospitals – David Hall</title>
 <style>
@@ -157,20 +158,12 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../research.html"> 
 <span class="menu-text">Research</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../posts.html"> 
-<span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../teaching.html"> 
@@ -196,6 +189,10 @@ window.Quarto = {
     </ul>
   </li>
   <li class="nav-item">
+    <a class="nav-link" href="../../posts.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../../cv.html"> 
 <span class="menu-text">CV</span></a>
   </li>  
@@ -208,11 +205,6 @@ window.Quarto = {
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="../../posts.xml"> <i class="bi bi-rss" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://follow.it/david-hall?leanpub" target="_blank"> <i class="bi bi-envelope" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -248,6 +240,11 @@ window.Quarto = {
 <h1 class="title">The Newhouse Model of Nonprofit Hospitals</h1>
 </div>
 
+<div>
+  <div class="description">
+    A walkthrough of Newhouse’s nonprofit hospital model and its implications for substance use treatment centers.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -270,8 +267,8 @@ window.Quarto = {
 
 <section id="introduction" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
-<p>This post will discuss the theory and contributions of Newhouse’s 1970 model of nonprofit hospitals which can be found <a href="https://www.jstor.org/stable/1807855">here</a> I started reading up on this model after looking at the behavior of substance use disorder (SUD) treatment centers (TCs). You can see more about that in my <a href="../../series/TC_Ownership/index.html">TC Ownership series.</a> This is also part of an overarching — and building —- interest of mine: the non-profit healthcare institution. I’ve found myself revisiting <a href="https://www.sciencedirect.com/science/article/pii/S1574006400800347">Sloan’s chapter in the Handbook of Health Economics</a>.</p>
-<p>I’m going to run through some quick motivation then go ahead and introduce/solve the model here. The Newhouse model was one of the first models of overall non-profits. It is much more simple to develop a model of for-profit firms, or even social planners or the individual, because the objective function of these agents is much more clear. For-profits maximize profit (duh), social planners might be trying to maximize tax revenue or the utility of all citizens and individuals maximize their own utility.</p>
+<p>This post discusses the theory and contributions of Newhouse’s 1970 model of nonprofit hospitals, which can be found <a href="https://www.jstor.org/stable/1807855">here</a>. I started reading about this model while studying the behavior of substance use disorder (SUD) treatment centers (TCs). You can see more in my <a href="../../series/TC_Ownership/index.html">TC Ownership series</a>. This is also part of a broader and growing interest of mine: nonprofit healthcare institutions. I’ve found myself revisiting <a href="https://www.sciencedirect.com/science/article/pii/S1574006400800347">Sloan’s chapter in the Handbook of Health Economics</a>.</p>
+<p>I’ll begin with some motivation and then introduce and solve the model. Newhouse’s framework was among the earliest economic models of nonprofit organizations. Modeling for-profit firms, social planners, or individuals is more straightforward because their objective functions are clearer: firms maximize profit, social planners may maximize social welfare, and individuals maximize their own utility.</p>
 <p>The Newhouse model differed in two main ways: first, a strong insight from this model is that the non-profit decision maker (DM) maximizes their utility over some quality-quantity measure. In his paper, Newhouse describes the motivation of the DM in regard to quantity by making the case that society is better off with increased consumption of hospital services, and so an altruistic DM clearly wants to increase overall consumption. Newhouse has this to say about why <em>quality</em> is in the maximand:</p>
 <blockquote class="blockquote">
 <p><em>To understand why the second element, quality, belongs in the maximand, it is necessary to examine the locus of decision making in a hospital. One characteristic of nonprofit hospitals is that usually control formally resides in a board of trustees or similar group. The board in turn appoints an administrator who is in charge of day-to-day decisions…… If the administrator is not to make a ‘profit,’ his performance cannot be judged by the profit criterion. Therefore, his salary and promotional chances must be a function of some other variable or variables. It seems plausible to assume that the prestige of the institution is prominent among these other variable…… Prestige, in turn, is affected by the size of the institution, but probably even more by the quality of the product produced.</em></p>
@@ -280,16 +277,16 @@ window.Quarto = {
 </section>
 <section id="assumptions-of-the-model" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="assumptions-of-the-model"><span class="header-section-number">2</span> Assumptions of the Model</h2>
-<p>We start off assuming that there exists a total cost function <span class="math inline">\(F\)</span> of quantity supplied <span class="math inline">\(Q^s\)</span> and quality supplied <span class="math inline">\(K^s\)</span>.</p>
+<p>We begin with a total cost function <span class="math inline">\(F\)</span> of quantity supplied <span class="math inline">\(Q^s\)</span> and quality supplied <span class="math inline">\(K^s\)</span>.</p>
 <p><span id="eq-totalcost"><span class="math display">\[
 TC = F(Q^s, K^s)
 \tag{1}\]</span></span></p>
-<p>We also assume there is a function <span class="math inline">\(G\)</span> of quantity demanded, as a function of price (given) <span class="math inline">\(P\)</span> and quality demanded <span class="math inline">\(K^P\)</span></p>
+<p>We also assume that quantity demanded is a function <span class="math inline">\(G\)</span> of price <span class="math inline">\(P\)</span> and quality demanded <span class="math inline">\(K^d\)</span>:</p>
 <p><span class="math display">\[
 Q^d = G(P, K^d)
 \]</span></p>
-<p>s.t. <span class="math inline">\(\frac{\partial Q^d}{\partial P} &lt; 0\)</span> and <span class="math inline">\(\frac{\partial Q^d}{\partial K^d} &gt; 0\)</span></p>
-<p>We assume that non-profit firms make zero profit, thus <span class="math inline">\(\pi = 0 \iff TR = TC\)</span>. Since <span class="math inline">\(TC = AC\*Q \iff AC = F / Q = f (Q^s, K^s)\)</span>and $ TR = P Q$ (abusing notation of quantity and quality before establishing equilibrium conditions, sorry), and further assuming that we can solve for an inverse demand function <span class="math inline">\(P = g(Q^d, K)\)</span>, we have the setup for the breakevn condition which will allow us to <strong>solve for quantity as a function of price.</strong></p>
+<p>subject to <span class="math inline">\(\frac{\partial Q^d}{\partial P} &lt; 0\)</span> and <span class="math inline">\(\frac{\partial Q^d}{\partial K^d} &gt; 0\)</span>.</p>
+<p>We assume that nonprofit firms earn zero profit, so <span class="math inline">\(\pi = 0 \iff TR = TC\)</span>. Since <span class="math inline">\(TC = AC \times Q\)</span>, <span class="math inline">\(AC = F/Q = f(Q^s,K^s)\)</span>, and <span class="math inline">\(TR = P \times Q\)</span>, an inverse demand function <span class="math inline">\(P = g(Q^d,K^d)\)</span> gives the break-even condition needed to solve for <strong>quality as a function of quantity.</strong></p>
 <p>In particular, we have:</p>
 <p><span id="eq-breakeven"><span class="math display">\[
 \begin{aligned}
@@ -300,16 +297,19 @@ K^d &amp;= K^s = K \\
 P &amp;= AC
 \end{aligned}
 \tag{2}\]</span></span></p>
-<p>which allows us to obtain equlibrium quality as a function of equilibrium quantity:</p>
-<p><span class="math display">\[ K = h(Q)\]</span> This sets up the maximization problem, where both quality and quantity are part of the DM problem, and we can solve for them both assuming we havethe quantity-quality tradeoff.</p>
+<p>This allows us to obtain equilibrium quality as a function of equilibrium quantity:</p>
+<p><span class="math display">\[
+K = h(Q).
+\]</span></p>
+<p>This sets up the maximization problem. Both quality and quantity enter the decision maker’s objective, subject to the quantity-quality tradeoff.</p>
 </section>
 <section id="dm-problem" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="dm-problem"><span class="header-section-number">3</span> DM Problem</h2>
-<p>The hospital administrator choose <span class="math inline">\(K\)</span> and <span class="math inline">\(Q\)</span> to maximizes the institutions utility. We subject this to the quantity-quality tradeoff which builds in the zero-profit/break-even condition already.</p>
+<p>The hospital administrator chooses <span class="math inline">\(K\)</span> and <span class="math inline">\(Q\)</span> to maximize the institution’s utility, subject to the quantity-quality tradeoff implied by the zero-profit condition.</p>
 <p><span id="eq-utility"><span class="math display">\[
 \text{max }_{K,Q} V = U(K, Q) + \lambda(K - h(Q))
 \tag{3}\]</span></span></p>
-<p>we can then get first order conditions</p>
+<p>The first-order conditions are</p>
 <p><span id="eq-foc-k"><span class="math display">\[
 \frac{\partial \mathcal{L}}{\partial K}: \quad U_K(K,Q) + \lambda = 0
 \tag{4}\]</span></span></p>
@@ -330,9 +330,9 @@ U_Q(K,Q) + U_K(K,Q)\,h'(Q) = 0
 <section id="implications" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="implications"><span class="header-section-number">4</span> Implications</h2>
 <p>The optimality condition tells us that the MRS of quantity and quality is equal to the slope of the break-even condition. In economic terms, this condition means the administrator will expand quantity up to the point where the value of treating one more patient (in utility terms) is exactly offset by the reduction in quality that must occur to remain at break-even.</p>
-<p>If the break-even locus is steep (large (h’(Q))), then each additional patient requires a substantial reduction in quality, so the hospital leans toward protecting quality. If the locus is relatively flat, the hospital can expand patient volume with only modest quality sacrifices, so output increases. This helps explain observed nonprofit hospital behavior: rather than maximizing profit or output alone, they balance prestige- and reputation-enhancing quality with the social goal of treating more patients.</p>
+<p>If the break-even locus is steep (a large absolute value of <span class="math inline">\(h'(Q)\)</span>), then each additional patient requires a substantial reduction in quality, so the hospital leans toward protecting quality. If the locus is relatively flat, the hospital can expand patient volume with only modest quality sacrifices, so output increases. This helps explain observed nonprofit hospital behavior: rather than maximizing profit or output alone, they balance prestige- and reputation-enhancing quality with the social goal of treating more patients.</p>
 <p>Newhouse argued this framework accounts for investments in high-cost technology, the provision of uncompensated care, and other behaviors that appear puzzling under a pure profit-maximization model but are consistent with a utility-maximizing nonprofit decision maker.</p>
-<p>I had Chat-GPT compare how this might look, the first image is basically just what you would typically think of in a utility maximization problem but with different labels, the</p>
+<p>The figures below illustrate the administrator’s choice as a standard constrained utility-maximization problem, followed by a comparison of flatter and steeper break-even loci.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -405,7 +405,7 @@ U_Q(K,Q) + U_K(K,Q)\,h'(Q) = 0
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" alt="Indifference curves tangent to a downward-sloping break-even locus at the nonprofit administrator's optimal quantity and quality." width="672"></p>
 <figcaption>Newhouse choice: the DM picks (Q<em>, K</em>) where the indifference curve is tangent to the break-even locus K = h(Q).</figcaption>
 </figure>
 </div>
@@ -489,7 +489,7 @@ U_Q(K,Q) + U_K(K,Q)\,h'(Q) = 0
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="960"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" alt="Two panels compare optimal quantity and quality under flatter and steeper break-even constraints." width="960"></p>
 <figcaption>Flat vs.&nbsp;steep break-even loci. <strong>Example:</strong> When the break-even curve is flatter (left), the nonprofit administrator can expand patient quantity with only modest reductions in quality—think of a community hospital adding beds without cutting staff ratios too sharply. When the curve is steeper (right), each additional patient sharply reduces quality—like a facility where adding beds quickly overwhelms nursing staff—so the nonprofit limits patient volume to preserve care quality.</figcaption>
 </figure>
 </div>
@@ -498,8 +498,8 @@ U_Q(K,Q) + U_K(K,Q)\,h'(Q) = 0
 </section>
 <section id="extension-and-relevance-to-treatment-centers" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="extension-and-relevance-to-treatment-centers"><span class="header-section-number">5</span> Extension and Relevance to Treatment Centers</h2>
-<p>The question for myself, now, is whether or not this truly applies to treatment centers? What comes to mind are the sort of luxury spa-esque TCs, very high quality with low output. Newhouse’s model does seem to predict these sorts of cases. A possible extension to review is Pauly &amp; Redisch’s <a href="https://www.jstor.org/stable/1803128?seq=1"><em>The Non-For-Profit Hospital as a Physicians’ Cooperative</em>.</a> This paper may be interesting to review in light of the many opioid prescribing papers in health econ literature.</p>
-<p>It also brings to mind how we might measure quality. SAMHSA keeps track of service offerings for each TC. Would we consider TCs with a high level of quality those who offer tons of services, or is that a high-quantity TC with possibly low quality in each of these areas? Are TCs that have a high availability of MAT lower quality, since they treat so many individuals? This also ties into the idea of how we might measure treatment itself; in all of this work, I consistently combine different types of treatment, but the heterogeneity of TC characteristics is certainly important to consider.</p>
+<p>The question, then, is whether this framework applies to treatment centers. What comes to mind are the sort of luxury spa-esque TCs, very high quality with low output. Newhouse’s model does seem to predict these sorts of cases. A possible extension to review is Pauly &amp; Redisch’s <a href="https://www.jstor.org/stable/1803128?seq=1"><em>The Non-For-Profit Hospital as a Physicians’ Cooperative</em>.</a> This paper may be interesting to review in light of the many opioid prescribing papers in health econ literature.</p>
+<p>It also brings to mind how we might measure quality. SAMHSA keeps track of service offerings for each TC. Should a facility offering many services be considered high quality, or does that breadth instead reflect high quantity with potentially uneven quality across services? Are TCs that have a high availability of MAT lower quality, since they treat so many individuals? This also ties into the idea of how we might measure treatment itself; in all of this work, I consistently combine different types of treatment, but the heterogeneity of TC characteristics is certainly important to consider.</p>
 <p>Regardless, I’m thankful for Newhouse’s contribution — the quantity-quality tradeoff and the model that spurred much work — for allowing me to think of these questions.</p>
 
 
