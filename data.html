@@ -103,25 +103,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./teaching.html"> 
 <span class="menu-text">Teaching</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-data" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Data</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-data">    
-        <li>
-    <a class="dropdown-item" href="./data.html">
- <span class="dropdown-text">Data Home</span></a>
+  <li class="nav-item">
+    <a class="nav-link active" href="./data.html" aria-current="page"> 
+<span class="menu-text">Data</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="./data/moud-dashboard/index.html">
- <span class="dropdown-text">MOUD Dashboard</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./data/treatment-facilities/index.html">
- <span class="dropdown-text">Treatment Facility Data</span></a>
-  </li>  
-    </ul>
-  </li>
   <li class="nav-item">
     <a class="nav-link" href="./posts.html"> 
 <span class="menu-text">Blog</span></a>
@@ -176,20 +161,69 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="data" class="level1">
-<h1>Data</h1>
-<section id="historical-samhsa-treatment-facility-data" class="level2">
-<h2 class="anchored" data-anchor-id="historical-samhsa-treatment-facility-data"><a href="./data/treatment-facilities/index.html">Historical SAMHSA Treatment Facility Data</a></h2>
-<p>Address-level facility listings reconstructed from 26 SAMHSA directories, with services, maps, and downloads.</p>
-<hr>
+<div class="data-hub-intro">
+<p>These projects provide cleaned research data, documentation, and interactive views. Each source remains separate where its underlying population or definition differs.</p>
+</div>
+<div class="data-hub-grid">
+<section class="data-hub-card">
+<h2 class="anchored">
+MOUD Data and Dashboard
+</h2>
+<p>
+State Drug Utilization Data on Medicaid prescriptions and reimbursements for buprenorphine, methadone, and naltrexone. Explore state time series and leading NDCs.
+</p>
+<div class="download-actions">
+<p><a class="btn btn-primary" href="./data/moud-dashboard/index.html">Open dashboard</a> <a class="btn btn-outline-primary" href="data/moud-dashboard/downloads/moud_state_quarter_1991_2024.csv.gz" download="">State data</a> <a class="btn btn-outline-primary" href="data/moud-dashboard/downloads/moud_ndc_quarter_1991_2024.csv.gz" download="">NDC data</a> <a class="btn btn-outline-primary" href="./data/moud-dashboard/downloads.html">Files by year</a> <a class="btn btn-outline-primary" href="https://github.com/studhall/academicsite/tree/main/data/moud-dashboard">Code</a></p>
+</div>
+<p class="data-card-note">
+CMS suppresses some cells; displayed and downloadable totals sum reported records. Verified source anomalies are documented with the files.
+</p>
 </section>
-<section id="medicaid-moud-prescriptions" class="level2">
-<h2 class="anchored" data-anchor-id="medicaid-moud-prescriptions"><a href="./data/moud-dashboard/index.html">Medicaid MOUD Prescriptions</a></h2>
-<p>State Medicaid prescriptions for medications for opioid use disorder.</p>
+<section class="data-hub-card">
+<h2 class="anchored">
+SAMHSA Facility Parser
+</h2>
+<p>
+Address-level treatment facility listings reconstructed from SAMHSA directories for 1998, 2000, 2001, and 2003-2025, with service information and county geography.
+</p>
+<div class="download-actions">
+<p><a class="btn btn-primary" href="./data/treatment-facilities/index.html">Data and methods</a> <a class="btn btn-outline-primary" href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/tag/v1.1.0">Downloads</a> <a class="btn btn-outline-primary" href="https://github.com/studhall/samhsa-treatment-facility-directories">GitHub</a></p>
+</div>
+<p class="data-card-note">
+Historical PDF quality assurance and high-confidence street geocoding remain in progress; record-level warnings are retained.
+</p>
+</section>
+<section class="data-hub-card">
+<h2 class="anchored">
+Concatenated N-SSATS and N-SUMHSS
+</h2>
+<p>
+Annual public-use facility survey files placed in a common, documented format for survey years 1997-2024. Original survey variables remain available alongside a smaller harmonized core.
+</p>
+<div class="download-actions">
+<p><a class="btn btn-primary" href="https://github.com/studhall/samhsa-treatment-facility-data">Reproduction code</a> <a class="btn btn-outline-primary" href="https://www.samhsa.gov/data/data-we-collect/n-sumhss-national-substance-use-and-mental-health-services-survey/datafiles">SAMHSA source files</a></p>
+</div>
+<p class="data-card-note">
+N-SUMHSS replaced N-SSATS in 2021. Record-level concatenated downloads are withheld because current SAMHSA terms do not explicitly authorize third-party redistribution.
+</p>
+</section>
+<section class="data-hub-card">
+<h2 class="anchored">
+Treatment Facility Dashboard
+</h2>
+<p>
+Compare facility trends from N-SSATS/N-SUMHSS, geographic listings from the historical directories, and County Business Patterns benchmarks at the national, state, and county levels.
+</p>
+<div class="download-actions">
+<p><a class="btn btn-primary" href="./data/treatment-facilities-dashboard/index.html">Open dashboard</a> <a class="btn btn-outline-primary" href="https://github.com/studhall/samhsa-treatment-facility-dashboard">GitHub</a></p>
+</div>
+<p class="data-card-note">
+Sources are labeled separately and are not silently appended into one trend. County geography remains exploratory.
+</p>
+</section>
+</div>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <div class="followit--follow-form-container" attr-a="" attr-b="" attr-c="" attr-d="" attr-e="" attr-f="">

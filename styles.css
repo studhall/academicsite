@@ -1142,3 +1142,53 @@ header.navbar {
   padding: 0.7rem 0;
 }
 
+
+/* Data hub */
+.data-hub-intro {
+  color: var(--site-muted);
+  font-size: 1.02rem;
+  margin: 0.25rem 0 1.2rem;
+  max-width: 760px;
+}
+
+.data-hub-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.data-hub-card {
+  background: #ffffff;
+  border: 1px solid var(--site-line);
+  border-top: 4px solid var(--site-maroon);
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(53, 16, 27, 0.07);
+  padding: 1rem 1.1rem;
+}
+
+.data-hub-card h2 {
+  border: 0;
+  font-size: 1.28rem;
+  margin: 0 0 0.5rem;
+  padding: 0;
+}
+
+.data-hub-card p {
+  margin-bottom: 0.65rem;
+}
+
+.data-card-note {
+  color: var(--site-muted);
+  font-size: 0.88rem;
+}
+
+.data-hub-card .download-actions {
+  margin: 0.8rem 0;
+}
+
+@media (max-width: 767px) {
+  .data-hub-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

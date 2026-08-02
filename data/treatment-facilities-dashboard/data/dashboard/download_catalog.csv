@@ -1,0 +1,7 @@
+dataset,format,filename,url
+Public-use survey facilities,Reproduction code,"",https://github.com/studhall/samhsa-treatment-facility-data
+Public-use survey facilities,SAMHSA source files,"",https://www.samhsa.gov/data/data-we-collect/n-sumhss-national-substance-use-and-mental-health-services-survey/datafiles
+Historical directory listings,CSV.gz,facilities.csv.gz,https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/facilities.csv.gz
+Historical directory listings,Parquet,facilities.parquet,https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/facilities.parquet
+Historical directory listings,RDS,facilities.rds,https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/facilities.rds
+Historical directory listings,Stata,facilities.dta,https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/facilities.dta
