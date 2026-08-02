@@ -1,8 +1,15 @@
 project:
   type: website
+  pre-render: powershell -NoProfile -ExecutionPolicy Bypass -File scripts/sync_cv.ps1
   resources:
     - cv/Hall_CV_Current.pdf
     - data/treatment-facilities-dashboard/data/facility_dashboard_*.csv
+    - data/treatment-facilities-dashboard/data/harmonization_crosswalk.csv
+    - data/treatment-facilities-dashboard/data/dashboard/*.csv
+    - data/treatment-facilities-dashboard/data/dashboard/*.json
+    - data/moud-dashboard/downloads/*.csv.gz
+    - data/moud-dashboard/data/source_anomalies.csv
+    - data/moud-dashboard/data/state_population.csv
   render:
     - "*.qmd"
     - "data/**/*.qmd"
@@ -15,28 +22,20 @@ project:
 website:
   title: "David Hall"
   site-url: https://econdavidhall.com
-  description: "David Hall's academic website"
+  description: "David Hall is an applied microeconomist studying health policy, substance use treatment, and access to care."
   navbar:
     left:
-      - href: index.qmd
-        text: Home
       - href: about.qmd
         text: About
       - href: research.qmd
         text: Research
-      - href: posts.qmd
-        text: Blog
       - href: teaching.qmd
         text: Teaching
-      - text: Data
-        menu:
-          - href: data.qmd
-            text: Data Home
-          - href: data/moud-dashboard/index.qmd
-            text: MOUD Dashboard
-          - href: data/treatment-facilities/index.qmd
-            text: Treatment Facility Data
-      - href: cv.qmd
+      - href: data.qmd
+        text: Data
+      - href: posts.qmd
+        text: Blog
+      - href: cv/Hall_CV_Current.pdf?v=20260708214639
         text: CV
     right:
       - icon: mortarboard
@@ -45,9 +44,6 @@ website:
         aria-label: Google Scholar
       - icon: rss
         href: posts.xml
-      - icon: envelope
-        href: https://follow.it/david-hall?leanpub
-        target: _blank
   page-footer:
     left: "(c) 2026 David Hall"
     center: "[dhall7@uoregon.edu](mailto:dhall7@uoregon.edu)"

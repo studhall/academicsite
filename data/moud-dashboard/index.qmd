@@ -164,9 +164,11 @@ viewof ndcTableOut = {
 
 - Metrics: Prescriptions, Total Reimbursed, Medicaid Reimbursed, and Non-Medicaid Reimbursed.
 - Per-100k values are computed as selected metric totals divided by deduplicated population totals times 100,000.
-- Generic mapping uses the values in the source data: Buprenorphine, Methadone, Naltrexone.
-- Population denominator uses embedded `pop` and dedupes by state-year-quarter for selected filters.
-- 2024 population values follow the population series embedded in your prepared aggregates; incomplete 2025 rows are excluded until a full-year file is available.
+- Generic mapping covers buprenorphine, methadone, and naltrexone products.
+- Suppressed CMS cells are omitted, so displayed totals are reported-prescription lower bounds.
+- Ten verified CMS source anomalies in Washington (2006) and South Dakota (2007) are excluded and documented in the source-anomaly file.
+- Population denominators use annual Census state estimates and are counted once per state-year.
+- 2020-2024 denominators use Census Vintage 2025 estimates. Incomplete 2025 utilization is excluded.
 :::
 
 ```{ojs}
@@ -234,7 +236,7 @@ maxYear = d3.max(mapDataRaw, (d) => d.year)
 yearOptions = d3.range(minYear, maxYear + 1)
 utilizationOptions = Array.from(new Set(mapDataRaw.map((d) => d.utilization_type))).sort()
 genericOptions = Array.from(new Set(mapDataRaw.map((d) => d.moud_generic))).sort()
-stateOptions = Array.from(new Set(tsDataRaw.map((d) => d.state_abbr))).sort()
+stateOptions = Array.from(new Set(tsDataRaw.map((d) => d.state_abbr).filter((d) => d !== "US"))).sort()
 metricLabelOptions = Object.values(METRICS).map((d) => d.label)
 metricKeyByLabel = new Map(Object.entries(METRICS).map(([k, v]) => [v.label, k]))
 ndcSortLabelToCol = new Map([
@@ -269,7 +271,7 @@ mapAgg = Array.from(
   d3.group(mapRows, (d) => d.state_abbr),
   ([state_abbr, rows]) => {
     const metricRaw = d3.sum(rows, (r) => +r[mapMetricCfg.rawCol] || 0)
-    const popTotal = dedupPopulation(rows, (r) => `${r.state_abbr}|${r.year}|${r.quarter}`)
+    const popTotal = dedupPopulation(rows, (r) => `${r.state_abbr}|${r.year}`)
     const value = mapPer100k ? (popTotal > 0 ? (metricRaw / popTotal) * 100000 : NaN) : metricRaw
     return {state_abbr, metricRaw, popTotal, value}
   }
@@ -345,10 +347,10 @@ tsPassesCommon = (d) => (
 
 tsRows = tsDataRaw.filter(tsPassesCommon)
 tsSeriesRows = tsChosenStates.flatMap((stateKey) => {
-  const scoped = stateKey === "US" ? tsRows : tsRows.filter((r) => r.state_abbr === stateKey)
+  const scoped = tsRows.filter((r) => r.state_abbr === stateKey)
   return Array.from(d3.group(scoped, (d) => d.year), ([year, rows]) => {
     const metricRaw = d3.sum(rows, (r) => +r[tsMetricCfg.rawCol] || 0)
-    const popTotal = dedupPopulation(rows, (r) => `${r.state_abbr}|${r.year}|${r.quarter}`)
+    const popTotal = dedupPopulation(rows, (r) => `${r.state_abbr}|${r.year}`)
     const value = tsPer100k ? (popTotal > 0 ? (metricRaw / popTotal) * 100000 : NaN) : metricRaw
     return {state: stateKey, year: +year, value}
   })

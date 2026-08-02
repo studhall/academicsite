@@ -1,0 +1,14 @@
+group,value,label,codes,first_valid_survey_year
+setting,outpatient,Outpatient,OD|ODT|OIT|OMB|OP|ORT|PH,
+setting,residential,Residential,RD|RES|RL|RS,
+setting,hospital,Hospital inpatient,HI|HID|HIT|ID|IR,
+center_type,substance_use,Substance use treatment,SA|TX,
+center_type,detoxification,Detoxification,DT,
+center_type,transitional_housing,Transitional housing,HH,
+center_type,mental_health,Mental health,MH,
+center_type,cooccurring,Co-occurring treatment,SUMH,
+service,otp,Opioid treatment program,OTP,2015
+service,methadone,Methadone,DM|MM|MU|ML,2002
+service,buprenorphine,Buprenorphine,BU|BUM|UB,2006
+service,naltrexone,Naltrexone,NU|NXN|VTRL,2013
+service,telehealth,Telehealth,TELE,2019

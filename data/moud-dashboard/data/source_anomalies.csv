@@ -1,0 +1,11 @@
+﻿anomaly_id,state,year,quarter,ndc,action,reason,official_source_url,verified_date
+cms-wa-2006-01,WA,2006,3,00054355563,exclude,CMS reports 400000 prescriptions for 38188 units in one NDC-quarter cell,https://data.medicaid.gov/dataset/0a2ec693-b322-54fb-a950-dfcdc873e3cf,2026-08-02
+cms-wa-2006-02,WA,2006,3,00054355663,exclude,CMS reports 260000 prescriptions for 13987.605 units in one NDC-quarter cell,https://data.medicaid.gov/dataset/0a2ec693-b322-54fb-a950-dfcdc873e3cf,2026-08-02
+cms-wa-2006-03,WA,2006,3,00406052710,exclude,CMS reports 750000 prescriptions for 4774 units in one NDC-quarter cell,https://data.medicaid.gov/dataset/0a2ec693-b322-54fb-a950-dfcdc873e3cf,2026-08-02
+cms-wa-2006-04,WA,2006,3,00406117001,exclude,CMS reports 860000 prescriptions for 255 units in one NDC-quarter cell,https://data.medicaid.gov/dataset/0a2ec693-b322-54fb-a950-dfcdc873e3cf,2026-08-02
+cms-wa-2006-05,WA,2006,3,00406117003,exclude,CMS reports 860000 prescriptions for 255 units in one NDC-quarter cell,https://data.medicaid.gov/dataset/0a2ec693-b322-54fb-a950-dfcdc873e3cf,2026-08-02
+cms-wa-2006-06,WA,2006,3,00406575501,exclude,CMS reports 450000 prescriptions for 16969 units in one NDC-quarter cell,https://data.medicaid.gov/dataset/0a2ec693-b322-54fb-a950-dfcdc873e3cf,2026-08-02
+cms-sd-2007-01,SD,2007,3,00054355563,exclude,CMS reports 580000 prescriptions for 240 units in one NDC-quarter cell,https://data.medicaid.gov/dataset/bb63ad8e-cab1-56e3-b492-da95d7e8cc5f,2026-08-02
+cms-sd-2007-02,SD,2007,3,00406117003,exclude,CMS reports 860000 prescriptions for 122 units in one NDC-quarter cell,https://data.medicaid.gov/dataset/bb63ad8e-cab1-56e3-b492-da95d7e8cc5f,2026-08-02
+cms-sd-2007-03,SD,2007,3,00406575501,exclude,CMS reports 470000 prescriptions for 1085 units in one NDC-quarter cell,https://data.medicaid.gov/dataset/bb63ad8e-cab1-56e3-b492-da95d7e8cc5f,2026-08-02
+cms-sd-2007-04,SD,2007,3,00406577101,exclude,CMS reports 180000 prescriptions for 11211 units in one NDC-quarter cell,https://data.medicaid.gov/dataset/bb63ad8e-cab1-56e3-b492-da95d7e8cc5f,2026-08-02

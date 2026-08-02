@@ -18,6 +18,15 @@
 
 # Local outputs (plots, etc.)
 **/output/
+# Curated figures used by published treatment-center ownership posts
+!series/TC_Ownership/output/
+series/TC_Ownership/output/*
+!series/TC_Ownership/output/MH_facs.png
+!series/TC_Ownership/output/payment_medicaid.png
+!series/TC_Ownership/output/outpatient_shares.png
+!series/TC_Ownership/output/inpatient_shares.png
+!series/TC_Ownership/output/residential_shares.png
+!series/TC_Ownership/output/res_by_state_own.png
 
 # Raw data files
 **/data/raw/
@@ -30,3 +39,13 @@ Thumbs.db
 **/__pycache__/
 *.py[cod]
 data/treatment-facilities-dashboard/.population-cache/
+# Local MOUD build inputs and diagnostics
+posts/moud_1.23.26/*.rds
+posts/moud_1.23.26/*.xlsx
+posts/moud_1.23.26/*.json
+posts/moud_1.23.26/*.csv
+posts/moud_1.23.26/qa/
+posts/moud_1.23.26/moud_year/
+posts/moud_1.23.26/sdud_by_year/
+!posts/moud_1.23.26/config/
+!posts/moud_1.23.26/config/*.csv

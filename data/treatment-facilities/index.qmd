@@ -44,7 +44,7 @@ These are historical records, not a current treatment locator. Historical phone 
 - [Facility-service records: Parquet](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/facility_services.parquet)
 - [Facility-service records: RDS](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/facility_services.rds)
 - [Service availability](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/service_availability.csv)
-- [Harmonization crosswalk](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/harmonization_crosswalk.csv)
+- [Harmonization crosswalk](../treatment-facilities-dashboard/data/harmonization_crosswalk.csv)
 - [County Business Patterns comparison](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/cbp_comparison.csv)
 - [Year-level QA status](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/qa_by_year.csv)
 - [Data dictionary](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/data_dictionary.csv)
