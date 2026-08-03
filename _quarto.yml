@@ -35,9 +35,13 @@ website:
         text: Data
       - href: posts.qmd
         text: Blog
-      - href: cv/Hall_CV_Current.pdf?v=20260708214639
+      - href: cv.qmd
         text: CV
     right:
+      - icon: github
+        href: https://github.com/studhall
+        target: _blank
+        aria-label: GitHub
       - icon: mortarboard
         href: https://scholar.google.com/citations?user=5H5WI0AAAAAJ&hl=en
         target: _blank

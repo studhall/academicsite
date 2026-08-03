@@ -1,5 +1,5 @@
 ---
-title: "Tracking TC Ownership: Descriptive Stats"
+title: "Tracking TC Ownership: Ownership Trends"
 date: 2025-08-08
 description: "Ownership shares by state over time with animated maps."
 categories: [TC Ownership]
@@ -15,11 +15,11 @@ editor:
 This is the first blog post in a series specifically geared toward exploring the ownership of substance use disorder treatment centers (TCs).
 I was motivated to start this series when reading Sloan's chapter (21) in the Handbook of Health Economics which can be found [here](https://www.sciencedirect.com/science/article/pii/S1574006400800347).
 I have been reading specifically that chapter of the handbook as I finish some work on a project assessing the impact of a supply shock to the treatment system here in Oregon.
-At first, I viewed this paper as mostly a straight forward supply shock that would result in a change in admissions to treatment, but as I explored the incentives of the TCs a bit more I believe the question not to be as straight forward.
-While I was viewing TCs through a more altruistic view --- that is, assuming funding TCs would lead to increased admissions in particular for those most at risk --- I had not yet looked into how the market structure for health care does not necessarily predict the same thing.
+At first, I viewed this paper as mostly a straightforward supply shock that would result in a change in admissions to treatment, but as I explored the incentives of the TCs a bit more I believe the question not to be as straightforward.
+While I was viewing TCs through a more altruistic lens --- that is, assuming funding TCs would lead to increased admissions in particular for those most at risk --- I had not yet looked into how the market structure for health care does not necessarily predict the same thing.
 
 The purpose of today's post is simply to walk through the motivation for exploring the ownership decision of healthcare firms, and particularly hospitals.
-I then compare some descriptive statistics for the U.S. and at the state-level of the ownership breakdown of TCs.
+I then compare some descriptive statistics for the U.S. and across states, then describe the ownership breakdown of TCs.
 The eventual idea is to understand if the same problems facing hospitals due to ownership allocation can be applied to TCs.
 
 What do I even mean by the ownership decision?
@@ -27,11 +27,11 @@ That is the decision for a hospital to be private non-profit, private for-profit
 
 Sloan explains the motivation for exploring ownership in the context of healthcare as follows:
 
-1.  Under the view of a firm as a nexus of contracts, the ownership decision is a cost minimizing problem --- particularly with respect to transaction costs.
+1.  Under the view of a firm as a nexus of contracts, the ownership decision is a cost-minimizing problem --- particularly with respect to transaction costs.
 2.  Health care is no exception, *except*, the contracts are a bit more complex than the typical firm.
-    a.  The product purchaser, i.e. the health services consumer (the patient), is often not the full payor (their marginal cost is lower than the true marginal cost).
+    a.  The product purchaser, i.e. the health services consumer (the patient), is often not the full payer (their marginal cost is lower than the true marginal cost).
     b.  The product purchaser has less information about the products than the suppliers.
-    c.  Since the consumer is not the payor, equilibrium determinations are made by comparing the willingness to pay (WTP) of the true payor and the producer, but the payor (e.g. insurance companies) do not reveal their WTP so easily.
+    c.  Since the consumer is not the payer, equilibrium determinations are made by comparing the willingness to pay (WTP) of the true payer and the producer, but the payer (e.g., insurance companies) do not reveal their WTP so easily.
 3.  Due to the asymmetric information, hospitals will only provide socially optimal care to the extent they receive direct payment.
     a.  This means that patients with a lower reimbursement rate or high transaction cost could receive less care than those with higher reimbursement rates.
     b.  In other words, the marginal revenue framework of hospitals tells us they are incentivized to treat insured patients.
@@ -42,7 +42,7 @@ Hospitals receive tax breaks for a certain level of charity care provided; prope
 Note that this doesn't *just* apply to hospitals for the most part and extends to any **non-profit**.
 For-profit hospitals cannot receive this tax break --- a clear example of the sort of ownership-as-a-cost-minimization I was discussing at the beginning.
 
-If you are interested in more of this work, here are three papers I had been reading.
+If you are interested in more of this work, here are two papers I had been reading.
 I highly recommend reading the one by Chen (2016) for background:
 
 -   Hospital Competition and Charity Care, Garmon (2006) [here](https://www.ftc.gov/reports/hospital-competition-charity-care)
@@ -55,21 +55,21 @@ I use data from the AHA Annual Survey from 1999-2023, obtained from [KFF](https:
 
 The following is a chart made directly from KFF data on ownership of hospitals:
 
-![](/series/TC_Ownership/output/hospitalownership_overtime.png)
+![U.S. hospital ownership shares over time](/series/TC_Ownership/output/hospitalownership_overtime.png){fig-alt="U.S. hospital ownership shares over time"}
 
 We can then compare to TC ownership using data from the N-SSATS and N-SUMHSS.[^1]
 
-[^1]: Note that typically one should not try to compare across N-SSATS and N-SUMHSS as the N-SUMHSS was developed to combine the N-SATSS and N-MHSS and so is not comparable in many ways.
+[^1]: Note that typically one should not try to compare across N-SSATS and N-SUMHSS as the N-SUMHSS was developed to combine the N-SSATS and N-MHSS and so is not comparable in many ways.
     In this case, I did restrict the 2021-2023 N-SUMHSS to only TCs, and ownership is a common variable across all years.
 
-![](/series/TC_Ownership/output/TCs_across_time.png)
+![U.S. substance use treatment center ownership shares over time](/series/TC_Ownership/output/TCs_across_time.png){fig-alt="U.S. substance use treatment center ownership shares over time"}
 
-We can note that the non-profit model has been much consistently dominant for hospitals maintaining the majority of the share of hospital ownership from 1999-2023.
+We can note that the non-profit model has remained dominant among hospitals, accounting for the majority of hospital ownership from 1999-2023.
 In contrast, non-profit ownership --- while still dominant --- has seen a steady decrease annually with for-profit firms starting to take over that share.
 
 ## Heterogeneity by State
 
-The following maps the by-state heterogeneity across my sample period for TCs on the left and hospitals on the right.
+The following maps state-level heterogeneity across my sample period for TCs on the left and hospitals on the right.
 
 ::::: columns
 ::: {.column width="50%"}
@@ -106,12 +106,12 @@ The following maps the by-state heterogeneity across my sample period for TCs on
 One thing I notice is some regional heterogeneity; specifically in areas of the South.
 It might be interesting to explore why that is.
 
-Also, as for some states, they may have very many public hospitals comparatively (e.g. Idaho) but most of their TCs are for-profit.
+Also, as for some states, they may have very many public hospitals comparatively (e.g., Idaho) but most of their TCs are for-profit.
 
 ## Going Forward
 
 Much of the empirical literature on hospitals explains why the non-profit form is so dominant, but I can't quite say that the non-profit form is so dominant among ownership for TCs.
-For-profit centers are increasing, therefore future posts will consider the profit incentives of a for-profit firm, where they receive most of their funding and what the source of payment (or what they accept) is for the for-profit firm.
+For-profit centers are becoming more common; therefore, future posts will consider the profit incentives of a for-profit firm, where they receive most of their funding and what the source of payment (or what they accept) is for the for-profit firm.
 
 In particular, some questions I'll be answering:
 
@@ -133,11 +133,4 @@ There are many reasons a center has to submit data to SAMHSA for the survey, par
 It may be that for-profits have always been fairly present but were not marked in the data across time.
 If that is the case, I can discuss ways we might think about instrumenting for the true count of for-profit TCs and discerning whether there is a true rise or not.
 
-Please feel free to DM/email me for comments or questions.
-The code for this project is available on my Github.
-
-## 📬 Contact
-
--   Email: `dhall7@uoregon.edu`
--   GitHub: [\@studhall](https://github.com/studhall)
--   X/Twitter: [\@studhall](https://x.com/studhall)
+The code for this project is available on my GitHub.

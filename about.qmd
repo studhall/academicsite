@@ -6,28 +6,27 @@ format:
 ---
 
 ::: {.about-hero}
-::: {.about-copy}
-I'm a PhD Candidate in Economics at the University of Oregon. My research focuses on how health policy, public insurance, and treatment markets affect access to care for substance use disorder and related behavioral health needs.
-
-A lot of my work sits at the intersection of health economics, public economics, and empirical policy evaluation. I am especially interested in places where administrative systems, provider markets, and public programs shape whether care is practically reachable.
-:::
-
 ::: {.about-image}
 <img src="images/headshot_2.16.2026.jpg" class="home-headshot about-headshot" alt="David Hall headshot" />
 :::
+
+::: {.about-copy}
+I am an economist and data scientist with broad interests in risky behavior, especially in the areas of health and crime. I study how access, policy, and institutions shape outcomes in substance use, treatment, and public programs.
+
+I am especially interested in questions that speak to how public resources can be used more effectively and how evidence can be communicated clearly and responsibly.
+
+Some of the questions I have asked and am working on answering:
+
+- (How) does deterrence in illicit opioid markets work?
+- How effective are large scale investments in substance use treatment? How can they be better?
+- How much do barriers to accessing alcohol matter for the health of babies?
+- Do average golfers receive peer effects when playing with their scratch golfer friend?
+
+[Follow me on Goodreads](https://goodreads.com/studhall){.home-inline-link}
+:::
 :::
 
-## Research Interests
-
-- Health economics
-  - Decriminalization
-  - Substance use policy
-  - Barriers to health access
-  - Rational addiction
-- Public economics
-- Causal inference
-  - Difference-in-differences
-  - Synthetic controls
+For a little more about me, here are some of my hobbies and media I have enjoyed consuming.
 
 ## Hobbies
 

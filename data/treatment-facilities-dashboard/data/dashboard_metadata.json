@@ -1,6 +1,6 @@
 {
   "version": "v1.1.0",
-  "built_on": "2026-07-21",
+  "built_on": "2026-07-28",
   "run_id": "run-20260612-full-v0.1.0",
   "release_status": "preliminary",
   "release_label": "Version 1.1",
@@ -14,182 +14,312 @@
       "survey_year": 1998,
       "qa_status": "Partial review",
       "reviewed_listings": 30,
-      "gold_target": 100
+      "gold_target": 100,
+      "warning_share": 0.1089590782677791,
+      "ownership_coverage": 0.0,
+      "county_assigned_share": 0.9893722685736989,
+      "county_high_confidence_share": 0.8064163686928884,
+      "qa_flags": "Gold-sample review incomplete | Parser warning rate exceeds 5% | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2000,
       "survey_year": 1999,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 100
+      "gold_target": 100,
+      "warning_share": 0.10551360297920762,
+      "ownership_coverage": 0.0016551153408503156,
+      "county_assigned_share": 0.982828178338678,
+      "county_high_confidence_share": 0.38202130961001346,
+      "qa_flags": "Gold-sample review incomplete | Parser warning rate exceeds 5% | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2001,
       "survey_year": 2000,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 100
+      "gold_target": 100,
+      "warning_share": 0.07586206896551724,
+      "ownership_coverage": 0.0,
+      "county_assigned_share": 0.9753176043557169,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Gold-sample review incomplete | Parser warning rate exceeds 5% | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2003,
       "survey_year": 2002,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 100
+      "gold_target": 100,
+      "warning_share": 0.06848479567831314,
+      "ownership_coverage": 0.0,
+      "county_assigned_share": 0.9771717347738956,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Gold-sample review incomplete | Parser warning rate exceeds 5% | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2004,
       "survey_year": 2003,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 100
+      "gold_target": 100,
+      "warning_share": 0.09306550923589381,
+      "ownership_coverage": 0.002018774603815484,
+      "county_assigned_share": 0.9778944180882204,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Gold-sample review incomplete | Parser warning rate exceeds 5% | High-confidence county assignment below 90% | Listing count is 11.4% above the legacy parser fixture; difference under review"
     },
     {
       "directory_year": 2005,
       "survey_year": 2004,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 50
+      "gold_target": 50,
+      "warning_share": 0.05694865435840911,
+      "ownership_coverage": 0.0,
+      "county_assigned_share": 0.9791494442913566,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Gold-sample review incomplete | Parser warning rate exceeds 5% | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2006,
       "survey_year": 2005,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 50
+      "gold_target": 50,
+      "warning_share": 0.05849713157152262,
+      "ownership_coverage": 0.0,
+      "county_assigned_share": 0.9797799304053418,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Gold-sample review incomplete | Parser warning rate exceeds 5% | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2007,
       "survey_year": 2006,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 50
+      "gold_target": 50,
+      "warning_share": 0.06004618937644342,
+      "ownership_coverage": 0.0,
+      "county_assigned_share": 0.9799538106235566,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Gold-sample review incomplete | Parser warning rate exceeds 5% | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2008,
       "survey_year": 2007,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 50
+      "gold_target": 50,
+      "warning_share": 0.05870190578928443,
+      "ownership_coverage": 0.0,
+      "county_assigned_share": 0.9808522114347357,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Gold-sample review incomplete | Parser warning rate exceeds 5% | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2009,
       "survey_year": 2008,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 50
+      "gold_target": 50,
+      "warning_share": 0.060573380066504895,
+      "ownership_coverage": 0.0,
+      "county_assigned_share": 0.9823851891794734,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Gold-sample review incomplete | Parser warning rate exceeds 5% | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2010,
       "survey_year": 2009,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 50
+      "gold_target": 50,
+      "warning_share": 0.05451110911217055,
+      "ownership_coverage": 0.0,
+      "county_assigned_share": 0.9838985337770981,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Gold-sample review incomplete | Parser warning rate exceeds 5% | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2011,
       "survey_year": 2010,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 50
+      "gold_target": 50,
+      "warning_share": 0.051121076233183856,
+      "ownership_coverage": 0.0,
+      "county_assigned_share": 0.9858295964125561,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Gold-sample review incomplete | Parser warning rate exceeds 5% | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2012,
       "survey_year": 2011,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 50
+      "gold_target": 50,
+      "warning_share": 0.052322524101665206,
+      "ownership_coverage": 0.0,
+      "county_assigned_share": 0.9863277826468011,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Gold-sample review incomplete | Parser warning rate exceeds 5% | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2013,
       "survey_year": 2012,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 50
+      "gold_target": 50,
+      "warning_share": 0.056409813407049064,
+      "ownership_coverage": 0.04379751209398756,
+      "county_assigned_share": 0.986782999308915,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Gold-sample review incomplete | Parser warning rate exceeds 5% | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2014,
       "survey_year": 2013,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 50
+      "gold_target": 50,
+      "warning_share": 0.05713531120697245,
+      "ownership_coverage": 0.014173782903424597,
+      "county_assigned_share": 0.9881151509816005,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Gold-sample review incomplete | Parser warning rate exceeds 5% | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2015,
       "survey_year": 2014,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 50
+      "gold_target": 50,
+      "warning_share": 0.059933971048844494,
+      "ownership_coverage": 0.013121137729619911,
+      "county_assigned_share": 0.9893337848133412,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Gold-sample review incomplete | Parser warning rate exceeds 5% | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2016,
       "survey_year": 2015,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 50
+      "gold_target": 50,
+      "warning_share": 0.06192937123169681,
+      "ownership_coverage": 0.992764857881137,
+      "county_assigned_share": 0.9901808785529715,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Gold-sample review incomplete | Parser warning rate exceeds 5% | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2017,
       "survey_year": 2016,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 100
+      "gold_target": 100,
+      "warning_share": 0.06380481261004443,
+      "ownership_coverage": 0.7748805231826947,
+      "county_assigned_share": 0.9896872641904921,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Gold-sample review incomplete | Parser warning rate exceeds 5% | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2018,
       "survey_year": 2017,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 100
+      "gold_target": 100,
+      "warning_share": 0.05079128345347585,
+      "ownership_coverage": 0.9884828900488856,
+      "county_assigned_share": 0.9905543127019637,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Gold-sample review incomplete | Parser warning rate exceeds 5% | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2019,
       "survey_year": 2018,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 50
+      "gold_target": 50,
+      "warning_share": 0.04980094644332607,
+      "ownership_coverage": 0.9926387741305491,
+      "county_assigned_share": 0.9912115976864718,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Gold-sample review incomplete | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2020,
       "survey_year": 2019,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 50
+      "gold_target": 50,
+      "warning_share": 0.04996801478427749,
+      "ownership_coverage": 0.9930343307982088,
+      "county_assigned_share": 0.9926789395124032,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Gold-sample review incomplete | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2021,
       "survey_year": 2020,
       "qa_status": "Not reviewed",
       "reviewed_listings": 0,
-      "gold_target": 100
+      "gold_target": 100,
+      "warning_share": 0.050602579462964266,
+      "ownership_coverage": 0.9933751497639016,
+      "county_assigned_share": 0.9930932412432166,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Gold-sample review incomplete | Parser warning rate exceeds 5% | High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2022,
       "survey_year": 2021,
-      "qa_status": "Official spreadsheet checks passed",
+      "qa_status": "Source workbook imported",
       "reviewed_listings": 0,
-      "gold_target": 0
+      "gold_target": 0,
+      "warning_share": 0.0,
+      "ownership_coverage": 0.9984315667822354,
+      "county_assigned_share": 0.9937262671289417,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2023,
       "survey_year": 2022,
-      "qa_status": "Official spreadsheet checks passed",
+      "qa_status": "Source workbook imported",
       "reviewed_listings": 0,
-      "gold_target": 0
+      "gold_target": 0,
+      "warning_share": 0.0,
+      "ownership_coverage": 0.9990534038021613,
+      "county_assigned_share": 0.9946359548789145,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2024,
       "survey_year": 2023,
-      "qa_status": "Official spreadsheet checks passed",
+      "qa_status": "Source workbook imported",
       "reviewed_listings": 0,
-      "gold_target": 0
+      "gold_target": 0,
+      "warning_share": 0.0,
+      "ownership_coverage": 0.9980240408364894,
+      "county_assigned_share": 0.9958834184093529,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "High-confidence county assignment below 90%"
     },
     {
       "directory_year": 2025,
       "survey_year": 2024,
-      "qa_status": "Official spreadsheet checks passed",
+      "qa_status": "Source workbook imported",
       "reviewed_listings": 0,
-      "gold_target": 0
+      "gold_target": 0,
+      "warning_share": 0.04148015517755894,
+      "ownership_coverage": 0.9992539540435691,
+      "county_assigned_share": 0.9925395404356908,
+      "county_high_confidence_share": 0.0,
+      "qa_flags": "Source workbook contains address warnings | High-confidence county assignment below 90%"
     }
   ],
   "state_fips": {
@@ -283,14 +413,19 @@
         "bit": 64
       },
       {
+        "value": "federal_other",
+        "label": "Federal: other/unspecified",
+        "bit": 128
+      },
+      {
         "value": "federal_ihs",
         "label": "Federal: Indian Health Service",
-        "bit": 128
+        "bit": 256
       },
       {
         "value": "federal_va",
         "label": "Federal: Veterans Affairs",
-        "bit": 256
+        "bit": 512
       }
     ],
     "center_type": [
@@ -446,7 +581,9 @@
     "Counts may change during year-level QA.",
     "N-SSATS and N-SUMHSS are not directly trend-comparable across the 2020/2021 survey transition.",
     "A gap means a selected characteristic was not asked or cannot be harmonized for that year.",
-    "Historical listings are not a current treatment locator."
+    "Historical listings are not a current treatment locator.",
+    "Directory ownership filters are shown only when at least 95% of listings carry ownership codes.",
+    "County assignments from 2000 onward currently rely on ZIP-to-county crosswalks rather than street geocodes."
   ],
   "population_sources": [
     {

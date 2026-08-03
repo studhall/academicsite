@@ -199,7 +199,7 @@ rename_payment_cols <- function(df) {
   df %>% rename(!!! setNames(cols_present, new_names))
 }
 
-concatenated_tc_1 <- readRDS("~/Academic Site/academicsite/series/TC_Ownership/data/clean/concatenated_tc_1.rds")
+concatenated_tc_1 <- readRDS(here("series", "TC_Ownership", "data", "clean", "concatenated_tc_1.rds"))
 
 concatenated_tc_1 <- rename_payment_cols(concatenated_tc_1)
 
@@ -264,6 +264,18 @@ payment_types <- sort(unique(pay_by_year_own$payment_type))
 plots <- setNames(
   lapply(payment_types, function(pt) plot_payment(pay_by_year_own, pt)),
   payment_types
+)
+
+# save stable assets used by the public post
+purrr::iwalk(
+  plots,
+  ~ggsave(
+    filename = here("series", "TC_Ownership", "output", paste0("payment_", .y, ".png")),
+    plot = .x,
+    width = 8,
+    height = 5,
+    dpi = 160
+  )
 )
 
 # display them all

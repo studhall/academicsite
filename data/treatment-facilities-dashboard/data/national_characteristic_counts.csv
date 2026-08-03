@@ -13,10 +13,10 @@ survey_year,metric,series,label,facility_count,available
 1999,otp_status,non_otp,Non-OTP,,False
 1999,ownership,private_nonprofit,Nonprofit,,False
 1999,ownership,private_forprofit,For-profit,,False
-1999,ownership,government,Government,16,True
+1999,ownership,government,Government,,False
 1999,setting,outpatient,Outpatient,7577,True
 1999,setting,residential,Residential,3,True
-1999,setting,hospital_inpatient,Hospital inpatient,363,True
+1999,setting,hospital_inpatient,Hospital inpatient,362,True
 2000,total,total,All facilities,11020,True
 2000,otp_status,otp,OTP,,False
 2000,otp_status,non_otp,Non-OTP,,False
@@ -40,7 +40,7 @@ survey_year,metric,series,label,facility_count,available
 2003,otp_status,non_otp,Non-OTP,,False
 2003,ownership,private_nonprofit,Nonprofit,,False
 2003,ownership,private_forprofit,For-profit,,False
-2003,ownership,government,Government,20,True
+2003,ownership,government,Government,,False
 2003,setting,outpatient,Outpatient,7633,True
 2003,setting,residential,Residential,2252,True
 2003,setting,hospital_inpatient,Hospital inpatient,529,True
@@ -121,7 +121,7 @@ survey_year,metric,series,label,facility_count,available
 2012,otp_status,non_otp,Non-OTP,,False
 2012,ownership,private_nonprofit,Nonprofit,,False
 2012,ownership,private_forprofit,For-profit,,False
-2012,ownership,government,Government,507,True
+2012,ownership,government,Government,,False
 2012,setting,outpatient,Outpatient,9559,True
 2012,setting,residential,Residential,2822,True
 2012,setting,hospital_inpatient,Hospital inpatient,598,True
@@ -130,25 +130,25 @@ survey_year,metric,series,label,facility_count,available
 2013,otp_status,non_otp,Non-OTP,,False
 2013,ownership,private_nonprofit,Nonprofit,,False
 2013,ownership,private_forprofit,For-profit,,False
-2013,ownership,government,Government,661,True
+2013,ownership,government,Government,,False
 2013,setting,outpatient,Outpatient,9392,True
 2013,setting,residential,Residential,2694,True
 2013,setting,hospital_inpatient,Hospital inpatient,588,True
 2014,total,total,All facilities,11813,True
-2014,otp_status,otp,OTP,1,True
-2014,otp_status,non_otp,Non-OTP,11812,True
+2014,otp_status,otp,OTP,,False
+2014,otp_status,non_otp,Non-OTP,,False
 2014,ownership,private_nonprofit,Nonprofit,,False
 2014,ownership,private_forprofit,For-profit,,False
-2014,ownership,government,Government,702,True
+2014,ownership,government,Government,,False
 2014,setting,outpatient,Outpatient,9822,True
 2014,setting,residential,Residential,2806,True
-2014,setting,hospital_inpatient,Hospital inpatient,586,True
+2014,setting,hospital_inpatient,Hospital inpatient,4,True
 2015,total,total,All facilities,11610,True
 2015,otp_status,otp,OTP,1171,True
 2015,otp_status,non_otp,Non-OTP,10439,True
 2015,ownership,private_nonprofit,Nonprofit,,False
 2015,ownership,private_forprofit,For-profit,,False
-2015,ownership,government,Government,1654,True
+2015,ownership,government,Government,1182,True
 2015,setting,outpatient,Outpatient,9572,True
 2015,setting,residential,Residential,2798,True
 2015,setting,hospital_inpatient,Hospital inpatient,593,True
@@ -157,10 +157,10 @@ survey_year,metric,series,label,facility_count,available
 2016,otp_status,non_otp,Non-OTP,10702,True
 2016,ownership,private_nonprofit,Nonprofit,,False
 2016,ownership,private_forprofit,For-profit,,False
-2016,ownership,government,Government,920,True
+2016,ownership,government,Government,,False
 2016,setting,outpatient,Outpatient,8325,True
 2016,setting,residential,Residential,2488,True
-2016,setting,hospital_inpatient,Hospital inpatient,472,True
+2016,setting,hospital_inpatient,Hospital inpatient,452,True
 2017,total,total,All facilities,12069,True
 2017,otp_status,otp,OTP,1247,True
 2017,otp_status,non_otp,Non-OTP,10822,True
@@ -202,7 +202,7 @@ survey_year,metric,series,label,facility_count,available
 2021,otp_status,non_otp,Non-OTP,10619,True
 2021,ownership,private_nonprofit,Nonprofit,6195,True
 2021,ownership,private_forprofit,For-profit,4864,True
-2021,ownership,government,Government,1038,True
+2021,ownership,government,Government,1039,True
 2021,setting,outpatient,Outpatient,9928,True
 2021,setting,residential,Residential,2843,True
 2021,setting,hospital_inpatient,Hospital inpatient,635,True
@@ -211,7 +211,7 @@ survey_year,metric,series,label,facility_count,available
 2022,otp_status,non_otp,Non-OTP,11112,True
 2022,ownership,private_nonprofit,Nonprofit,6241,True
 2022,ownership,private_forprofit,For-profit,5321,True
-2022,ownership,government,Government,1106,True
+2022,ownership,government,Government,1114,True
 2022,setting,outpatient,Outpatient,10469,True
 2022,setting,residential,Residential,3014,True
 2022,setting,hospital_inpatient,Hospital inpatient,809,True
@@ -220,7 +220,7 @@ survey_year,metric,series,label,facility_count,available
 2023,otp_status,non_otp,Non-OTP,10687,True
 2023,ownership,private_nonprofit,Nonprofit,5955,True
 2023,ownership,private_forprofit,For-profit,5176,True
-2023,ownership,government,Government,979,True
+2023,ownership,government,Government,993,True
 2023,setting,outpatient,Outpatient,10174,True
 2023,setting,residential,Residential,2887,True
 2023,setting,hospital_inpatient,Hospital inpatient,753,True
@@ -229,7 +229,7 @@ survey_year,metric,series,label,facility_count,available
 2024,otp_status,non_otp,Non-OTP,11819,True
 2024,ownership,private_nonprofit,Nonprofit,6524,True
 2024,ownership,private_forprofit,For-profit,5687,True
-2024,ownership,government,Government,1162,True
+2024,ownership,government,Government,1185,True
 2024,setting,outpatient,Outpatient,11219,True
 2024,setting,residential,Residential,3149,True
 2024,setting,hospital_inpatient,Hospital inpatient,911,True

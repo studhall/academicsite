@@ -3,38 +3,74 @@ title: "Research"
 format:
   html:
     toc: false
+    anchor-sections: false
 ---
 
 ## Working Papers
 
-::: {.research-paper-grid}
-::: {.paper-entry}
+::: {.research-row}
+::: {.research-copy}
+### Pour Decisions: Alcohol Privatization and Birth Outcomes
 
-### [Did Drug Decriminalization Increase Overdoses?](https://www.nber.org/papers/w35427)
+**Job Market Paper** · Available upon request
 
-David Hall, Benjamin Hansen, and Kyutaro Matsuzawa
-
-*NBER Working Paper No. 35427, July 2026*
-
-[Paper](https://www.nber.org/papers/w35427) &middot; [DOI](https://doi.org/10.3386/w35427) &middot; [SSRN](https://ssrn.com/abstract=7063369)
-
-<details class="paper-details">
-<summary>Abstract</summary>
-
-We study the effect of drug decriminalization on overdose mortality using Oregon's Measure 110 and Washington's Blake decision. Synthetic-control estimates show that both decriminalization regimes sharply reduced drug arrests and were followed by sustained increases in overdose mortality relative to matched counterfactuals. The estimates imply approximately 1,186 excess deaths in Oregon and 1,895 in Washington from 2021 through 2023. We also revisit the role of fentanyl supply shocks. A fentanyl-share control may partly capture enforcement-driven declines in non-fentanyl NFLIS reports, while alternative fentanyl measures leave positive overdose effects.
-
-</details>
-
-<details class="paper-details">
-<summary>Citation</summary>
-
-Hall, David, Benjamin Hansen, and Kyutaro Matsuzawa. 2026. "Did Drug Decriminalization Increase Overdoses?" NBER Working Paper No. 35427. https://doi.org/10.3386/w35427.
-
-</details>
+<p class="paper-abstract">Washington's Initiative 1183 privatized spirits retail in June 2012, sharply expanding access through grocery and big-box stores. A Nielsen Homescan design estimates a 35 percent increase in projected household spirits purchases. Using restricted-use natality records and repeated-cross-section synthetic difference-in-differences, I find that privatization reduced average birth weight and increased low-birth-weight and small-for-gestational-age births. Distributional estimates place the response around clinically meaningful lower birth-weight bins.</p>
+:::
+::: {.research-figure}
+![Percent-change estimates for live-birth health outcomes](images/research/pour-decisions.png)
+:::
 :::
 
-::: {.tweet-card}
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">1/ Did drug decriminalization in increase overdose mortality? <a href="https://t.co/3lKxpHZrEM">https://t.co/3lKxpHZrEM</a><br><br>Our (<a href="https://x.com/benconomics?ref_src=twsrc%5Etfw">@benconomics</a> and <a href="https://x.com/q_econ?ref_src=twsrc%5Etfw">@q_econ</a>) NBER working paper studies two 2021 policy changes: Oregon&#39;s Measure 110 and Washington&#39;s Blake Decision. <br><br>Thanks to <a href="https://x.com/Arnold_Ventures?ref_src=twsrc%5Etfw">@Arnold_Ventures</a> for your support!</p>&mdash; David M. Hall (@studhall) <a href="https://x.com/studhall/status/2074338929327927711?ref_src=twsrc%5Etfw">July 7, 2026</a></blockquote>
+<div class="research-row m110-row">
+<div class="m110-three-column">
+<div class="m110-figure-column">
+<img src="images/research/decriminalization-figure2.png" alt="Figure 2. Oregon and Washington overdoses versus synthetic counterfactuals" />
+</div>
+<div class="m110-copy-column">
+<h3>Did Decriminalization Increase Overdoses?</h3>
+<p class="paper-byline">David Hall, with Ben Hansen and Kyutaro Matsuzawa</p>
+<p class="paper-links"><a href="https://www.nber.org/papers/w35427">NBER Working Paper No. 35427</a> · <a href="https://doi.org/10.3386/w35427">DOI</a> · <a href="https://ssrn.com/abstract=7063369">SSRN</a></p>
+<p class="paper-abstract">We study drug decriminalization using Oregon's Measure 110 and Washington's <em>Blake</em> decision. Synthetic-control estimates show that both policies sharply reduced drug arrests and were followed by sustained increases in overdose mortality relative to matched counterfactuals. The estimates imply approximately 1,186 excess deaths in Oregon and 1,895 in Washington from 2021 through 2023. Alternative measures of fentanyl supply continue to yield positive overdose effects.</p>
+</div>
+<div class="m110-tweet-column">
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">1/ Did drug decriminalization increase overdose mortality? <a href="https://t.co/3lKxpHZrEM">https://t.co/3lKxpHZrEM</a><br><br>Our (<a href="https://x.com/benconomics?ref_src=twsrc%5Etfw">@benconomics</a> and <a href="https://x.com/q_econ?ref_src=twsrc%5Etfw">@q_econ</a>) NBER working paper studies two 2021 policy changes: Oregon&#39;s Measure 110 and Washington&#39;s Blake Decision. <br><br>Thanks to <a href="https://x.com/Arnold_Ventures?ref_src=twsrc%5Etfw">@Arnold_Ventures</a> for your support!</p>&mdash; David M. Hall (@studhall) <a href="https://x.com/studhall/status/2074338929327927711?ref_src=twsrc%5Etfw">July 7, 2026</a></blockquote>
+</div>
+</div>
+</div>
+
 <script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
+
+::: {.research-row}
+::: {.research-copy}
+### Does Substance Use Treatment Still Reduce Mortality?
+
+**Working paper** · Available upon request
+
+<p class="paper-abstract">This paper asks whether expanded substance use disorder treatment access continued to reduce overdose mortality as the opioid epidemic shifted toward fentanyl and polysubstance use. I combine county-level treatment-center measures with National Vital Statistics System mortality data from 1999 through 2022, replicate estimates from the early epidemic, and apply methods suited to heterogeneous, non-binary treatment. The protective relationship found in earlier years weakens over time, highlighting the difficulty of measuring treatment access as treatment capacity and the drug supply evolve simultaneously.</p>
+:::
+::: {.research-figure}
+![Treatment access and mortality estimates over time](images/research/treatment-mortality.png)
 :::
 :::
+
+::: {.research-row .figure-left}
+::: {.research-copy}
+### The Deterrence Impacts of Fentanyl Supply Laws
+
+**Working paper** · Available upon request
+
+<p class="paper-abstract">This paper studies California Assembly Bill 701, which extended drug-weight sentencing enhancements to fentanyl and increased penalties above one kilogram. State-level synthetic-control estimates provide little evidence that the law reduced aggregate drug activity. Incident-level estimates show a shift away from quantities above the threshold and toward lower-weight incidents, with no meaningful effect on overdose mortality.</p>
+:::
+::: {.research-figure}
+![Estimated effects of California Assembly Bill 701](images/research/ab701.png)
+:::
+:::
+
+## Work in Progress
+
+- Treatment Center Ownership and Market Learning
+- Did Retail Availability of Naloxone Affect Elasticity?
+- Public Provision and Crowding Out: The Case of Naloxone
+- A Regime-Switching Model of the Opioid Epidemic
+- Impacts of Measure 110's Treatment Funding
+- Optimal Sin Tax in General Equilibrium, with Dirghayu Shah

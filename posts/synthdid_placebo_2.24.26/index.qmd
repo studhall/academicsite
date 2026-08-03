@@ -1,6 +1,7 @@
 ---
 title: "Synthetic Control Placebo Inference in Synthdid"
 date: 2026-02-24
+description: "A worked implementation of placebo inference for synthetic control using synthdid."
 tags: 
   - econometrics
 format:
@@ -13,9 +14,9 @@ format:
 
 ## Setup
 
-The [*synthdid* package put out by David Hirshberg](https://synth-inference.github.io/synthdid/index.html) is my go-to when it comes to running all things synthetic control. I find it very helpful for both synthetic controls (SC) and synthetic difference-in-differences (SDiD), and even comparing to a base TWFE specification. In a recent project I've been working on, typical DiD specifications seem not to capture pre-trends well and I'm getting noisy results. Part of the reason for this is that I am expecting some heterogeneity in results by-state. Instead of trying to run state-specific results, I found myself (with some advising by Ed Rubin) running synthetic controls. This has the advantage of a better pre-period match as well as being better able to visualize the trends in treated states.
+The [*synthdid* package developed by David Hirshberg](https://synth-inference.github.io/synthdid/index.html) is my go-to when it comes to running all things synthetic control. I find it very helpful for both synthetic controls (SC) and synthetic difference-in-differences (SDiD), and even comparing to a base TWFE specification. In a recent project I've been working on, typical DiD specifications seem not to capture pre-trends well and I'm getting noisy results. Part of the reason for this is that I am expecting some heterogeneity in results by state. Instead of trying to run state-specific results, I found myself (with some advising by Ed Rubin) running synthetic controls. This has the advantage of a better pre-period match as well as being better able to visualize the trends in treated states.
 
-As I began to run this, I realized that the synthdid package does not have a built-in way (and I double checked with Kyu Matuzawa) to run inference on syntetic control results. It *does* have built-in the Arkhangelsky et al. procedure which returns a standard error using the placebo method they derive, but it can only be used for the SDiD specification. See for yourself here:
+As I began to run this, I realized that the synthdid package does not have a built-in way (and I double checked with Kyu Matsuzawa) to run inference on synthetic control results. It *does* implement the Arkhangelsky et al. placebo procedure for standard errors, but that procedure is available only for the SDiD specification. See for yourself here:
 
 ```{r}
 library(synthdid)
@@ -135,9 +136,9 @@ Y_{1t}
 $$
 ### Inference
 
-The idea behind the randomized inference procedure is to then assign treatment iteratively over each of the donor units and run the same synthetic control procedure. But, importantly, we do this to obtain not the average treatment effect but the mean-square prediction-error. 
+The idea behind the randomized inference procedure is to then assign treatment iteratively over each of the donor units and run the same synthetic control procedure. But, importantly, we do this to obtain not the average treatment effect but the mean squared prediction error.
 
-We can think of this as a numerical representation of how far the treated unit (and, in turn, each iterated donor unit when we pretend it is treated) varies from its synthetic control in the pre- and post-treatment periods. We want a nice pre-treatment fit. If the treatment we are estimating is non-random, we would also expect a large deviance from the post-treatment synthetic control. Taking the ratio of these gets us our RMSPE ratio which we then rank. The higher the rank, the more likely it is that our treated unit did not see deviation at random.
+We can think of this as a numerical representation of how far the treated unit (and, in turn, each iterated donor unit when we pretend it is treated) varies from its synthetic control in the pre- and post-treatment periods. We want a nice pre-treatment fit. If the treatment we are estimating is non-random, we would also expect a large deviation from the post-treatment synthetic control. Taking the ratio of these gets us our RMSPE ratio which we then rank. The higher the rank, the more likely it is that our treated unit did not see deviation at random.
 
 Formally, for each unit $i$, define the synthetic control gap
 
@@ -236,10 +237,10 @@ Intuition: we want a good pre-period fit (small denominator), and if treatment m
 To get a p-value, we compute \(R_1\) for the treated unit, then compute \(R_j\) for each donor unit \(j\) when we pretend it was treated. The p-value is just the rank:
 
 \[
-p = \frac{1 + \sum_{j=1}^{J} \mathbf{1}\{R_j \ge R_1\}}{1 + J}.
+p = \frac{1 + \sum_{j=2}^{N_0+1} \mathbf{1}\{R_j \ge R_1\}}{1 + N_0}.
 \]
 
-### Done in synthdid
+### Implementation in synthdid
 
 Below is a minimal implementation that assumes you already have a `setup` object from `panel.matrices()`.
 
@@ -303,9 +304,12 @@ sc_placebo_inference <- function(setup, stat = c("mspe", "rmse")) {
   ratio_vec <- if (stat == "mspe") out$ratio_mspe else out$ratio_rmse
   treated_unit <- rownames(setup$Y)[setup$N0 + 1]
   R_treated <- ratio_vec[out$unit == treated_unit]
+  if (length(R_treated) != 1 || !is.finite(R_treated)) {
+    stop("The treated unit must have one finite fit ratio.")
+  }
   R_placebo <- ratio_vec[out$unit != treated_unit]
-  p_val <- (1 + sum(R_placebo >= R_treated, na.rm = TRUE)) /
-    (1 + sum(is.finite(R_placebo)))
+  R_placebo <- R_placebo[is.finite(R_placebo)]
+  p_val <- (1 + sum(R_placebo >= R_treated)) / (1 + length(R_placebo))
 
   table_ranked <- out[order(ratio_vec, decreasing = TRUE), ]
   table_ranked$rank <- seq_len(nrow(table_ranked))
@@ -327,11 +331,11 @@ res <- sc_placebo_inference(setup, stat = "mspe")
 res[c("treated_unit", "statistic", "R_treated", "rank_treated", "p_val")]
 ```
 
-The way the code is written is that the very last row in the panel object corresponds to the treated unit. So all we have to do is iterate the observations to the bottom. In other words, take the first observation, move to the bottom, and so on. Then we can use that to calculate the RMSE as we go along.
+In this implementation, the final row of the panel object corresponds to the treated unit. The loop moves each unit to the final row in turn, re-estimates the synthetic control, and calculates its pre- and post-treatment fit ratio.
 
-There *are* a few differences in the synthdid code that resulted in some differences in the ATT and p-value of the estimate I wrote here. Namely, there is something about ridge-type regularization that makes it so the SC doesn't produce the same exact weights, and also I don't include controls here which are in the original paper.
+There are a few differences in the *synthdid* implementation that produce differences in the ATT and p-value reported here. The package's regularization and weight conventions differ from the original implementation, and this example omits predictors used in the original paper.
 
-We can confirm this when using the tidysynth package, which has always felt fairly unintuitive to me, but is now making me feel as I look at it that I should've used that. Regardless, I feel good about writing a nice little piece on synthetic controls and knowing I can run this manually if computers were ever not a thing.
+A comparison with the *tidysynth* package provides a useful implementation check. Working through the calculation manually also clarifies how the placebo ranks are constructed.
 
 ```{r}
 require(tidysynth)
@@ -367,4 +371,4 @@ smoking_out <-
   head(smoking_out %>% grab_significance())
 ```
 
-If you read this, thanks! 
+Thanks for reading.

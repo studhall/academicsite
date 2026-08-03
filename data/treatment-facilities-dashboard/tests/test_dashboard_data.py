@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import importlib.util
 import json
@@ -171,6 +171,116 @@ class DashboardDataTests(unittest.TestCase):
         self.assertNotEqual(row_mask & selected, selected)
 
 
+    def test_semantic_harmonization_rejects_code_collisions(self) -> None:
+        ownership_entries = {("PV", "Unclassified", "Primary prevention")}
+        self.assertEqual(
+            BUILDER.harmonized_mask(ownership_entries, "ownership", 1998),
+            0,
+        )
+
+        payment_entries = {("MI", "Treatment Approaches", "Motivational interviewing")}
+        self.assertEqual(
+            BUILDER.harmonized_mask(payment_entries, "payment", 2025),
+            0,
+        )
+
+        assistance_entries = {("OA", "Detoxification", "Other assistance")}
+        self.assertEqual(
+            BUILDER.harmonized_mask(assistance_entries, "payment", 2001),
+            0,
+        )
+
+    def test_early_buprenorphine_ocr_token_is_suppressed(self) -> None:
+        entries = {("BU", "Medication Services", "Buprenorphine used in treatment")}
+        bit = BUILDER.FILTER_BITS["service_family"]["buprenorphine"]
+        self.assertEqual(
+            BUILDER.harmonized_mask(entries, "service_family", 1998) & bit,
+            0,
+        )
+        self.assertNotEqual(
+            BUILDER.harmonized_mask(entries, "service_family", 2004) & bit,
+            0,
+        )
+
+    def test_incomplete_directory_ownership_is_not_available(self) -> None:
+        rows = BUILDER.availability_rows(
+            directory_year=2016,
+            survey_year=2015,
+            asked={"PVT", "LCCG"},
+            asked_entries={
+                ("PVT", "Unclassified", ""),
+                ("LCCG", "Facility Operation", "Local government"),
+            },
+            labels={},
+            ownership_coverage=0.775,
+        )
+        ownership = [row for row in rows if row["characteristic"] == "ownership"]
+        self.assertTrue(ownership)
+        self.assertTrue(all(not row["asked"] for row in ownership))
+
+    def test_public_use_ownership_series_is_complete_and_normalized(self) -> None:
+        trend = pd.read_csv(DATA_DIR / "ownership_puf_trends.csv")
+        self.assertIn(2016, set(trend["survey_year"]))
+        shares = trend.groupby("survey_year")["ownership_share"].sum()
+        self.assertTrue((shares.sub(1).abs() < 1e-10).all())
+        self.assertEqual(
+            set(trend["ownership"]),
+            {"For-profit", "Nonprofit", "Government"},
+        )
+
+    def test_generated_assets_reject_known_code_collisions(self) -> None:
+        early = pd.read_csv(DATA_DIR / "facility_dashboard_1998.csv")
+        self.assertTrue(early["ownership_mask"].eq(0).all())
+
+        latest = pd.read_csv(DATA_DIR / "facility_dashboard_2024.csv")
+        military_bit = BUILDER.FILTER_BITS["payment"]["military_insurance"]
+        expected_military = latest["service_codes"].fillna("").str.contains(
+            r"(?:^|\\|)TRICARE(?:\\||$)", regex=True
+        )
+        actual_military = (latest["payment_mask"] & military_bit).ne(0)
+        self.assertGreater(int(expected_military.sum()), 0)
+        pd.testing.assert_series_equal(
+            actual_military,
+            expected_military,
+            check_names=False,
+        )
+
+        self_pay_bit = BUILDER.FILTER_BITS["payment"]["self_pay"]
+        expected_self_pay = latest["service_codes"].fillna("").str.contains(
+            r"(?:^|\\|)CASH(?:\\||$)", regex=True
+        )
+        actual_self_pay = (latest["payment_mask"] & self_pay_bit).ne(0)
+        pd.testing.assert_series_equal(
+            actual_self_pay,
+            expected_self_pay,
+            check_names=False,
+        )
+
+        federal_bit = BUILDER.FILTER_BITS["ownership"]["federal_other"]
+        expected_federal = latest["service_codes"].fillna("").str.contains(
+            r"(?:^|\\|)FED(?:\\||$)", regex=True
+        )
+        actual_federal = (latest["ownership_mask"] & federal_bit).ne(0)
+        pd.testing.assert_series_equal(
+            actual_federal,
+            expected_federal,
+            check_names=False,
+        )
+
+    def test_otp_is_suppressed_before_reliable_directory_coding(self) -> None:
+        entries = {("OTP", "Medication Services", "Opioid treatment program")}
+        bit = BUILDER.FILTER_BITS["service_family"]["opioid_treatment_program"]
+        self.assertEqual(
+            BUILDER.harmonized_mask(entries, "service_family", 2015) & bit,
+            0,
+        )
+        self.assertNotEqual(
+            BUILDER.harmonized_mask(entries, "service_family", 2016) & bit,
+            0,
+        )
 if __name__ == "__main__":
     unittest.main()
+
+
+
 

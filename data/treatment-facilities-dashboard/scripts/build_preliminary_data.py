@@ -58,13 +58,14 @@ POPULATION_SOURCES = {
 # remains available even when it is not safe to harmonize across directories.
 HARMONIZED = {
     "ownership": {
-        "private_unspecified": ("Private (type unspecified)", {"PV", "PVT"}),
+        "private_unspecified": ("Private (type unspecified)", {"PVT"}),
         "private_nonprofit": ("Private nonprofit", {"PVTN"}),
         "private_forprofit": ("Private for-profit", {"PVTP"}),
         "local_government": ("Local/county government", {"LCCG"}),
         "state_government": ("State government", {"STG"}),
         "tribal_government": ("Tribal government", {"TBG"}),
-        "federal_dod": ("Federal: Department of Defense", {"DDF"}),
+        "federal_dod": ("Federal: Department of Defense", {"DDF", "DoD"}),
+        "federal_other": ("Federal: other/unspecified", {"FED"}),
         "federal_ihs": ("Federal: Indian Health Service", {"IH", "IHS"}),
         "federal_va": ("Federal: Veterans Affairs", {"VAMC"}),
     },
@@ -86,9 +87,9 @@ HARMONIZED = {
     "payment": {
         "medicare": ("Medicare", {"MC"}),
         "medicaid": ("Medicaid", {"MD"}),
-        "military_insurance": ("Military insurance", {"MI"}),
+        "military_insurance": ("Military insurance", {"MI", "TRICARE"}),
         "private_insurance": ("Private health insurance", {"PI"}),
-        "self_pay": ("Cash or self-payment", {"SF"}),
+        "self_pay": ("Cash or self-payment", {"CASH", "SF"}),
         "state_financed": ("State-financed insurance", {"SI"}),
         "payment_assistance": ("Payment assistance", {"PA", "OA"}),
         "sliding_fee": ("Sliding fee scale", {"SS"}),
@@ -269,20 +270,88 @@ def best_code_labels(availability: pd.DataFrame) -> dict[str, str]:
     return labels
 
 
-def harmonized_values(codes: set[str], group: str) -> str:
-    values = [
-        value
-        for value, (_, mapped_codes) in HARMONIZED[group].items()
-        if codes & mapped_codes
-    ]
-    return "|".join(values)
+def semantic_code_match(
+    group: str,
+    code: str,
+    category: str,
+    label: str,
+    directory_year: int,
+) -> bool:
+    """Disambiguate codes whose meanings or parsed categories change by year."""
+    category_lower = category.strip().lower()
+    label_lower = label.strip().lower()
+
+    if group == "ownership":
+        if code == "PVT":
+            return 2015 <= directory_year <= 2018 and (
+                "private" in label_lower or not label_lower
+            )
+        if code in {"PVTN", "PVTP"}:
+            return directory_year >= 2019 and "private" in label_lower
+        if code == "IHS":
+            return directory_year >= 2025 and category_lower.startswith(
+                "facility operation"
+            )
+        return category_lower.startswith("facility operation")
+
+    if group == "payment":
+        return category_lower.startswith("payment/") or category_lower.startswith(
+            "payment assistance"
+        )
+
+    if group == "setting":
+        return category_lower.startswith("service setting")
+
+    if group == "center_type":
+        if code == "MH":
+            return "mental health" in label_lower
+        return category_lower in {
+            "type of care",
+            "services provided",
+            "primary focus",
+        }
+
+    if group == "service_family":
+        # Buprenorphine was approved for opioid use disorder in 2002; isolated
+        # earlier tokens are OCR noise rather than real services.
+        if code == "BU" and directory_year < 2004:
+            return False
+        if code == "OTP" and directory_year < 2016:
+            return False
+        if code == "TELE" and directory_year < 2020:
+            return False
+
+    return True
 
 
-def harmonized_mask(codes: set[str], group: str) -> int:
+def matching_values(
+    entries: set[tuple[str, str, str]],
+    group: str,
+    directory_year: int,
+) -> list[str]:
+    values = []
+    for value, (_, mapped_codes) in HARMONIZED[group].items():
+        if any(
+            code in mapped_codes
+            and semantic_code_match(group, code, category, label, directory_year)
+            for code, category, label in entries
+        ):
+            values.append(value)
+    return values
+
+
+def harmonized_values(
+    entries: set[tuple[str, str, str]], group: str, directory_year: int
+) -> str:
+    return "|".join(matching_values(entries, group, directory_year))
+
+
+def harmonized_mask(
+    entries: set[tuple[str, str, str]], group: str, directory_year: int
+) -> int:
     return sum(
         FILTER_BITS[group][value]
-        for value, (_, mapped_codes) in HARMONIZED[group].items()
-        if codes & mapped_codes
+        for value in matching_values(entries, group, directory_year)
     )
 
 
@@ -290,16 +359,50 @@ def availability_rows(
     directory_year: int,
     survey_year: int,
     asked: set[str],
+    asked_entries: set[tuple[str, str, str]],
     labels: dict[str, str],
+    ownership_coverage: float,
 ) -> list[dict[str, object]]:
     rows: list[dict[str, object]] = []
+    ownership_complete = ownership_coverage >= 0.95
+    private_values = {
+        "private_unspecified",
+        "private_nonprofit",
+        "private_forprofit",
+    }
+
     for group, values in HARMONIZED.items():
         for value, (label, mapped_codes) in values.items():
             notes = ""
             comparable = True
+            is_asked = any(
+                code in mapped_codes
+                and semantic_code_match(
+                    group, code, category, original_label, directory_year
+                )
+                for code, category, original_label in asked_entries
+            )
             if group == "ownership" and value == "private_unspecified":
-                notes = "Earlier directories do not consistently separate private ownership type."
+                notes = (
+                    "Earlier directories do not consistently separate private "
+                    "ownership type."
+                )
                 comparable = False
+            if group == "ownership":
+                is_asked = (
+                    ownership_complete and is_asked
+                    if value in private_values
+                    else ownership_complete
+                )
+                coverage_note = (
+                    f"Directory ownership coverage: {ownership_coverage:.1%}."
+                )
+                notes = f"{notes} {coverage_note}".strip()
+                if not ownership_complete:
+                    notes = (
+                        f"{notes} Suppressed because directory coding covers less "
+                        "than 95% of U.S. listings."
+                    )
             rows.append(
                 {
                     "directory_year": directory_year,
@@ -307,9 +410,13 @@ def availability_rows(
                     "characteristic": group,
                     "value": value,
                     "label": label,
-                    "asked": bool(asked & mapped_codes),
+                    "asked": bool(is_asked),
                     "comparable": comparable,
                     "notes": notes,
+                    "coverage": (
+                        ownership_coverage if group == "ownership" else pd.NA
+                    ),
+                    "source_scope": "directory listing codes",
                 }
             )
     for code in sorted(asked):
@@ -322,11 +429,15 @@ def availability_rows(
                 "label": labels.get(code, code),
                 "asked": True,
                 "comparable": False,
-                "notes": "Original SAMHSA directory code; meaning and availability may vary by year.",
+                "notes": (
+                    "Original SAMHSA directory code; meaning and availability "
+                    "may vary by year."
+                ),
+                "coverage": pd.NA,
+                "source_scope": "directory listing codes",
             }
         )
     return rows
-
 
 def build_crosswalk() -> pd.DataFrame:
     rows = []
@@ -379,7 +490,30 @@ def build_year_shard(
     offered = set(services["code"].dropna().astype(str))
     asked = asked_codes(availability, offered)
     labels = best_code_labels(availability)
-
+    semantic_columns = ["code", "category", "label"]
+    for frame in (services, availability):
+        for column in semantic_columns:
+            if column not in frame:
+                frame[column] = ""
+            frame[column] = frame[column].fillna("").astype(str)
+    entries_by_listing = (
+        services.groupby("listing_id")[semantic_columns]
+        .apply(
+            lambda frame: set(
+                frame.itertuples(index=False, name=None)
+            )
+        )
+        .to_dict()
+    )
+    asked_entries = set(
+        availability.loc[
+            availability["asked"].astype(str).str.lower().eq("true"),
+            semantic_columns,
+        ].itertuples(index=False, name=None)
+    )
+    asked_entries.update(
+        services[semantic_columns].drop_duplicates().itertuples(index=False, name=None)
+    )
     geo_columns = [
         "listing_id",
         "county_fips",
@@ -400,16 +534,23 @@ def build_year_shard(
     facilities["headline_us"] = facilities["state"].isin(STATE_FIPS)
     facilities["has_warning"] = facilities["parser_warnings"].fillna("[]").ne("[]")
     facilities["service_codes"] = facilities["listing_id"].map(codes_by_listing).fillna("")
-    facilities["code_set"] = facilities["service_codes"].map(split_codes)
+    facilities["semantic_entries"] = facilities["listing_id"].map(
+        entries_by_listing
+    ).map(lambda value: value if isinstance(value, set) else set())
+    directory_year = int(facilities["directory_year"].iloc[0])
+    survey_year = int(facilities["survey_year"].iloc[0])
     for group in HARMONIZED:
-        facilities[group] = facilities["code_set"].map(
-            lambda codes, selected_group=group: harmonized_values(codes, selected_group)
+        facilities[group] = facilities["semantic_entries"].map(
+            lambda entries, selected_group=group: harmonized_values(
+                entries, selected_group, directory_year
+            )
         )
-        facilities[f"{group}_mask"] = facilities["code_set"].map(
-            lambda codes, selected_group=group: harmonized_mask(codes, selected_group)
+        facilities[f"{group}_mask"] = facilities["semantic_entries"].map(
+            lambda entries, selected_group=group: harmonized_mask(
+                entries, selected_group, directory_year
+            )
         )
     facilities["state_fips"] = facilities["state"].map(STATE_FIPS).fillna("")
-
     shard_columns = [
         "listing_id",
         "directory_year",
@@ -438,13 +579,17 @@ def build_year_shard(
     shard = facilities.loc[:, shard_columns].copy()
     shard = shard.loc[shard["headline_us"]].drop(columns=["headline_us"])
 
-    directory_year = int(facilities["directory_year"].iloc[0])
-    survey_year = int(facilities["survey_year"].iloc[0])
+    headline = facilities.loc[facilities["headline_us"]]
+    ownership_coverage = float(headline["ownership_mask"].ne(0).mean())
     availability_output = availability_rows(
-        directory_year, survey_year, asked, labels
+        directory_year,
+        survey_year,
+        asked,
+        asked_entries,
+        labels,
+        ownership_coverage,
     )
-    return facilities.drop(columns=["code_set"]), shard, availability_output
-
+    return facilities.drop(columns=["semantic_entries"]), shard, availability_output
 
 def aggregate_outputs(
     facilities: pd.DataFrame,
@@ -502,7 +647,7 @@ def aggregate_outputs(
     )
     annual["qa_status"] = annual.apply(
         lambda row: (
-            "Official spreadsheet checks passed"
+            "Source workbook imported"
             if int(row["directory_year"]) >= 2022
             else ("Partial review" if int(row["reviewed_listings"]) > 0 else "Not reviewed")
         ),
@@ -550,6 +695,7 @@ def build_characteristic_counts(
         "state_government",
         "tribal_government",
         "federal_dod",
+        "federal_other",
         "federal_ihs",
         "federal_va",
     ]
@@ -646,6 +792,62 @@ def build_county_status(shards: list[pd.DataFrame]) -> pd.DataFrame:
             high_confidence_share=lambda frame: frame["high_confidence_count"] / frame["facility_count"],
         )
     )
+
+def build_qa_summary(
+    shards: list[pd.DataFrame],
+    annual: pd.DataFrame,
+    county_status: pd.DataFrame,
+) -> pd.DataFrame:
+    combined = pd.concat(shards, ignore_index=True)
+    ownership = (
+        combined.assign(ownership_coded=combined["ownership_mask"].ne(0))
+        .groupby("survey_year")["ownership_coded"]
+        .mean()
+        .rename("ownership_coverage")
+        .reset_index()
+    )
+    county = (
+        county_status.groupby("survey_year")
+        .agg(
+            facility_count=("facility_count", "sum"),
+            assigned_count=("assigned_count", "sum"),
+            high_confidence_count=("high_confidence_count", "sum"),
+            fallback_count=("fallback_count", "sum"),
+        )
+        .reset_index()
+    )
+    county["county_assigned_share"] = (
+        county["assigned_count"] / county["facility_count"]
+    )
+    county["county_high_confidence_share"] = (
+        county["high_confidence_count"] / county["facility_count"]
+    )
+
+    qa = annual.merge(ownership, on="survey_year", how="left").merge(
+        county.drop(columns=["facility_count"]),
+        on="survey_year",
+        how="left",
+    )
+
+    def flags(row: pd.Series) -> str:
+        values = []
+        if int(row["gold_target"]) > int(row["reviewed_listings"]):
+            values.append("Gold-sample review incomplete")
+        if float(row["warning_share"]) > 0.05:
+            values.append("Parser warning rate exceeds 5%")
+        if int(row["directory_year"]) >= 2022 and float(row["warning_share"]) > 0:
+            values.append("Source workbook contains address warnings")
+        if float(row["county_high_confidence_share"]) < 0.90:
+            values.append("High-confidence county assignment below 90%")
+        if int(row["directory_year"]) == 2004:
+            values.append(
+                "Listing count is 11.4% above the legacy parser fixture; "
+                "difference under review"
+            )
+        return " | ".join(values)
+
+    qa["qa_flags"] = qa.apply(flags, axis=1)
+    return qa
 
 def assert_shard_totals(
     shards: list[pd.DataFrame],
@@ -758,22 +960,30 @@ def build(
     build_characteristic_counts(shards, availability_frame).to_csv(
         output_dir / "national_characteristic_counts.csv", index=False
     )
-    build_county_status(shards).to_csv(
+    county_status = build_county_status(shards)
+    county_status.to_csv(
         output_dir / "county_assignment_status.csv", index=False
     )
+    qa_summary = build_qa_summary(shards, annual, county_status)
+    qa_summary.to_csv(output_dir / "dashboard_qa_by_year.csv", index=False)
     build_crosswalk().to_csv(
         output_dir / "harmonization_crosswalk.csv", index=False
     )
 
     run_metadata = json.loads((run_dir / "run.json").read_text(encoding="utf-8"))
     years = (
-        annual.sort_values("survey_year")[
+        qa_summary.sort_values("survey_year")[
             [
                 "directory_year",
                 "survey_year",
                 "qa_status",
                 "reviewed_listings",
                 "gold_target",
+                "warning_share",
+                "ownership_coverage",
+                "county_assigned_share",
+                "county_high_confidence_share",
+                "qa_flags",
             ]
         ]
         .to_dict(orient="records")
@@ -806,6 +1016,8 @@ def build(
             "N-SSATS and N-SUMHSS are not directly trend-comparable across the 2020/2021 survey transition.",
             "A gap means a selected characteristic was not asked or cannot be harmonized for that year.",
             "Historical listings are not a current treatment locator.",
+            "Directory ownership filters are shown only when at least 95% of listings carry ownership codes.",
+            "County assignments from 2000 onward currently rely on ZIP-to-county crosswalks rather than street geocodes.",
         ],
         "population_sources": [
             {"key": key, "url": url} for key, (_, url) in POPULATION_SOURCES.items()
@@ -859,5 +1071,11 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
+
+
+
+
 
 

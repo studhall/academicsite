@@ -1,6 +1,7 @@
 ---
 title: "Synthetic Control With One Outcome and Many Outcomes"
 date: 2026-05-01
+description: "A practical comparison of standard and multi-outcome synthetic control methods."
 tags:
   - econometrics
 format:
@@ -18,7 +19,7 @@ I recently presented a paper using the synthetic control method to understand th
 
 As I learn more about this method, I thought it would be best to write about it. This helps me, selfishly, because I have to feel somewhat confident before putting this on my website. I also thought it might be good to get an overview from someone less statistically nuanced. I might end up putting together a presentation on this for my graduate group brown bag and, if so, will post that here.
 
-This post is meant to be a setup note on the difference between the standard synthetic control method in [Abadie, Diamond, and Hainmueller (2010)](https://economics.mit.edu/sites/default/files/publications/Synthetic%20Control%20Methods.pdf) and the newer multi-outcome extensions in [Tian, Lee, and Panchenko (2026)](https://doi.org/10.1093/ectj/utag005) and [Sun, Ben-Michael, and Feller (2025)](https://arxiv.org/abs/2311.16260). The goal is not to cover every identification result, but to write down what changes in the implementation. It would be good, prior to presenting this, to briefly go over the proofs in the texts to understand any changes made to our typical assumptions, though they do not change *all that* much. 
+This post is meant to be a setup note on the difference between the standard synthetic control method in [Abadie, Diamond, and Hainmueller (2010)](https://economics.mit.edu/sites/default/files/publications/Synthetic%20Control%20Methods.pdf) and the newer multi-outcome extensions in [Tian, Lee, and Panchenko (2026)](https://doi.org/10.1093/ectj/utag005) and [Sun, Ben-Michael, and Feller (2025)](https://arxiv.org/abs/2311.16260). The goal is not to cover every identification result, but to write down what changes in the implementation. A complete treatment would also compare the identification assumptions and proofs in these papers; here I focus on the implementation differences.
 
 ## Setup and Notation
 
@@ -152,7 +153,7 @@ $$
 \hat{\tau}_{1t}.
 $$
 
-Then you can get into placebo inference, or there is some work on [t-statistics for SCM](https://arxiv.org/pdf/1812.10820v6) I haven't quite read up on too much.
+From there, one can use placebo inference or related work on [t-statistics for SCM](https://arxiv.org/pdf/1812.10820v6).
 
 ## Why Multiple Outcomes Help
 
@@ -323,4 +324,4 @@ TL;DR:
 
 ## Conclusion
 
-When I have a working paper version of what I'm doing right now, after I implement the feedback I got before, I'll post it and you can see the results for yourself. For the most part, my results are stable to whether I run many separate single-outcome SCMs or the two different types of multi-outcome SCMs.
+Once this application becomes a working paper, I will post the results here. So far, the substantive conclusions are stable across separate single-outcome SCMs and the two multi-outcome implementations described above.

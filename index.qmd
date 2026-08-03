@@ -2,6 +2,7 @@
 format:
   html:
     toc: false
+    anchor-sections: false
     title-block: false
     title-block-banner: false
 ---
@@ -10,36 +11,31 @@ format:
 ::: {.site-hero-text}
 <div class="hero-name">David Hall</div>
 
-I'm a PhD Candidate in Economics at the University of Oregon studying health policy, substance use disorder treatment, Medicaid, and treatment access. My work uses applied econometrics, especially difference-in-differences and synthetic control methods, to understand how policy and provider markets shape care and mortality.
+<p class="home-intro">I am an applied microeconomist and data scientist studying health, risky behavior, and public policy. My research examines how market access and public institutions shape substance use, treatment, and health outcomes. I also serve on Oregon's [Behavioral Health Resource Network Oversight and Accountability Council](https://www.oregon.gov/oha/HSD/AMH/Pages/OAC.aspx).</p>
 
-I also serve on the [Oregon Health Authority Opioid Settlement Prevention, Treatment, and Recovery Board](https://www.oregon.gov/oha/HSD/AMH/Pages/OAC.aspx).
+[Curriculum vitae](cv.qmd){.home-inline-link}
 :::
 
 ::: {.site-hero-image}
 <img src="images/headshot_2.16.2026.jpg" class="home-headshot" alt="David Hall headshot" />
+
+<div class="home-photo-links">
+<a class="home-inline-link" href="https://www.linkedin.com/in/david-hall-58a5b6125/" target="_blank" rel="noopener">LinkedIn</a>
+<a class="home-inline-link" href="mailto:dhall7@uoregon.edu">Email</a>
+</div>
 :::
 :::
 
-## Research
+::: {.job-market-panel}
+<div class="job-market-kicker">2026-2027 Job Market</div>
 
-::: {.research-stack}
-::: {.research-card}
-### Health Economics
+## Pour Decisions: Alcohol Privatization and Birth Outcomes
 
-Substance use treatment, Medicaid, decriminalization, treatment access, and barriers to care.
+Washington's Initiative 1183 substantially expanded spirits access through grocery and big-box stores. I study how that change affected birth outcomes and what the results imply for alcohol-tax design aimed at limiting health harms.
+
+<div class="paper-status">Working paper · Available upon request</div>
+
+![Percent-change estimates for live-birth health outcomes](images/research/pour-decisions.png){.job-market-figure}
+
+<p class="paper-abstract"><strong>Abstract.</strong> Washington's Initiative 1183 privatized spirits retail in June 2012. Using Nielsen Homescan data, restricted-use natality records, and repeated-cross-section synthetic difference-in-differences, I estimate that privatization increased projected household spirits purchases by 35 percent, reduced average birth weight, and increased low-birth-weight and small-for-gestational-age births. Distributional estimates place the response around clinically meaningful lower birth-weight bins.</p>
 :::
-
-::: {.research-card}
-### Public Economics
-
-Public insurance, policy design, provider markets, and access to public programs.
-:::
-
-::: {.research-card}
-### Causal Inference
-
-Difference-in-differences, synthetic controls, and empirical tools for policy evaluation.
-:::
-:::
-
-

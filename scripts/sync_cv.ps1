@@ -1,25 +1,25 @@
-$source = 'C:\Users\David\OneDrive\Documents\Life\CVs\Hall_CV_Current.pdf'
+$source = 'C:\Users\David\University of Oregon Dropbox\David Hall\Apps\Overleaf\Job Market\Hall_CV_Academic_LaTeX_Native.tex'
 $siteRoot = Resolve-Path (Join-Path $PSScriptRoot '..')
 $destination = Join-Path $siteRoot 'cv\Hall_CV_Current.pdf'
-Copy-Item -LiteralPath $source -Destination $destination -Force
-$version = (Get-Item -LiteralPath $source).LastWriteTimeUtc.ToString('yyyyMMddHHmmss')
-$cvQmd = @"
----
-title: "Curriculum Vitae"
-format:
-  html:
-    toc: false
----
+$buildDir = Join-Path $siteRoot '.cv-build'
 
-::: {.cv-actions}
-<a class="btn btn-primary btn-lg" href="cv/Hall_CV_Current.pdf?v=$version" download="Hall_CV_Current.pdf">Download CV as PDF</a>
-:::
+if (-not (Test-Path -LiteralPath $source)) {
+  throw "Canonical CV source not found: $source"
+}
 
-::: {.pdf-frame .cv-frame}
-<iframe src="cv/Hall_CV_Current.pdf?v=$version" title="David Hall curriculum vitae PDF"></iframe>
-:::
+New-Item -ItemType Directory -Force $buildDir | Out-Null
+Copy-Item -LiteralPath $source -Destination (Join-Path $buildDir 'Hall_CV_Academic_LaTeX_Native.tex') -Force
 
-If the embedded PDF does not load in your browser, use the download button above.
-"@
-Set-Content -Path (Join-Path $siteRoot 'cv.qmd') -Value $cvQmd -Encoding UTF8
-Write-Host "Synced CV from $source with cache key $version"
+Push-Location $buildDir
+try {
+  & pdflatex -interaction=nonstopmode -halt-on-error Hall_CV_Academic_LaTeX_Native.tex | Out-Null
+  if ($LASTEXITCODE -ne 0) { throw "CV compilation failed." }
+  & pdflatex -interaction=nonstopmode -halt-on-error Hall_CV_Academic_LaTeX_Native.tex | Out-Null
+  if ($LASTEXITCODE -ne 0) { throw "CV compilation failed on the second pass." }
+} finally {
+  Pop-Location
+}
+
+$compiled = Join-Path $buildDir 'Hall_CV_Academic_LaTeX_Native.pdf'
+Copy-Item -LiteralPath $compiled -Destination $destination -Force
+Write-Host "Compiled and synced CV from the canonical Overleaf source."

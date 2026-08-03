@@ -49,3 +49,6 @@ posts/moud_1.23.26/moud_year/
 posts/moud_1.23.26/sdud_by_year/
 !posts/moud_1.23.26/config/
 !posts/moud_1.23.26/config/*.csv
+
+# Local CV compilation artifacts
+/.cv-build/

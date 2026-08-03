@@ -1,5 +1,4 @@
 characteristic,harmonized_value,harmonized_label,original_code,notes
-ownership,private_unspecified,Private (type unspecified),PV,Conservative dashboard harmonization; consult the year-specific original code label before trend use.
 ownership,private_unspecified,Private (type unspecified),PVT,Conservative dashboard harmonization; consult the year-specific original code label before trend use.
 ownership,private_nonprofit,Private nonprofit,PVTN,Conservative dashboard harmonization; consult the year-specific original code label before trend use.
 ownership,private_forprofit,Private for-profit,PVTP,Conservative dashboard harmonization; consult the year-specific original code label before trend use.
@@ -7,6 +6,8 @@ ownership,local_government,Local/county government,LCCG,Conservative dashboard h
 ownership,state_government,State government,STG,Conservative dashboard harmonization; consult the year-specific original code label before trend use.
 ownership,tribal_government,Tribal government,TBG,Conservative dashboard harmonization; consult the year-specific original code label before trend use.
 ownership,federal_dod,Federal: Department of Defense,DDF,Conservative dashboard harmonization; consult the year-specific original code label before trend use.
+ownership,federal_dod,Federal: Department of Defense,DoD,Conservative dashboard harmonization; consult the year-specific original code label before trend use.
+ownership,federal_other,Federal: other/unspecified,FED,Conservative dashboard harmonization; consult the year-specific original code label before trend use.
 ownership,federal_ihs,Federal: Indian Health Service,IH,Conservative dashboard harmonization; consult the year-specific original code label before trend use.
 ownership,federal_ihs,Federal: Indian Health Service,IHS,Conservative dashboard harmonization; consult the year-specific original code label before trend use.
 ownership,federal_va,Federal: Veterans Affairs,VAMC,Conservative dashboard harmonization; consult the year-specific original code label before trend use.
@@ -33,7 +34,9 @@ setting,hospital_inpatient,Hospital inpatient,HIT,Conservative dashboard harmoni
 payment,medicare,Medicare,MC,Conservative dashboard harmonization; consult the year-specific original code label before trend use.
 payment,medicaid,Medicaid,MD,Conservative dashboard harmonization; consult the year-specific original code label before trend use.
 payment,military_insurance,Military insurance,MI,Conservative dashboard harmonization; consult the year-specific original code label before trend use.
+payment,military_insurance,Military insurance,TRICARE,Conservative dashboard harmonization; consult the year-specific original code label before trend use.
 payment,private_insurance,Private health insurance,PI,Conservative dashboard harmonization; consult the year-specific original code label before trend use.
+payment,self_pay,Cash or self-payment,CASH,Conservative dashboard harmonization; consult the year-specific original code label before trend use.
 payment,self_pay,Cash or self-payment,SF,Conservative dashboard harmonization; consult the year-specific original code label before trend use.
 payment,state_financed,State-financed insurance,SI,Conservative dashboard harmonization; consult the year-specific original code label before trend use.
 payment,payment_assistance,Payment assistance,OA,Conservative dashboard harmonization; consult the year-specific original code label before trend use.

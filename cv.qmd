@@ -6,11 +6,11 @@ format:
 ---
 
 ::: {.cv-actions}
-<a class="btn btn-primary btn-lg" href="cv/Hall_CV_Current.pdf?v=20260708214639" download="Hall_CV_Current.pdf">Download CV as PDF</a>
+<a class="btn btn-primary btn-lg" href="cv/Hall_CV_Current.pdf" download="Hall_CV_Current.pdf">Download CV as PDF</a>
 :::
 
 ::: {.pdf-frame .cv-frame}
-<iframe src="cv/Hall_CV_Current.pdf?v=20260708214639" title="David Hall curriculum vitae PDF"></iframe>
+<iframe src="cv/Hall_CV_Current.pdf" title="David Hall curriculum vitae PDF"></iframe>
 :::
 
 If the embedded PDF does not load in your browser, use the download button above.
