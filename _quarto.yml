@@ -57,7 +57,7 @@ format:
   html:
     theme: pulse
     toc: true
-    css: styles.css
+    css: site-styles.css
     include-after-body:
       - includes/subscribe.html
     include-in-header:
@@ -77,4 +77,5 @@ exclude:
   - "**/*.rds"
   - "**/*.rda"
   - "**/*.RData"
+
 
