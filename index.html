@@ -34,7 +34,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -112,11 +111,16 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./cv/Hall_CV_Current.pdf?v=20260708214639"> 
+    <a class="nav-link" href="./cv.html"> 
 <span class="menu-text">CV</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/studhall" target="_blank"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://scholar.google.com/citations?user=5H5WI0AAAAAJ&amp;hl=en" target="_blank"> <i class="bi bi-mortarboard" role="img" aria-label="Google Scholar">
 </i> 
@@ -151,9 +155,9 @@ ul.task-list li input[type="checkbox"] {
 David Hall
 </div>
 <p class="home-intro">
-I am an economist and data scientist with broad interests in (risky) human behaviour, particularly in the areas of health and crime. I study how access shapes substance use, especially for opioids, alcohol, and tobacco, and how policy can improve treatment and reduce harm. I am particularly interested in the decisions that shape public spending, treatment markets, and care access, and I work on those questions in both research and policy settings. I also serve on Oregon’s <a href="https://www.oregon.gov/oha/HSD/AMH/Pages/OAC.aspx">BHRN Oversight and Accountability Council</a>, where I help advise on the use of cannabis tax revenue under <a href="https://www.oregon.gov/OHA/HSD/AMH/Pages/Measure110.aspx">Measure 110</a>.
+I am an applied microeconomist and data scientist studying health, risky behavior, and public policy. My research examines how market access and public institutions shape substance use, treatment, and health outcomes. I also serve on Oregon’s <a href="https://www.oregon.gov/oha/HSD/AMH/Pages/OAC.aspx">Behavioral Health Resource Network Oversight and Accountability Council</a>.
 </p>
-<p><a class="home-inline-link" href="cv/Hall_CV_Current.pdf?v=20260708214639" download="Hall_CV_Current.pdf">Download CV</a></p>
+<p><a href="./cv.html" class="home-inline-link">Curriculum vitae</a></p>
 </div>
 <div class="site-hero-image">
 <p><img src="images/headshot_2.16.2026.jpg" class="home-headshot" alt="David Hall headshot"></p>
@@ -161,6 +165,27 @@ I am an economist and data scientist with broad interests in (risky) human behav
 <p><a class="home-inline-link" href="https://www.linkedin.com/in/david-hall-58a5b6125/" target="_blank" rel="noopener">LinkedIn</a> <a class="home-inline-link" href="mailto:dhall7@uoregon.edu">Email</a></p>
 </div>
 </div>
+</div>
+<div class="job-market-panel">
+<div class="job-market-kicker">
+2026-2027 Job Market
+</div>
+<section id="pour-decisions-alcohol-privatization-and-birth-outcomes" class="level2">
+<h2 data-anchor-id="pour-decisions-alcohol-privatization-and-birth-outcomes">Pour Decisions: Alcohol Privatization and Birth Outcomes</h2>
+<p>Washington’s Initiative 1183 substantially expanded spirits access through grocery and big-box stores. I study how that change affected birth outcomes and what the results imply for alcohol-tax design aimed at limiting health harms.</p>
+<div class="paper-status">
+Working paper · Available upon request
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/research/pour-decisions.png" class="job-market-figure img-fluid figure-img"></p>
+<figcaption>Percent-change estimates for live-birth health outcomes</figcaption>
+</figure>
+</div>
+<p class="paper-abstract">
+<strong>Abstract.</strong> Washington’s Initiative 1183 privatized spirits retail in June 2012. Using Nielsen Homescan data, restricted-use natality records, and repeated-cross-section synthetic difference-in-differences, I estimate that privatization increased projected household spirits purchases by 35 percent, reduced average birth weight, and increased low-birth-weight and small-for-gestational-age births. Distributional estimates place the response around clinically meaningful lower birth-weight bins.
+</p>
+</section>
 </div>
 
 
@@ -203,13 +228,6 @@ I am an economist and data scientist with broad interests in (risky) human behav
 </div>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     

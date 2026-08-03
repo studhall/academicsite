@@ -1192,3 +1192,294 @@ header.navbar {
   }
 }
 
+
+
+/* Job market and research */
+.job-market-panel {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(91, 31, 46, 0.2);
+  border-top: 4px solid var(--site-maroon);
+  border-radius: 8px;
+  box-shadow: 0 14px 34px rgba(53, 16, 27, 0.08);
+  margin: 2.5rem auto 1rem;
+  max-width: 980px;
+  padding: clamp(1.25rem, 3vw, 2.2rem);
+  text-align: center;
+}
+
+.job-market-panel h2 {
+  border: 0;
+  color: var(--site-deep-maroon);
+  margin: 0.25rem auto 0.75rem;
+  padding: 0;
+}
+
+.job-market-kicker {
+  color: var(--site-purple);
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.paper-status {
+  color: var(--site-maroon);
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 0.9rem 0 1rem;
+}
+
+.job-market-figure {
+  display: block;
+  margin: 1rem auto;
+  max-height: 430px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.paper-abstract {
+  color: var(--site-muted);
+  font-size: 0.91rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.research-row {
+  align-items: center;
+  border-bottom: 1px solid var(--site-line);
+  display: grid;
+  gap: clamp(1.2rem, 4vw, 3rem);
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+  padding: 2rem 0;
+}
+
+.research-row.figure-left .research-copy { order: 2; }
+.research-row.figure-left .research-figure { order: 1; }
+.research-row h3 { margin-top: 0; }
+.research-figure img {
+  display: block;
+  margin: 0 auto;
+  max-height: 360px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.teaching-details {
+  border-bottom: 1px solid var(--site-line);
+  margin-top: 0.5rem;
+}
+
+.teaching-details summary {
+  color: var(--site-deep-maroon);
+  cursor: pointer;
+  font-weight: 700;
+  padding: 0.8rem 0;
+}
+
+.feedback-grid {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.feedback-grid blockquote {
+  background: #fff;
+  border-left: 3px solid var(--site-maroon);
+  color: var(--site-muted);
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0.9rem 1rem;
+}
+
+@media (max-width: 760px) {
+  .research-row {
+    grid-template-columns: 1fr;
+  }
+  .research-row.figure-left .research-copy,
+  .research-row.figure-left .research-figure {
+    order: initial;
+  }
+  .feedback-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* M110 paper figure and social post */
+.m110-figure {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.m110-panel {
+  text-align: center;
+}
+
+.m110-panel img {
+  display: block;
+  margin: 0 auto;
+  max-height: 235px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.m110-panel span,
+.figure-note {
+  color: var(--site-muted);
+  font-size: 0.78rem;
+}
+
+.figure-note {
+  line-height: 1.35;
+  margin: 0.15rem 0 0;
+  text-align: left;
+}
+
+.m110-tweet {
+  margin-top: 1.1rem;
+  max-width: 550px;
+}
+
+.m110-tweet .twitter-tweet {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+@media (max-width: 760px) {
+  .m110-panel img {
+    max-height: none;
+  }
+}
+
+.m110-tweet blockquote {
+  background: #ffffff;
+  border: 1px solid var(--site-line);
+  border-radius: 12px;
+  color: var(--site-ink);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0.9rem 1rem;
+}
+
+
+/* M110 paper: text and social post above the complete paper figure */
+.m110-row {
+  grid-template-columns: 1fr;
+}
+
+.m110-summary {
+  align-items: start;
+  display: grid;
+  gap: clamp(1.2rem, 4vw, 2.5rem);
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.9fr);
+  margin-top: 1rem;
+}
+
+.m110-summary .m110-tweet {
+  margin-top: 0;
+  max-width: none;
+}
+
+.m110-figure-full {
+  margin: 0 auto;
+  max-width: 650px;
+  width: 100%;
+}
+
+.m110-figure-full img {
+  max-height: none;
+  width: 100%;
+}
+
+.m110-figure-full figcaption {
+  color: var(--site-muted);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .m110-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .m110-figure-full {
+    max-width: 100%;
+  }
+}
+
+
+/* M110 paper: figure, summary, and social post */
+.m110-row {
+  display: block;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  width: min(1120px, calc(100vw - 3rem));
+}
+
+.m110-three-column {
+  align-items: start;
+  display: grid;
+  gap: clamp(1rem, 2.2vw, 1.8rem);
+  grid-template-columns: minmax(220px, 0.78fr) minmax(300px, 1.12fr) minmax(310px, 1fr);
+}
+
+.m110-figure-column img {
+  display: block;
+  height: auto;
+  max-height: 390px;
+  object-fit: contain;
+  object-position: top center;
+  width: 100%;
+}
+
+.m110-copy-column h3 {
+  margin: 0 0 0.6rem;
+}
+
+.paper-byline,
+.paper-links {
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.m110-tweet-column {
+  min-width: 0;
+}
+
+.m110-tweet-column .twitter-tweet {
+  margin: 0 !important;
+}
+
+.m110-tweet-column blockquote {
+  background: #fff;
+  border: 1px solid var(--site-line);
+  border-radius: 12px;
+  color: var(--site-ink);
+  font-size: 0.86rem;
+  line-height: 1.45;
+  margin: 0;
+  padding: 0.9rem 1rem;
+}
+
+@media (max-width: 900px) {
+  .m110-row {
+    margin-left: 0;
+    transform: none;
+    width: 100%;
+  }
+
+  .m110-three-column {
+    grid-template-columns: 1fr;
+  }
+
+  .m110-figure-column {
+    margin: 0 auto;
+    max-width: 520px;
+  }
+
+  .m110-figure-column img {
+    max-height: none;
+  }
+}
+
