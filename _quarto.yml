@@ -35,7 +35,7 @@ website:
         text: Data
       - href: posts.qmd
         text: Blog
-      - href: cv.qmd
+      - href: cv/Hall_CV_Current.pdf
         text: CV
     right:
       - icon: github
@@ -77,3 +77,4 @@ exclude:
   - "**/*.rds"
   - "**/*.rda"
   - "**/*.RData"
+
