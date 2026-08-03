@@ -49,7 +49,7 @@ The state files contain state- and U.S.-level quarterly totals by medication and
 <details class="data-details">
 <summary>Methods and exclusions</summary>
 
-CMS-suppressed cells are omitted, so totals represent reported prescriptions and reimbursements. The source files contain ten verified extreme records in Washington in 2006 and South Dakota in 2007; these records are excluded rather than altered. Their original values, CMS dataset links, and exclusion reasons are available in the [source anomaly table](data/source_anomalies.csv).
+CMS-suppressed cells are omitted, so totals represent reported prescriptions and reimbursements. These files do not measure unique patients or all MOUD delivered in treatment settings. The source files contain ten verified extreme records in Washington in 2006 and South Dakota in 2007; these records are excluded rather than altered. Their original values, CMS dataset links, and exclusion reasons are available in the [source anomaly table](data/source_anomalies.csv).
 
 Population denominators come from annual U.S. Census Bureau estimates. The dashboard uses the 50 states and District of Columbia for U.S. totals and never mixes CMS-provided `XX` aggregate records with state-derived totals.
 

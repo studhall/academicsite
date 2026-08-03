@@ -163,6 +163,7 @@ viewof ndcTableOut = {
 ## Notes / Methods
 
 - Metrics: Prescriptions, Total Reimbursed, Medicaid Reimbursed, and Non-Medicaid Reimbursed.
+- These are reported Medicaid drug-utilization records, not patient counts or a complete census of MOUD delivered in treatment settings.
 - Per-100k values are computed as selected metric totals divided by deduplicated population totals times 100,000.
 - Generic mapping covers buprenorphine, methadone, and naltrexone products.
 - Suppressed CMS cells are omitted, so displayed totals are reported-prescription lower bounds.
