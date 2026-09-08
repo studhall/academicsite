@@ -278,14 +278,14 @@ window.Quarto = {
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>se</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]
-[1,] 9.915472</code></pre>
+[1,] 10.84875</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>t_stat <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(tau.sc) <span class="sc">/</span> se</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p_val  <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(t_stat)))</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>p_val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           [,1]
-[1,] 0.04785072</code></pre>
+[1,] 0.07053294</code></pre>
 </div>
 </div>
 <p>The p-value I obtain here is off from the original estimate using random inference in the original Abadie et al.&nbsp;2010 paper which obtains a p-value of <span class="math inline">\(\frac{1}{39} \sim 0.026\)</span>. The standard error calculated requires a distributional assumption I think many of us are unwilling to make, or maybe that is just me worrying about what the referees would say were I to implement the above exercise. This would probably be a conservative way to obtain p-values anyhow, but still, I wanted to ensure that I can obtain the p-values using the random inference procedure described by <a href="https://economics.mit.edu/sites/default/files/publications/Synthetic%20Control%20Methods.pdf">Abadie Diamond and Hainmueller, 2010</a>.</p>
