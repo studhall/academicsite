@@ -989,14 +989,14 @@ def build(
         .to_dict(orient="records")
     )
     metadata = {
-        "version": "v1.1.0",
+        "version": "v1.1.1",
         "built_on": date.today().isoformat(),
         "run_id": run_metadata.get("run_id", run_dir.name),
         "release_status": "preliminary",
-        "release_label": "Version 1.1",
+        "release_label": "Version 1.1.1",
         "downloads": {
             "repository": "https://github.com/studhall/samhsa-treatment-facility-directories",
-            "release_base": "https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0",
+            "release_base": "https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.1",
         },
         "years": years,
         "state_fips": STATE_FIPS,

@@ -29,7 +29,7 @@ These projects provide cleaned research data, documentation, and interactive vie
 <p>Address-level treatment facility listings reconstructed from SAMHSA directories for 1998, 2000, 2001, and 2003-2025, with service information and county geography.</p>
 <div class="download-actions">
 <a class="btn btn-primary" href="data/treatment-facilities/index.qmd">Data and methods</a>
-<a class="btn btn-outline-primary" href="https://github.com/studhall/samhsa-treatment-facility-directories/releases/tag/v1.1.0">Downloads</a>
+<a class="btn btn-outline-primary" href="data/treatment-facilities/index.qmd#download">Downloads</a>
 <a class="btn btn-outline-primary" href="https://github.com/studhall/samhsa-treatment-facility-directories">GitHub</a>
 </div>
 <p class="data-card-note">Historical PDF quality assurance and high-confidence street geocoding remain in progress; record-level warnings are retained.</p>

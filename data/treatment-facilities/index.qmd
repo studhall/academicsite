@@ -8,46 +8,40 @@ format:
 
 This project reconstructs address-level treatment facility listings from 26 SAMHSA directories: 1998, 2000, 2001, and 2003-2025. PDF directories through 2021 are converted to a common format aligned with SAMHSA's 2022-2025 workbooks. Directory and survey years are retained.
 
-**Version 1.1**
+**Version 1.1.1**
 
 [Explore dashboard](../treatment-facilities-dashboard/index.qmd){.btn .btn-primary}
 [GitHub repository](https://github.com/studhall/samhsa-treatment-facility-directories){.btn .btn-outline-primary}
 
 ## Download
 
-The combined files contain all 26 directories through 2025, representing survey years through 2024. Smaller files organized by survey year are available on the release page.
+The combined files contain all 26 directories through 2025, representing survey years through 2024. Choose the format you normally use; each file contains the same facility-year records.
 
 | Facility-year data | Link |
 |---|---|
-| CSV.gz | [Download](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/facilities.csv.gz) |
-| Parquet | [Download](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/facilities.parquet) |
-| RDS | [Download](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/facilities.rds) |
-| Stata (.dta) | [Download](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/facilities.dta) |
-| Files by survey year | [View release](https://github.com/studhall/samhsa-treatment-facility-directories/releases/tag/v1.1.0) |
+| CSV.gz | [Download](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.1/facilities.csv.gz) |
+| RDS | [Download](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.1/facilities.rds) |
+| Stata (.dta) | [Download](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.1/facilities.dta) |
+| Parquet | [Download](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.1/facilities.parquet) |
 
 These are historical records, not a current treatment locator. Historical phone numbers are included in research downloads and may be stale.
 
 <details class="data-details">
-<summary>Source directories</summary>
+<summary>Files by year and source directories</summary>
 
-- [PDF archive, 1998-2021](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/samhsa_directory_pdfs.zip)
-- [Spreadsheet archive, 2022-2025](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/samhsa_directory_xlsx_2022_2025.zip)
-- [Source manifest](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/source_manifest.csv)
-- [SHA-256 checksums](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/checksums.sha256)
+- [Facility CSVs separated by survey year](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.1/facilities_by_year.zip)
+- [Original PDF directories, 1998-2021](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.1/samhsa_directory_pdfs_1998_2021.zip)
+- [Original spreadsheet directories, 2022-2025](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.1/samhsa_directory_workbooks_2022_2025.zip)
 
 </details>
 
 <details class="data-details">
-<summary>Services, CBP comparison, and supporting files</summary>
+<summary>Services, documentation, and quality assurance</summary>
 
-- [Facility-service records: CSV.gz](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/facility_services.csv.gz)
-- [Facility-service records: Parquet](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/facility_services.parquet)
-- [Facility-service records: RDS](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/facility_services.rds)
-- [Service availability](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/service_availability.csv)
+- [Facility-service records and service availability](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.1/facility_services.zip)
+- [Documentation, geocoding, CBP comparison, manifests, and QA](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.1/documentation_and_qa.zip)
+- [SHA-256 checksums](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.1/checksums.sha256)
 - [Harmonization crosswalk](../treatment-facilities-dashboard/data/harmonization_crosswalk.csv)
-- [County Business Patterns comparison](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/cbp_comparison.csv)
-- [Year-level QA status](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/qa_by_year.csv)
-- [Data dictionary](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/data_dictionary.csv)
 
 </details>
 
@@ -61,12 +55,12 @@ Quality assurance is ongoing. Manual gold-sample review of the PDF years is inco
 <details class="data-details">
 <summary>Code and citation</summary>
 
-Hall, David. 2026. *SAMHSA Treatment Facility Directories: Historical Address-Level Data*. Version 1.1.
+Hall, David. 2026. *SAMHSA Treatment Facility Directories: Historical Address-Level Data*. Version 1.1.1.
 
 Parser code is licensed under MIT. Source directories retain SAMHSA provenance and public-domain terms. The source-rights review is documentation, not legal advice.
 
 - [Parser repository](https://github.com/studhall/samhsa-treatment-facility-directories)
-- [Source-rights audit](https://github.com/studhall/samhsa-treatment-facility-directories/releases/download/v1.1.0/source_rights_audit.json)
+- [Compact GitHub release](https://github.com/studhall/samhsa-treatment-facility-directories/releases/tag/v1.1.1)
 - [SAMHSA data files](https://www.samhsa.gov/data/data-we-collect/n-sumhss-national-substance-use-and-mental-health-services-survey/datafiles)
 
 </details>
