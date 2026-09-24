@@ -10,14 +10,18 @@ format:
 
 ::: {.research-row}
 ::: {.research-copy}
-### Pour Decisions: Alcohol Privatization and Birth Outcomes
+### [Pour Decisions: Alcohol Privatization and Birth Outcomes](papers/Hall_JMP_v1.pdf){target="_blank"}
 
-**Job Market Paper** · Available upon request
+**Job Market Paper** · [PDF](papers/Hall_JMP_v1.pdf){target="_blank"}
 
-<p class="paper-abstract">Washington's Initiative 1183 privatized spirits retail in June 2012, sharply expanding access through grocery and big-box stores. A Nielsen Homescan design estimates a 35 percent increase in projected household spirits purchases. Using restricted-use natality records and repeated-cross-section synthetic difference-in-differences, I find that privatization reduced average birth weight and increased low-birth-weight and small-for-gestational-age births. Distributional estimates place the response around clinically meaningful lower birth-weight bins.</p>
+<p class="paper-abstract">Alcohol-market liberalization can change prices, retail availability, convenience, and product choice simultaneously. Increased alcohol use can generate substantial social and health costs, particularly when exposure occurs during pregnancy. Does a broad market reform that expands access to alcohol lead to poorer birth outcomes? I study Washington's Initiative 1183, which privatized spirits retailing in June 2012 and expanded entry by grocery and big-box stores. I find that privatization substantially increased very local spirits access, bringing a larger share of the population within one mile of a spirits retailer. NielsenIQ Homescan data also show a 35% increase in recorded household spirits purchases after privatization. Substitution across beer, wine, and spirits, however, reduces the corresponding increase in total ethanol-equivalent purchasing to 9.2%, and the available household evidence suggests that much of the purchasing response occurred outside prime childbearing ages. Using restricted-use vital statistics and a repeated-cross-section synthetic difference-in-differences design, I find adverse point estimates for birth weight and fetal growth, but these estimates are not unusually large relative to fully refitted placebo-state estimates. I also find no large, coherent shift in the observed birth pool. The results show that the consequences of market liberalization depend not only on whether consumers respond, but on which dimensions of access change, substitution across products, and the incidence of the resulting behavioral response.</p>
+
 :::
+
 ::: {.research-figure}
-![Percent-change estimates for live-birth health outcomes](images/research/pour-decisions.png)
+
+![The policy-induced spirits-access response is concentrated at short distances from retailers.](images/research/pour-decisions.png)
+
 :::
 :::
 
@@ -42,9 +46,9 @@ format:
 
 ::: {.research-row}
 ::: {.research-copy}
-### Does Substance Use Treatment Still Reduce Mortality?
+### [Does Substance Use Treatment Still Reduce Mortality?](papers/Hall_Treatment_Mortality.pdf){target="_blank"}
 
-**Working paper** · Available upon request
+**Working paper** · [PDF](papers/Hall_Treatment_Mortality.pdf){target="_blank"}
 
 <p class="paper-abstract">This paper asks whether expanded substance use disorder treatment access continued to reduce overdose mortality as the opioid epidemic shifted toward fentanyl and polysubstance use. I combine county-level treatment-center measures with National Vital Statistics System mortality data from 1999 through 2022, replicate estimates from the early epidemic, and apply methods suited to heterogeneous, non-binary treatment. The protective relationship found in earlier years weakens over time, highlighting the difficulty of measuring treatment access as treatment capacity and the drug supply evolve simultaneously.</p>
 :::

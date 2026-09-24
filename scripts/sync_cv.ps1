@@ -1,4 +1,4 @@
-$source = 'C:\Users\David\University of Oregon Dropbox\David Hall\Apps\Overleaf\Job Market\Hall_CV_Academic_LaTeX_Native.tex'
+$source = 'C:\Users\David\University of Oregon Dropbox\David Hall\Apps\Overleaf\Job Market\CVs\Hall_CV_Academic_LaTeX_Native.tex'
 $siteRoot = Resolve-Path (Join-Path $PSScriptRoot '..')
 $destination = Join-Path $siteRoot 'cv\Hall_CV_Current.pdf'
 $buildDir = Join-Path $siteRoot '.cv-build'
