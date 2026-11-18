@@ -20,7 +20,7 @@ format:
 
 ::: {.research-figure}
 
-![The policy-induced spirits-access response is concentrated at short distances from retailers.](images/research/pour-decisions.png)
+![Birth-weight event study around Washington's June 2012 spirits privatization.](images/research/pour-decisions-event-study.png)
 
 :::
 :::
