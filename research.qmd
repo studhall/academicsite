@@ -20,7 +20,7 @@ format:
 
 ::: {.research-figure}
 
-![Birth-weight event study around Washington's June 2012 spirits privatization.](images/research/pour-decisions-event-study.png)
+![Spirits purchasing in Washington relative to its synthetic comparison, around June 2012. Whiskers show descriptive placebo dispersion.](images/research/pour-decisions-spirits-event-study.png)
 
 :::
 :::
